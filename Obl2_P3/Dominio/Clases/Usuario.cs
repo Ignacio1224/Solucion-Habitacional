@@ -6,40 +6,26 @@ using System.Threading.Tasks;
 
 namespace Dominio.Clases
 {
-    public abstract class Usuario : IEquatable<Usuario>
+    public class Usuario
     {
         #region Props
-        public int Cedula { get; set; }
-        public string Clave { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Email { get; set; }
-        public DateTime FechaNac { get; set; }
+
+        public int cedula { get; set; }
+        public string clave { get; set; }
+        
         #endregion
 
         #region Metodos
 
-        public bool Equals(Usuario u)
+       public bool Validar()
         {
-            return this.Cedula == u.Cedula;
+            
+            return this.cedula > 0 && this.cedula < 100000000 && !Utilidades.campoVacio(this.clave);
         }
 
-        public bool Validar()
-        {
-            if (this.Cedula > 0 && this.Cedula < 100000000)
-            {
-                if (!Utilidades.CampoVacio(this.Clave) && !Utilidades.CampoVacio(this.Nombre) && !Utilidades.CampoVacio(this.Apellido) && !Utilidades.CampoVacio(this.Email))
-                {
-                    if (!Utilidades.EsNumerico(this.Nombre) && !Utilidades.EsNumerico(this.Apellido) && !Utilidades.EsNumerico(this.Email))
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
+        public virtual string devolverTipo() {
+            return "jefe";
         }
-
-        public abstract string DevolverTipo();
 
         #endregion
     }

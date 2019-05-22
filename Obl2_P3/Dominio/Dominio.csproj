@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clases\Barrio.cs" />
-    <Compile Include="Clases\Jefe.cs" />
     <Compile Include="Clases\Parametro.cs" />
     <Compile Include="Clases\Postulante.cs" />
     <Compile Include="Clases\Sorteo.cs" />

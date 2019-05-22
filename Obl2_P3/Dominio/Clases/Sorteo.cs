@@ -6,21 +6,20 @@ using System.Threading.Tasks;
 
 namespace Dominio.Clases
 {
-    public class Sorteo:IEquatable<Sorteo>
+    public class Sorteo
     {
         #region Props
-        public int Id { get; set; }
-        public DateTime Fecha { get; set; }
-        public Vivienda Vivienda { get; set; }
-        public IEnumerable<Usuario> Postulantes { get; set; }
-        public string Estado { get; set; }
+
+        public int id { get; set; }
+        public DateTime fecha { get; set; }
+        public Vivienda vivienda { get; set; }
+        public IEnumerable<Postulante> postulantes { get; set; }
+        public Postulante ganador { get; set; }
+        public bool realizado { get; set; }
+        
         #endregion
 
         #region Metodos
-        public bool Equals(Sorteo s)
-        {
-            return this.Vivienda == s.Vivienda;
-        }
 
         //sin implementar
         public bool Validar()
@@ -31,6 +30,7 @@ namespace Dominio.Clases
         {
             return - 1;
         }
+
         #endregion
     }
 }

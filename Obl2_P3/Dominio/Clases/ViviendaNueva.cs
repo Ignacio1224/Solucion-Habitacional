@@ -12,7 +12,7 @@ namespace Dominio.Clases
         {
             if (base.Validar())
             {
-                if (this.AnioConstruccion >= (DateTime.Now.Year - 2) && this.AnioConstruccion <= (DateTime.Now.Year))
+                if (this.anioConstruccion >= (DateTime.Now.Year - 2) && this.anioConstruccion <= (DateTime.Now.Year))
                 {
                     return true;
                 }

@@ -15,10 +15,7 @@ namespace Dominio.Clases
         #endregion
 
         #region Metodos
-        public bool Validar()
-        {
-            return Utilidades.IsNaN(this.Nombre) && !Utilidades.CampoVacio(this.Nombre);
-        }
+        
         #endregion
     }
 }

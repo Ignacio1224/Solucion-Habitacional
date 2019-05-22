@@ -9,36 +9,36 @@ namespace Dominio.Clases
     public abstract class Vivienda
     {
         #region Props
-        public int Id { get; set; }
-        public string Estado { get; set; }
-        public string Calle { get; set; }
-        public int NroPuerta { get; set; }
-        public string Descripcion { get; set; }
-        public Barrio Barrio { get; set; }
-        public byte Banios { get; set; }
-        public byte Dormitorios { get; set; }
-        public short Metraje { get; set; }
-        public short AnioConstruccion { get; set; }
-        public Parametro Moneda { get; set; }
-        public decimal PrecioFinal { get; set; }
+        public int id { get; set; }
+        public string estado { get; set; }
+        public string calle { get; set; }
+        public int nroPuerta { get; set; }
+        public string descripcion { get; set; }
+        public Barrio barrio { get; set; }
+        public byte banios { get; set; }
+        public byte dormitorios { get; set; }
+        public short metraje { get; set; }
+        public short anioConstruccion { get; set; }
+        public Parametro moneda { get; set; }
+        public decimal precioFinal { get; set; }
         #endregion
 
         #region Metodos
         public virtual bool Validar()
         {
-            if (!Utilidades.CampoVacio(this.Calle) && !Utilidades.EsNumerico(this.Calle))
+            if (!Utilidades.campoVacio(this.calle) && !Utilidades.esNumerico(this.calle))
             {
-                if (this.NroPuerta > 0 && this.NroPuerta < 10000)
+                if (this.nroPuerta > 0 && this.nroPuerta < 10000)
                 {
-                    if (!Utilidades.CampoVacio(this.Descripcion) && !Utilidades.EsNumerico(this.Descripcion))
+                    if (!Utilidades.campoVacio(this.descripcion) && !Utilidades.esNumerico(this.descripcion))
                     {
-                        if (this.Banios > 0)
+                        if (this.banios > 0)
                         {
-                            if (this.Dormitorios > 0)
+                            if (this.dormitorios > 0)
                             {
-                                if (this.PrecioFinal > 0)
+                                if (this.precioFinal > 0)
                                 {
-                                    if (this.Metraje > 0)
+                                    if (this.metraje > 0)
                                     {
                                         return true;
                                     }

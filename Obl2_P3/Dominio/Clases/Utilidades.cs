@@ -8,7 +8,7 @@ namespace Dominio.Clases
 {
     public static class Utilidades
     {
-        public static bool EsNumerico(string param)
+        public static bool esNumerico(string param)
         {
             try
             {
@@ -20,15 +20,15 @@ namespace Dominio.Clases
                 return false;
             }
         }
-        public static bool CampoVacio(string param)
+
+        public static bool campoVacio(string param)
         {
-            if (param == "")
-            {
-                return true;
-            }else
-            {
-                return false;
-            }
+            return param == "";
+        }
+
+        public static decimal convertirValor(Parametro moneda, Decimal valor)
+        {
+            throw new NotImplementedException();
         }
     }
 }
