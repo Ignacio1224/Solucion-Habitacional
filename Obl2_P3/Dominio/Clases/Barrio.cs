@@ -10,6 +10,7 @@ namespace Dominio.Clases
     public class Barrio
     {
         #region Props
+       
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         #endregion

@@ -58,21 +58,26 @@
     <Compile Include="Clases\Vivienda.cs" />
     <Compile Include="Clases\ViviendaNueva.cs" />
     <Compile Include="Clases\ViviendaUsada.cs" />
+    <Compile Include="Contexto_DB\SistemaContext.cs" />
     <Compile Include="Interfaces\IRepoBarrio.cs" />
     <Compile Include="Interfaces\IRepoParametro.cs" />
+    <Compile Include="Interfaces\IRepoPostulante.cs" />
     <Compile Include="Interfaces\IRepoSorteo.cs" />
     <Compile Include="Interfaces\IRepoUsuario.cs" />
     <Compile Include="Interfaces\IRepoVivienda.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repo\RepoBarrio.cs" />
+    <Compile Include="Repo\RepoParametro.cs" />
+    <Compile Include="Repo\RepoPostulante.cs" />
+    <Compile Include="Repo\RepoSorteo.cs" />
+    <Compile Include="Repo\RepoUsuario.cs" />
+    <Compile Include="Repo\RepoVivienda.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DbContext\" />
-    <Folder Include="Repo\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
