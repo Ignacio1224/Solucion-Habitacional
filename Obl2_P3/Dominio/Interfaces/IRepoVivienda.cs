@@ -9,10 +9,10 @@ namespace Dominio.Interfaces
 {
     interface IRepoVivienda
     {
-        bool Add(Vivienda v);
-        bool Update(Vivienda v);
-        bool Delete(Vivienda v);
-        Vivienda FindById(int vId);
-        IEnumerable<Vivienda> FindAll();
+        bool add(Vivienda v);
+        bool update(Vivienda v);
+        bool delete(Vivienda v);
+        Vivienda findById(int vId);
+        IEnumerable<Vivienda> findAll();
     }
 }

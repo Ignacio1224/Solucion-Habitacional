@@ -9,10 +9,12 @@ namespace Dominio.Interfaces
 {
     interface IRepoUsuario
     {
-        bool Add(Usuario u);
-        bool Update(Usuario u);
-        bool Delete(Usuario u);
-        Usuario FindByCi(int uCi);
-        IEnumerable<Usuario> FindAll();
+        bool add(Usuario u);
+        bool update(Usuario u);
+        bool delete(Usuario u);
+        Usuario findByCi(int uCi);
+        IEnumerable<Usuario> findAll();
+
+        bool login(Usuario u);
     }
 }

@@ -9,9 +9,9 @@ namespace Dominio.Interfaces
 {
     interface IRepoParametro
     {
-        bool Add(Parametro p);
-        bool Update(Parametro p);
-        bool Delete(Parametro p);
-        Parametro FindByName(string pName);
+        bool add(Parametro p);
+        bool update(Parametro p);
+        bool delete(Parametro p);
+        Parametro findByName(string pName);
     }
 }

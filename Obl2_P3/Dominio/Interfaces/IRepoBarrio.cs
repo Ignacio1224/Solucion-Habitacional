@@ -9,10 +9,10 @@ namespace Dominio.Interfaces
 {
     interface IRepoBarrio
     {
-        bool Add(Barrio b);
-        bool Update(Barrio b);
-        bool Delete(Barrio b);
-        Barrio FindByName(string bName);
-        IEnumerable<Barrio> FindAll();
+        bool add(Barrio b);
+        bool update(Barrio b);
+        bool delete(Barrio b);
+        Barrio findByName(string bName);
+        IEnumerable<Barrio> findAll();
     }
 }
