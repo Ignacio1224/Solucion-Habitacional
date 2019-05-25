@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio.Clases
 {
     public class ViviendaUsada:Vivienda
     {
+        #region Props
+        [Required]
         public decimal MontoContribucion { get; set; }
+        #endregion
 
-        public override bool Validar()
+        #region Metodos
+        public override bool validar()
         {
-            if (base.Validar())
+            if (base.validar())
             {
                 if (this.anioConstruccion < (DateTime.Now.Year - 2))
                 {
@@ -21,5 +27,7 @@ namespace Dominio.Clases
             }
             return false;
         }
+        #endregion
+
     }
 }

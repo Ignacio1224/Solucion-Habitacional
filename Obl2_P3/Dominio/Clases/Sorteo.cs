@@ -19,16 +19,16 @@ namespace Dominio.Clases
         [Required]
         public DateTime fecha { get; set; }
 
-        [ForeignKey("vivienda")]
-        [Required]
+        [ForeignKey("ViviendaSorteo"),Required]
         public Vivienda vivienda { get; set; }
 
-        [ForeignKey("postulantes")]
+        [ForeignKey("PostulantesSorteo")]
         public List<Postulante> postulantes { get; set; }
 
-        [ForeignKey("ganador")]
+        [ForeignKey("GanadorSorteo")]
         public Postulante ganador { get; set; }
 
+        [Required]
         public bool realizado { get; set; } = false;
         
         #endregion

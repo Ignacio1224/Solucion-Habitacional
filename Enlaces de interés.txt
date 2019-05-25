@@ -1,0 +1,6 @@
+
+Buena info resumida sobre CodeFirst:
+
+https://diegobersano.com.ar/2014/05/19/entity-framework-code-first/
+
+______________________________________________________________

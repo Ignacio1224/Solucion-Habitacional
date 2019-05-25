@@ -8,7 +8,7 @@ using Dominio.Clases;
 
 namespace Dominio.Contexto_DB
 {
-    public class SistemaContext:DbContext
+    class Contexto:DbContext
     {
         DbSet<Postulante> postulantesContext { get; set; }
         DbSet<Barrio> barrioContext { get; set; }

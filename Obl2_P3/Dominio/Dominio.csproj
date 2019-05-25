@@ -58,7 +58,7 @@
     <Compile Include="Clases\Vivienda.cs" />
     <Compile Include="Clases\ViviendaNueva.cs" />
     <Compile Include="Clases\ViviendaUsada.cs" />
-    <Compile Include="Contexto_DB\SistemaContext.cs" />
+    <Compile Include="Contexto_DB\Contexto.cs" />
     <Compile Include="Interfaces\IRepoBarrio.cs" />
     <Compile Include="Interfaces\IRepoParametro.cs" />
     <Compile Include="Interfaces\IRepoPostulante.cs" />

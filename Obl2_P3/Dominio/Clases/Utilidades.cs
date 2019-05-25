@@ -26,9 +26,10 @@ namespace Dominio.Clases
             return param == "";
         }
 
+        /*
         public static decimal convertirValor(Parametro moneda, Decimal valor)
         {
-            throw new NotImplementedException();
-        }
+
+        }*/
     }
 }

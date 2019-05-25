@@ -8,9 +8,9 @@ namespace Dominio.Clases
 {
     public class ViviendaNueva:Vivienda
     {
-        public override bool Validar()
+        public override bool validar()
         {
-            if (base.Validar())
+            if (base.validar())
             {
                 if (this.anioConstruccion >= (DateTime.Now.Year - 2) && this.anioConstruccion <= (DateTime.Now.Year))
                 {

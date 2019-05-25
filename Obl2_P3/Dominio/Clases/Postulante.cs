@@ -11,28 +11,21 @@ namespace Dominio.Clases
     public class Postulante : Usuario
     {
 
-        #region
+        #region Props
 
-        [Required]
-        [MinLength(2)]
-        [MaxLength(50)]
+        [Required,MinLength(2),MaxLength(50)]
         public string nombre { get; set; }
 
-        [Required]
-        [MinLength(2)]
-        [MaxLength(50)]
+        [Required, MinLength(2),MaxLength(50)]
         public string apellido { get; set; }
 
-        [Required]
-        [EmailAddress]
-        [Index(IsUnique = true)]
+        [Required, EmailAddress, Index(IsUnique = true)]
         public string email { get; set; }
 
         [Required]
         public DateTime fechaNac { get; set; }
 
         #endregion
-
 
 
         #region Metodos

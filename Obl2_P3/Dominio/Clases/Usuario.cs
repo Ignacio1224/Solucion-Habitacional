@@ -14,13 +14,10 @@ namespace Dominio.Clases
     {
         #region Props
 
-        [Key]
-        [MinLength(7)]
-        [MaxLength(9)]
+        [Key, MinLength(7), MaxLength(9)]
         public int cedula { get; set; }
 
-        [Required]
-        [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6, 255}$")]
+        [Required, RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6, 255}$")]
         public string clave { get; set; }
         
         #endregion

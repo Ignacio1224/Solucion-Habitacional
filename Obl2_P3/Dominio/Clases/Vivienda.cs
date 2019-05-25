@@ -28,8 +28,9 @@ namespace Dominio.Clases
         [Required]
         public string descripcion { get; set; }
 
-        [ForeignKey("barrio")]
+        [ForeignKey("ViviendaBarrio")]
         [Required]
+        [Index("IDX_ViviendaBarrio")]
         public Barrio barrio { get; set; }
 
         [Required]
@@ -44,7 +45,7 @@ namespace Dominio.Clases
         [Required]
         public short anioConstruccion { get; set; }
 
-        [Required]
+        [ForeignKey("MonedaVivienda"),Required,Index("IDX_MonedaVivienda")]
         public Parametro moneda { get; set; }
 
         [Required]
@@ -53,7 +54,7 @@ namespace Dominio.Clases
         #endregion
 
         #region Metodos
-        public virtual bool Validar()
+        public virtual bool validar()
         {
             if (!Utilidades.campoVacio(this.calle) && !Utilidades.esNumerico(this.calle))
             {
