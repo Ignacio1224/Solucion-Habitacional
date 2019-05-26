@@ -8,13 +8,13 @@ using Dominio.Clases;
 
 namespace Dominio.Contexto_DB
 {
-    class Contexto:DbContext
+    class Contexto : DbContext
     {
-        DbSet<Postulante> postulantesContext { get; set; }
-        DbSet<Barrio> barrioContext { get; set; }
-        DbSet<Vivienda> viviendaContext { get; set; }
-        DbSet<Usuario> usuarioContext { get; set; }
-        DbSet<Parametro> parametroContext { get; set; }
-        DbSet<Sorteo> sorteoContext { get; set; }
+        public DbSet<Postulante> postulantes { get; set; }
+        public DbSet<Barrio> barrio { get; set; }
+        public DbSet<Vivienda> vivienda { get; set; }
+        public DbSet<Usuario> usuario { get; set; }
+        public DbSet<Parametro> parametro { get; set; }
+        public DbSet<Sorteo> sorteo { get; set; }
     }
 }
