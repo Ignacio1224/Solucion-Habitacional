@@ -8,7 +8,7 @@ using Dominio.Clases;
 
 namespace Dominio.Contexto_DB
 {
-    class Contexto : DbContext
+    internal class Contexto : DbContext
     {
         public DbSet<Postulante> postulantes { get; set; }
         public DbSet<Barrio> barrio { get; set; }
@@ -16,5 +16,10 @@ namespace Dominio.Contexto_DB
         public DbSet<Usuario> usuario { get; set; }
         public DbSet<Parametro> parametro { get; set; }
         public DbSet<Sorteo> sorteo { get; set; }
+
+        public Contexto():base("cadenaConexion")
+        {
+
+        }
     }
 }

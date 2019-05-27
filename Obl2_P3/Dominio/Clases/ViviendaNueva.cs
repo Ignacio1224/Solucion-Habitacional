@@ -8,6 +8,7 @@ namespace Dominio.Clases
 {
     public class ViviendaNueva:Vivienda
     {
+        #region Metodos
         public override bool validar()
         {
             if (base.validar())
@@ -19,6 +20,7 @@ namespace Dominio.Clases
             }
             return false;
         }
+        #endregion
     }
 }
 

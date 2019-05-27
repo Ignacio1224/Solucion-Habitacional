@@ -8,6 +8,7 @@ namespace Dominio.Clases
 {
     public static class Utilidades
     {
+        #region Metodos
         public static bool esNumerico(string param)
         {
             try
@@ -31,5 +32,6 @@ namespace Dominio.Clases
         {
 
         }*/
+        #endregion
     }
 }

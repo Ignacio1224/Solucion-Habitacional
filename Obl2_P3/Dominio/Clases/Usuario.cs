@@ -14,7 +14,7 @@ namespace Dominio.Clases
     {
         #region Props
 
-        [Key, MinLength(7), MaxLength(9)]
+        [Key]
         public int cedula { get; set; }
 
         [Required, RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6, 255}$")]
@@ -24,7 +24,7 @@ namespace Dominio.Clases
 
         #region Metodos
 
-       public bool Validar()
+       public bool validar()
         {   
             return this.cedula > 0 && this.cedula < 100000000 && !Utilidades.campoVacio(this.clave);
         }

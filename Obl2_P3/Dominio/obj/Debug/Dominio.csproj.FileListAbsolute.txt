@@ -1,0 +1,10 @@
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Dominio\bin\Debug\Dominio.dll.config
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Dominio\bin\Debug\Dominio.dll
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Dominio\bin\Debug\Dominio.pdb
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Dominio\bin\Debug\EntityFramework.dll
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Dominio\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Dominio\bin\Debug\EntityFramework.xml
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Dominio\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Dominio\obj\Debug\Dominio.dll
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Dominio\obj\Debug\Dominio.pdb
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Dominio\obj\Debug\Dominio.csprojResolveAssemblyReference.cache

@@ -36,11 +36,11 @@ namespace Dominio.Clases
         #region Metodos
 
         //sin implementar
-        public bool Validar()
+        public bool validar()
         {
             return false;
         }
-        public int RealizarSorteo()
+        public int realizarSorteo()
         {
             return - 1;
         }

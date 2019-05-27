@@ -28,6 +28,5 @@ namespace Dominio.Clases
             return false;
         }
         #endregion
-
     }
 }

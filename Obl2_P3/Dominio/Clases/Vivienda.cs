@@ -9,10 +9,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Dominio.Clases
 {
     //Dejando esta sentencia EF mapearia la tabla Vivienda como una 3er tabla
-    //Colocandole esta misma sentencia a las otras dos tablas de vivienda especificas mapeamos correctamente la herencia
-    //EF termina generando solo 2 tablas, una para Usada  y otra para Nueva.
 
     //[Table("Vivienda")]   
+
+    //Colocandole esta misma sentencia a las otras dos tablas de vivienda especificas mapeamos correctamente la herencia
+    //EF termina generando solo 2 tablas, una para Usada  y otra para Nueva.
     public abstract class Vivienda
     {
         #region Props

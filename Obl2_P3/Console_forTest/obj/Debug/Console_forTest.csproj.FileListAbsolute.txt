@@ -1,0 +1,12 @@
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Console_forTest\bin\Debug\Console_forTest.exe.config
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Console_forTest\bin\Debug\Console_forTest.exe
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Console_forTest\bin\Debug\Console_forTest.pdb
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Console_forTest\bin\Debug\Dominio.dll
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Console_forTest\bin\Debug\EntityFramework.dll
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Console_forTest\bin\Debug\Dominio.pdb
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Console_forTest\bin\Debug\EntityFramework.xml
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Console_forTest\obj\Debug\Console_forTest.csprojResolveAssemblyReference.cache
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Console_forTest\obj\Debug\Console_forTest.exe
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Console_forTest\obj\Debug\Console_forTest.pdb
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Console_forTest\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Console_forTest\bin\Debug\EntityFramework.SqlServer.xml

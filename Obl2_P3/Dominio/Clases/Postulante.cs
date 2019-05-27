@@ -10,7 +10,6 @@ namespace Dominio.Clases
 {
     public class Postulante : Usuario
     {
-
         #region Props
 
         [Required,MinLength(2),MaxLength(50)]
@@ -27,19 +26,16 @@ namespace Dominio.Clases
 
         #endregion
 
-
         #region Metodos
         public override string devolverTipo()
         {
             return "postulante";
         }
 
-
         public bool es_mayor()
         {
             return DateTime.Now.Year - this.fechaNac.Year > 18;
         }
         #endregion
-
     }
 }

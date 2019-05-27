@@ -11,13 +11,13 @@ namespace Dominio.Repo
 {
     public class RepoBarrio : IRepoBarrio
     {
+        Contexto db = new Contexto();
+
         public bool add(Barrio b)
         {
             if (b == null) return false;
-
             try
             {
-                Contexto db = new Contexto();
                 db.barrio.Add(b);
                 db.SaveChanges();
                 db.Dispose();
@@ -34,10 +34,8 @@ namespace Dominio.Repo
         public bool delete(Barrio b)
         {
             if (b == null) return false;
-
             try
             {
-                Contexto db = new Contexto();
                 db.barrio.Remove(b);
                 db.SaveChanges();
                 db.Dispose();
@@ -52,22 +50,24 @@ namespace Dominio.Repo
 
         public IEnumerable<Barrio> findAll()
         {
-            Contexto db = new Contexto();
-            var listaBarrios = from Barrio b in db.barrio select b;
-            db.Dispose();
+            if (db.barrio.Count() > 0)
+            {
+                var listaBarrios = from Barrio b in db.barrio select b;
+                db.Dispose();
 
-            return listaBarrios.ToList();
+                return listaBarrios.ToList();
+            }
+            else return null;
         }
 
         public Barrio findByName(string bName)
         {
             try
-            {
-                Contexto db = new Contexto();
+            { 
                 Barrio barrioBuscado = db.barrio.Find(bName);
                 db.Dispose();
                 if (barrioBuscado != null) return barrioBuscado;
-                return null;
+                else return null;
             }
             catch (Exception ex)
             {
@@ -79,8 +79,7 @@ namespace Dominio.Repo
         public bool update(Barrio b)
         {
             try
-            {
-                Contexto db = new Contexto();
+            { 
                 Barrio barrioBuscado = db.barrio.Find(b.nombre);
                 if (barrioBuscado != null)
                 {
