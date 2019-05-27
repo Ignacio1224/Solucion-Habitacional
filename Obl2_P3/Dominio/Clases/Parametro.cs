@@ -18,7 +18,19 @@ namespace Dominio.Clases
 
         [Required]
         public decimal valor { get; set; }
-        
+
         #endregion
+
+
+        #region Metodos
+
+        public bool esValido()
+        {
+            return
+                Utilidades.esCampoValido(this.nombre, 1, 255);
+        }
+
+        #endregion
+
     }
 }

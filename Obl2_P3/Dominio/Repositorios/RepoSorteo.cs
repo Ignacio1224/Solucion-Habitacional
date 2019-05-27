@@ -7,7 +7,7 @@ using Dominio.Clases;
 using Dominio.Interfaces;
 using Dominio.Contexto_DB;
 
-namespace Dominio.Repo
+namespace Dominio.Repositorios
 {
     public class RepoSorteo : IRepoSorteo
     {
@@ -15,7 +15,8 @@ namespace Dominio.Repo
 
         public bool add(Sorteo s)
         {
-            if (!s.validar() || s == null) return false;
+            if (!s.esValido() || s == null) return false;
+
             try
             {
                 db.sorteo.Add(s);
@@ -23,9 +24,8 @@ namespace Dominio.Repo
                 db.Dispose();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                string msj = ex.Message;
                 return false;
             }
         }
@@ -33,49 +33,49 @@ namespace Dominio.Repo
         public bool delete(Sorteo s)
         {
             if (s == null) return false;
+
             try
             {
                 db.sorteo.Remove(s);
                 db.SaveChanges();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                string msj = ex.Message;
                 return false;
             }
+
         }
 
         public IEnumerable<Sorteo> findAll()
         {
+            List<Sorteo> sLista = null;
+
             try
             {
                 if (db.sorteo.Count() > 0)
                 {
-                    var sLista = from Sorteo s in db.sorteo select s;
+                    sLista = (from Sorteo s in db.sorteo select s).ToList();
                     db.Dispose();
-
-                    return sLista.ToList();
                 }
-                else return null;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                string msj = ex.Message;
                 return null;
             }
+
+            return sLista;
+
         }
 
         public Sorteo findById(int sId)
         {
-            Sorteo s = db.sorteo.Find(sId);
-            if (s != null) return s;
-            else return null;
+            return db.sorteo.Find(sId);
         }
 
         public bool update(Sorteo s)
         {
-            if (!s.validar() || s == null) return false;
+            if (!s.esValido() || s == null) return false;
             try
             {
                 Sorteo sBuscado = db.sorteo.Find(s.id);
@@ -87,22 +87,23 @@ namespace Dominio.Repo
                     sBuscado.postulantes = s.postulantes;
                     sBuscado.realizado = s.realizado;
                     sBuscado.vivienda = s.vivienda;
-                    if (sBuscado.validar())
+
+                    if (sBuscado.esValido())
                     {
                         db.SaveChanges();
                         db.Dispose();
                         return true;
                     }
-                    else return false;
+                    return false;
                 }
-                else return false;
+                return false;
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                string msj = ex.Message;
                 return false;
             }
         }
+
     }
 }

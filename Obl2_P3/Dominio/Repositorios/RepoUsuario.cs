@@ -7,7 +7,7 @@ using Dominio.Clases;
 using Dominio.Interfaces;
 using Dominio.Contexto_DB;
 
-namespace Dominio.Repo
+namespace Dominio.Repositorios
 {
     public class RepoUsuario : IRepoUsuario
     {
@@ -15,7 +15,8 @@ namespace Dominio.Repo
 
         public bool add(Usuario u)
         {
-            if (!u.validar() || u == null) return false;
+            if (!u.esValido() || u == null) return false;
+
             try
             {
                 db.usuario.Add(u);
@@ -23,16 +24,17 @@ namespace Dominio.Repo
                 db.Dispose();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                string msj = ex.Message;
                 return false;
             }
+
         }
 
         public bool delete(Usuario u)
         {
             if (u == null) return false;
+
             try
             {
                 db.usuario.Remove(u);
@@ -40,43 +42,42 @@ namespace Dominio.Repo
                 db.Dispose();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                string msj = ex.Message;
                 return false;
             }
+
         }
 
         public IEnumerable<Usuario> findAll()
         {
+            List<Usuario> uLista = null;
             try
             {
                 if (db.usuario.Count() > 0)
                 {
-                    var uLista = from Usuario u in db.usuario select u;
+                    uLista = (from Usuario u in db.usuario select u).ToList();
                     db.Dispose();
-
-                    return uLista.ToList();
                 }
-                else return null;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                string msj = ex.Message;
                 return null;
             }
+
+            return uLista;
+
         }
 
         public Usuario findByCi(int uCi)
         {
-            Usuario u = db.postulantes.Find(uCi);
-            if (u != null) return u;
-            else return null;
+            return db.postulantes.Find(uCi);
         }
 
         public bool login(Usuario u)
         {
-            if (!u.validar() || u == null) return false;
+            if (!u.esValido() || u == null) return false;
+
             Usuario usu = db.usuario.Find(u.cedula);
             if (usu != null) return true;
             else return false;
@@ -84,7 +85,8 @@ namespace Dominio.Repo
 
         public bool update(Usuario u)
         {
-            if (!u.validar() || u == null) return false;
+            if (!u.esValido() || u == null) return false;
+
             try
             {
                 Usuario uBuscado = db.usuario.Find(u.cedula);
@@ -92,22 +94,23 @@ namespace Dominio.Repo
                 {
                     uBuscado.cedula = u.cedula;
                     uBuscado.clave = u.clave;
-                    if (u.validar())
+                    if (u.esValido())
                     {
                         db.SaveChanges();
                         db.Dispose();
                         return true;
                     }
-                    else return false;
+                    return false;
                 }
-                else return false;
+                return false;
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                string msj = ex.Message;
                 return false;
             }
+
         }
+
     }
 }

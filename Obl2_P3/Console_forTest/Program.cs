@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dominio.Clases;
-using Dominio.Repo;
+using Dominio.Repositorios;
 
 namespace Console_forTest
 {

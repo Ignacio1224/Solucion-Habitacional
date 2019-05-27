@@ -19,13 +19,14 @@ namespace Dominio.Clases
         [Required]
         public DateTime fecha { get; set; }
 
-        [ForeignKey("ViviendaSorteo"),Required]
+        [ForeignKey("vivienda")]
+        [Required]
         public Vivienda vivienda { get; set; }
 
-        [ForeignKey("PostulantesSorteo")]
+        [ForeignKey("postulantes")]
         public List<Postulante> postulantes { get; set; }
 
-        [ForeignKey("GanadorSorteo")]
+        [ForeignKey("ganador")]
         public Postulante ganador { get; set; }
 
         [Required]
@@ -33,16 +34,22 @@ namespace Dominio.Clases
         
         #endregion
 
+
         #region Metodos
 
-        //sin implementar
-        public bool validar()
+        public Postulante sortear()
         {
-            return false;
+            Random r = new Random();
+            this.ganador = this.postulantes[r.Next(this.postulantes.Count)];
+            return this.ganador;  
         }
-        public int realizarSorteo()
+
+        public bool esValido()
         {
-            return - 1;
+            return 
+                fecha != null &&
+                vivienda != null &&
+                postulantes != null;
         }
 
         #endregion

@@ -9,12 +9,23 @@ namespace Dominio.Clases
     public static class Utilidades
     {
         #region Metodos
-        public static bool esNumerico(string param)
+
+        public static bool esCampoValido(string param)
+        {
+            return param != "";
+        }
+
+        public static bool esCampoValido(string param, int minLength, int maxLength)
+        {
+            return esCampoValido(param) && param.Length > minLength && param.Length < maxLength;
+        }
+
+        public static bool esEmailValido(string param)
         {
             try
             {
-                Convert.ToInt32(param);
-                return true;
+                var addr = new System.Net.Mail.MailAddress(param);
+                return addr.Address == param;
             }
             catch
             {
@@ -22,16 +33,12 @@ namespace Dominio.Clases
             }
         }
 
-        public static bool campoVacio(string param)
-        {
-            return param == "";
-        }
 
-        /*
+        // TODO: Sin implementar
         public static decimal convertirValor(Parametro moneda, Decimal valor)
         {
-
-        }*/
+            return 0;
+        }
         #endregion
     }
 }

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Dominio.Clases;
 using Dominio.Interfaces;
 using Dominio.Contexto_DB;
+using System.IO;
 
-namespace Dominio.Repo
+namespace Dominio.Repositorios
 {
     public class RepoParametro : IRepoParametro
     {
@@ -16,6 +17,7 @@ namespace Dominio.Repo
         public bool add(Parametro p)
         {
             if (p == null) return false;
+
             try
             {
                 db.parametro.Add(p);
@@ -23,9 +25,8 @@ namespace Dominio.Repo
                 db.Dispose();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                string msj = ex.Message;
                 return false;
             }
 
@@ -34,6 +35,7 @@ namespace Dominio.Repo
         public bool delete(Parametro p)
         {
             if (p == null) return false;
+
             try
             {
                 db.parametro.Remove(p);
@@ -41,27 +43,57 @@ namespace Dominio.Repo
                 db.Dispose();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                string msj = ex.Message;
                 return false;
             }
+
         }
 
         public Parametro findByName(string pName)
         {
+            Parametro p = null;
+
             try
             { 
-                Parametro p = db.parametro.Find(pName);
+                p = db.parametro.Find(pName);
                 db.Dispose();
-                if (p != null) return p;
-                else return null;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                string msj = ex.Message;
                 return null;
             }
+
+            return p;
+        }
+
+        public bool import()
+        {
+            bool imported = false;
+
+            using (StreamReader file = new StreamReader("../../../Archivos_Para_Importar/Parametros.txt"))
+            {
+                string ln;
+
+                while ((ln = file.ReadLine()) != null)
+                {
+
+                    string[] s = ln.Split('#');
+
+                    add(new Parametro
+                    {
+                        nombre = s[0],
+                        valor = Convert.ToDecimal(s[1])
+                    });
+
+                }
+
+                file.Close();
+                imported = true;
+            }
+
+
+            return imported;
         }
 
         public bool update(Parametro p)
@@ -76,11 +108,11 @@ namespace Dominio.Repo
                     db.Dispose();
                     return true;
                 }
-                else return false;
+
+                return false;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                string msj = ex.Message;
                 return false;
             }
         }

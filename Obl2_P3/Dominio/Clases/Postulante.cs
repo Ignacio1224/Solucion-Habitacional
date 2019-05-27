@@ -12,13 +12,19 @@ namespace Dominio.Clases
     {
         #region Props
 
-        [Required,MinLength(2),MaxLength(50)]
+        [Required]
+        [MinLength(2)]
+        [MaxLength(50)]
         public string nombre { get; set; }
 
-        [Required, MinLength(2),MaxLength(50)]
+        [Required]
+        [MinLength(2)]
+        [MaxLength(50)]
         public string apellido { get; set; }
 
-        [Required, EmailAddress, Index(IsUnique = true)]
+        [Required]
+        [EmailAddress]
+        [Index(IsUnique = true)]
         public string email { get; set; }
 
         [Required]
@@ -27,15 +33,27 @@ namespace Dominio.Clases
         #endregion
 
         #region Metodos
-        public override string devolverTipo()
+
+        public bool es_mayor()
+        {
+            return this.fechaNac.AddYears(18) <= DateTime.Today;
+        }
+
+        public override bool esValido()
+        {
+            return
+                base.esValido() &&
+                Utilidades.esCampoValido(this.nombre, 2, 50) &&
+                Utilidades.esCampoValido(this.apellido, 2, 50) &&
+                Utilidades.esEmailValido(this.email) &&
+                es_mayor();
+        }
+
+        public override string getRole()
         {
             return "postulante";
         }
 
-        public bool es_mayor()
-        {
-            return DateTime.Now.Year - this.fechaNac.Year > 18;
-        }
         #endregion
     }
 }

@@ -7,7 +7,7 @@ using Dominio.Clases;
 using Dominio.Interfaces;
 using Dominio.Contexto_DB;
 
-namespace Dominio.Repo
+namespace Dominio.Repositorios
 {
     public class RepoPostulante : IRepoPostulante
     {
@@ -15,7 +15,8 @@ namespace Dominio.Repo
 
         public bool add(Postulante p)
         {
-            if (!p.validar() || p == null) return false;
+            if (!p.esValido() || p == null) return false;
+
             try
             {
                 db.postulantes.Add(p);
@@ -23,16 +24,17 @@ namespace Dominio.Repo
                 db.Dispose();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                string msj = ex.Message;
                 return false;
             }
+
         }
 
         public bool delete(Postulante p)
         {
             if (p == null) return false;
+
             try
             {
                 db.postulantes.Remove(p);
@@ -40,51 +42,52 @@ namespace Dominio.Repo
                 db.Dispose();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                string msj = ex.Message;
                 return false;
             }
         }
 
         public IEnumerable<Postulante> findAll()
         {
+            List<Postulante> listaPostulantes = null;
             try
             {
                 if (db.postulantes.Count() > 0)
                 {
-                    var listaPostulantes = from Postulante p in db.postulantes select p;
+                    listaPostulantes = (from Postulante p in db.postulantes select p).ToList();
                     db.Dispose();
-
-                    return listaPostulantes.ToList();
                 }
-                else return null;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                string msj = ex.Message;
                 return null;
             }
+
+            return listaPostulantes;
+
         }
 
         public Postulante findByCi(int pCi)
         {
-            Postulante p = db.postulantes.Find(pCi);
-            if (p != null) return p;
-            else return null;
+            return db.postulantes.Find(pCi);
         }
 
         public bool login(Postulante p)
         {
-            if (!p.validar() || p == null) return false;
+            if (!p.esValido() || p == null) return false;
+
             Postulante post = db.postulantes.Find(p.cedula);
+
             if (post != null) return true;
-            else return false;
+
+            return false;
         }
 
         public bool update(Postulante p)
         {
-            if (!p.validar() || p == null) return false;
+            if (!p.esValido() || p == null) return false;
+
             try
             {
                 Postulante pBuscado = db.postulantes.Find(p.cedula);
@@ -95,20 +98,19 @@ namespace Dominio.Repo
                     pBuscado.clave = p.clave;
                     pBuscado.email = p.email;
                     pBuscado.fechaNac = p.fechaNac;
-                    if (pBuscado.validar())
+                    if (pBuscado.esValido())
                     {
                         db.SaveChanges();
                         db.Dispose();
                         return true;
                     }
-                    else return false;
+                    return false;
                 }
-                else return false;
+                return false;
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                string msj = ex.Message;
                 return false;
             }
         }

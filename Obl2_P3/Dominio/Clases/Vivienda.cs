@@ -14,6 +14,7 @@ namespace Dominio.Clases
 
     //Colocandole esta misma sentencia a las otras dos tablas de vivienda especificas mapeamos correctamente la herencia
     //EF termina generando solo 2 tablas, una para Usada  y otra para Nueva.
+    [Table("Vivienda")]
     public abstract class Vivienda
     {
         #region Props
@@ -22,7 +23,7 @@ namespace Dominio.Clases
         public int id { get; set; }
 
         [Required]
-        public bool estado { get; set; }
+        public string estado { get; set; }
 
         [Required]
         public string calle { get; set; }
@@ -33,24 +34,25 @@ namespace Dominio.Clases
         [Required]
         public string descripcion { get; set; }
 
-        [ForeignKey("ViviendaBarrio")]
+        [ForeignKey("barrio")]
         [Required]
         [Index("IDX_ViviendaBarrio")]
         public Barrio barrio { get; set; }
 
         [Required]
-        public byte banios { get; set; }
+        public int banios { get; set; }
 
         [Required]
-        public byte dormitorios { get; set; }
+        public int dormitorios { get; set; }
 
         [Required]
-        public short metraje { get; set; }
+        public decimal metraje { get; set; }
 
         [Required]
-        public short anioConstruccion { get; set; }
+        public int anioConstruccion { get; set; }
 
-        [ForeignKey("MonedaVivienda"),Required,Index("IDX_MonedaVivienda")]
+        [ForeignKey("moneda")]
+        [Required,Index("IDX_MonedaVivienda")]
         public Parametro moneda { get; set; }
 
         [Required]
@@ -59,32 +61,20 @@ namespace Dominio.Clases
         #endregion
 
         #region Metodos
-        public virtual bool validar()
+
+        public virtual bool esValida()
         {
-            if (!Utilidades.campoVacio(this.calle) && !Utilidades.esNumerico(this.calle))
-            {
-                if (this.nroPuerta > 0 && this.nroPuerta < 10000)
-                {
-                    if (!Utilidades.campoVacio(this.descripcion) && !Utilidades.esNumerico(this.descripcion))
-                    {
-                        if (this.banios > 0)
-                        {
-                            if (this.dormitorios > 0)
-                            {
-                                if (this.precioFinal > 0)
-                                {
-                                    if (this.metraje > 0)
-                                    {
-                                        return true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return false;
+            return 
+                (estado == "Recibida" || estado == "Habilitada" || estado == "Inhabilitada") &&
+                Utilidades.esCampoValido(this.calle) &&
+                this.nroPuerta > 0 && this.nroPuerta < 9999 &&
+                Utilidades.esCampoValido(this.descripcion) &&
+                this.banios > 0 &&
+                this.dormitorios > 0 &&
+                this.precioFinal > 0 &&
+                this.metraje > 0;
         }
+        
         #endregion
     }
 }

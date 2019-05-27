@@ -18,10 +18,20 @@ namespace Dominio.Clases
 
         [Required]
         public string descripcion { get; set; }
+       
         #endregion
+
 
         #region Metodos
         
+        public bool esValido()
+        {
+            return 
+                Utilidades.esCampoValido(this.nombre, 1, 255) &&
+                Utilidades.esCampoValido(this.nombre, 1, 255);
+        }
+
         #endregion
+
     }
 }

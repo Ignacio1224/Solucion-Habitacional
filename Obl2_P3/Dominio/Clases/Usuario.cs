@@ -15,21 +15,28 @@ namespace Dominio.Clases
         #region Props
 
         [Key]
-        public int cedula { get; set; }
+        [MinLength(7)]
+        [MaxLength(9)]
+        public string cedula { get; set; }
 
-        [Required, RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6, 255}$")]
+        [Required]
+        [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6, 255}$")]
         public string clave { get; set; }
-        
+
         #endregion
+
 
         #region Metodos
 
-       public bool validar()
-        {   
-            return this.cedula > 0 && this.cedula < 100000000 && !Utilidades.campoVacio(this.clave);
+        public virtual bool esValido()
+        {
+            return 
+                Utilidades.esCampoValido(this.cedula, 7, 9) &&
+                Utilidades.esCampoValido(this.clave, 6, 255);
         }
 
-        public virtual string devolverTipo() {
+        public virtual string getRole()
+        {
             return "jefe";
         }
 

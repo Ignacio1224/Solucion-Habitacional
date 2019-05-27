@@ -8,25 +8,26 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio.Clases
 {
+    [Table("ViviendaUsada")]
     public class ViviendaUsada:Vivienda
     {
         #region Props
+
         [Required]
-        public decimal MontoContribucion { get; set; }
+        public decimal montoContribucion { get; set; }
+
         #endregion
 
         #region Metodos
-        public override bool validar()
+
+        public override bool esValida()
         {
-            if (base.validar())
-            {
-                if (this.anioConstruccion < (DateTime.Now.Year - 2))
-                {
-                    return true;
-                }
-            }
-            return false;
+            return 
+                base.esValida() &&
+                montoContribucion > 0;  
         }
+
         #endregion
+
     }
 }

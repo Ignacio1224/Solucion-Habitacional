@@ -66,12 +66,12 @@
     <Compile Include="Interfaces\IRepoUsuario.cs" />
     <Compile Include="Interfaces\IRepoVivienda.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repo\RepoBarrio.cs" />
-    <Compile Include="Repo\RepoParametro.cs" />
-    <Compile Include="Repo\RepoPostulante.cs" />
-    <Compile Include="Repo\RepoSorteo.cs" />
-    <Compile Include="Repo\RepoUsuario.cs" />
-    <Compile Include="Repo\RepoVivienda.cs" />
+    <Compile Include="Repositorios\RepoBarrio.cs" />
+    <Compile Include="Repositorios\RepoParametro.cs" />
+    <Compile Include="Repositorios\RepoPostulante.cs" />
+    <Compile Include="Repositorios\RepoSorteo.cs" />
+    <Compile Include="Repositorios\RepoUsuario.cs" />
+    <Compile Include="Repositorios\RepoVivienda.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
