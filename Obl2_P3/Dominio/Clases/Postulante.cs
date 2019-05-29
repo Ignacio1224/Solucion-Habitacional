@@ -12,6 +12,9 @@ namespace Dominio.Clases
     {
         #region Props
 
+        [Key]
+        public int id { get; set; }
+
         [Required]
         [MinLength(2)]
         [MaxLength(50)]

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using Dominio.Clases;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace Dominio.Contexto_DB
 {
@@ -21,5 +22,15 @@ namespace Dominio.Contexto_DB
         {
 
         }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            modelBuilder.Entity<Sorteo>()
+            .HasKey(t => t.id)
+            ;
+
+        }
+
     }
 }
