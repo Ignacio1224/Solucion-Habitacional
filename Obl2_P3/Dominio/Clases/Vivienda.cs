@@ -20,7 +20,7 @@ namespace Dominio.Clases
         #region Props
 
         [Key]
-        public int id { get; set; }
+        public int idVivienda { get; set; }
 
         [Required]
         public string estado { get; set; }
@@ -34,10 +34,11 @@ namespace Dominio.Clases
         [Required]
         public string descripcion { get; set; }
 
-        [ForeignKey("barrio")]
-        [Required]
-        [Index("IDX_ViviendaBarrio")]
-        public Barrio barrio { get; set; }
+
+        private string nombreBarrio { get; set; }
+
+        [ForeignKey("nombreBarrio"), Required]
+        public virtual Barrio barrio { get; set; }
 
         [Required]
         public int banios { get; set; }
@@ -51,9 +52,12 @@ namespace Dominio.Clases
         [Required]
         public int anioConstruccion { get; set; }
 
-        [ForeignKey("moneda")]
-        [Required,Index("IDX_MonedaVivienda")]
-        public Parametro moneda { get; set; }
+       
+       
+        private string nombreParametro { get; set; }
+
+        [ForeignKey("nombreParametro"), Required]
+        public virtual Parametro moneda { get; set; }
 
         [Required]
         public decimal precioFinal { get; set; }

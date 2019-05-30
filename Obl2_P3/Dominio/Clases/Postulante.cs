@@ -13,7 +13,7 @@ namespace Dominio.Clases
         #region Props
 
         [Key]
-        public int id { get; set; }
+        public int idPostulante { get; set; }
 
         [Required]
         [MinLength(2)]

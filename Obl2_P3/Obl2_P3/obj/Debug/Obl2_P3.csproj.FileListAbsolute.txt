@@ -102,3 +102,5 @@ C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Obl2_P3\bin\es\System.We
 C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Obl2_P3\obj\Debug\Obl2_P3.csprojResolveAssemblyReference.cache
 C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Obl2_P3\obj\Debug\Obl2_P3.dll
 C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Obl2_P3\obj\Debug\Obl2_P3.pdb
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Obl2_P3\bin\Dominio.dll
+C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Obl2_P3\bin\Dominio.pdb

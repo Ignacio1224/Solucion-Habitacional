@@ -82,7 +82,7 @@ namespace Dominio.Repositorios
 
                     add(new Parametro
                     {
-                        nombre = s[0],
+                        nombreParametro = s[0],
                         valor = Convert.ToDecimal(s[1])
                     });
 
@@ -100,7 +100,7 @@ namespace Dominio.Repositorios
         {
             try
             {
-                Parametro pBuscado = db.parametro.Find(p.nombre);
+                Parametro pBuscado = db.parametro.Find(p.nombreParametro);
                 if (pBuscado != null)
                 {
                     pBuscado.valor = p.valor;

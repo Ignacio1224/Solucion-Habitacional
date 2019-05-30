@@ -25,8 +25,9 @@ namespace Dominio.Repositorios
                 db.Dispose();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message); 
                 return false;
             }
 
@@ -92,7 +93,7 @@ namespace Dominio.Repositorios
 
                     add(new Barrio
                     {
-                        nombre = s[0],
+                        nombreBarrio = s[0],
                         descripcion = s[1]
                     });
 
@@ -110,7 +111,7 @@ namespace Dominio.Repositorios
         {
             try
             { 
-                Barrio barrioBuscado = db.barrio.Find(b.nombre);
+                Barrio barrioBuscado = db.barrio.Find(b.nombreBarrio);
                 if (barrioBuscado != null)
                 {
                     barrioBuscado.descripcion = b.descripcion;

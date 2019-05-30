@@ -14,7 +14,7 @@ namespace Dominio.Clases
         #region Props
 
         [Key]
-        public string nombre { get; set; }
+        public string nombreParametro { get; set; }
 
         [Required]
         public decimal valor { get; set; }
@@ -27,7 +27,7 @@ namespace Dominio.Clases
         public bool esValido()
         {
             return
-                Utilidades.esCampoValido(this.nombre, 1, 255);
+                Utilidades.esCampoValido(this.nombreParametro, 1, 255);
         }
 
         #endregion

@@ -14,7 +14,7 @@ namespace Dominio.Clases
         #region Props
        
         [Key]
-        public string nombre { get; set; }
+        public string nombreBarrio { get; set; }
 
         [Required]
         public string descripcion { get; set; }
@@ -27,8 +27,8 @@ namespace Dominio.Clases
         public bool esValido()
         {
             return 
-                Utilidades.esCampoValido(this.nombre, 1, 255) &&
-                Utilidades.esCampoValido(this.nombre, 1, 255);
+                Utilidades.esCampoValido(this.nombreBarrio, 1, 255) &&
+                Utilidades.esCampoValido(this.nombreBarrio, 1, 255);
         }
 
         #endregion

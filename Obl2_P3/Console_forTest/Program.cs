@@ -12,18 +12,23 @@ namespace Console_forTest
     {
         static void Main(string[] args)
         {
-            Barrio barrioX = new Barrio() { nombre = "Cerrito", descripcion = "Casas sobre un cerrito" };
+            Barrio barrioX = new Barrio() { nombreBarrio = "Cerrito", descripcion = "Casas sobre un cerrito" };
 
             RepoBarrio repoB = new RepoBarrio();
-            if (repoB.add(barrioX))
+
+            try
             {
-                Console.WriteLine("Sabelo");
-                Console.ReadKey();
-            }else
-            {
-                Console.WriteLine("No saberlo");
+                repoB.add(barrioX);
+                Console.WriteLine("Gracias marcelo");
                 Console.ReadKey();
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.ReadKey();
+            }
+            
+           
         }
     }
 }

@@ -105,7 +105,7 @@ namespace Dominio.Repositorios
                     {
                         add(new ViviendaNueva
                         {
-                            id = id,
+                            idVivienda = id,
                             calle = calle,
                             nroPuerta = nroPuerta,
                             barrio = b,
@@ -123,7 +123,7 @@ namespace Dominio.Repositorios
                     {
                         add(new ViviendaUsada
                         {
-                            id = id,
+                            idVivienda = id,
                             calle = calle,
                             nroPuerta = nroPuerta,
                             barrio = b,
@@ -157,7 +157,7 @@ namespace Dominio.Repositorios
 
             try
             {
-                Vivienda vBuscada = db.vivienda.Find(v.id);
+                Vivienda vBuscada = db.vivienda.Find(v.idVivienda);
                 if (vBuscada != null)
                 {
                     vBuscada.anioConstruccion = v.anioConstruccion;
