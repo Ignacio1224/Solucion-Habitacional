@@ -110,8 +110,8 @@ namespace Dominio.Repositorios
                             nro_puerta = nroPuerta,
                             barrio = b,
                             descripcion = descripcion,
-                            banios = nroBanios,
-                            dormitorios = nroDormitorios,
+                            cant_banio = nroBanios,
+                            cant_dormitorio = nroDormitorios,
                             metraje = metraje,
                             anio_construccion = anio,
                             precio_final = precio,
@@ -128,8 +128,8 @@ namespace Dominio.Repositorios
                             nro_puerta = nroPuerta,
                             barrio = b,
                             descripcion = descripcion,
-                            banios = nroBanios,
-                            dormitorios = nroDormitorios,
+                            cant_banio = nroBanios,
+                            cant_dormitorio = nroDormitorios,
                             metraje = metraje,
                             anio_construccion = anio,
                             precio_final = precio,
@@ -161,11 +161,11 @@ namespace Dominio.Repositorios
                 if (vBuscada != null)
                 {
                     vBuscada.anio_construccion = v.anio_construccion;
-                    vBuscada.banios = v.banios;
+                    vBuscada.cant_banio = v.cant_banio;
                     vBuscada.barrio = v.barrio;
                     vBuscada.calle = v.calle;
                     vBuscada.descripcion = v.descripcion;
-                    vBuscada.dormitorios = v.dormitorios;
+                    vBuscada.cant_dormitorio = v.cant_dormitorio;
                     vBuscada.estado = v.estado;
                     vBuscada.metraje = v.metraje;
                     vBuscada.moneda = v.moneda;

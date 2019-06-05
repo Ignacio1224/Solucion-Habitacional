@@ -73,6 +73,10 @@
     <Compile Include="Migrations\201906051306105_segunda_migracion.Designer.cs">
       <DependentUpon>201906051306105_segunda_migracion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906051325352_cambio_de_nombre_atributos.cs" />
+    <Compile Include="Migrations\201906051325352_cambio_de_nombre_atributos.Designer.cs">
+      <DependentUpon>201906051325352_cambio_de_nombre_atributos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorios\RepoBarrio.cs" />
@@ -93,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906051306105_segunda_migracion.resx">
       <DependentUpon>201906051306105_segunda_migracion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906051325352_cambio_de_nombre_atributos.resx">
+      <DependentUpon>201906051325352_cambio_de_nombre_atributos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -29,7 +29,6 @@ namespace Dominio.Clases
         
         #endregion
 
-
         #region Metodos
 
         public Postulante sortear()

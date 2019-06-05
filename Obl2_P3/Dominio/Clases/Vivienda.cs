@@ -31,10 +31,10 @@ namespace Dominio.Clases
         public Barrio barrio { get; set; }
 
         [Required]
-        public int banios { get; set; }
+        public int cant_banio { get; set; }
 
         [Required]
-        public int dormitorios { get; set; }
+        public int cant_dormitorio { get; set; }
 
         [Required]
         public decimal metraje { get; set; }
@@ -60,8 +60,8 @@ namespace Dominio.Clases
                 Utilidades.esCampoValido(this.calle) &&
                 this.nro_puerta > 0 && this.nro_puerta < 9999 &&
                 Utilidades.esCampoValido(this.descripcion) &&
-                this.banios > 0 &&
-                this.dormitorios > 0 &&
+                this.cant_banio > 0 &&
+                this.cant_dormitorio > 0 &&
                 this.precio_final > 0 &&
                 this.metraje > 0;
         }

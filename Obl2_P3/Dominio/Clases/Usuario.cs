@@ -25,7 +25,6 @@ namespace Dominio.Clases
 
         #endregion
 
-
         #region Metodos
 
         public virtual bool esValido()

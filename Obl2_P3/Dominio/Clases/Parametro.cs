@@ -19,7 +19,11 @@ namespace Dominio.Clases
         [Required]
         public decimal valor { get; set; }
 
+        //____________________________________________________________________________________ //
+
+        // Atributo usado para generar la propiedad de navegación con FluentAPI en el Context.
         public List<Vivienda> viviendas { get; set; }
+        //____________________________________________________________________________________ //
 
         #endregion
 

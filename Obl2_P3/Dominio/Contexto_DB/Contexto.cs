@@ -25,6 +25,7 @@ namespace Dominio.Contexto_DB
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            // No pluraliza el nombre de las tablas
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             // Sorteo 1 --> 1 Vivienda

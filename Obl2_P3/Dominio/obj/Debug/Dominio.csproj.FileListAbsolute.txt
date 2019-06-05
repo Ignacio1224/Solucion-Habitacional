@@ -20,3 +20,5 @@ C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Domini
 C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.Migrations.primer_migracion.resources
 C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.csproj.GenerateResource.Cache
 C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.Migrations.segunda_migracion.resources
+C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.csprojResolveAssemblyReference.cache
+C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.Migrations.cambio_de_nombre_atributos.resources
