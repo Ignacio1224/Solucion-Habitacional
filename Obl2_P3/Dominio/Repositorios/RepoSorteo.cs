@@ -19,7 +19,7 @@ namespace Dominio.Repositorios
 
             try
             {
-                db.sorteo.Add(s);
+                db.sorteos.Add(s);
                 db.SaveChanges();
                 db.Dispose();
                 return true;
@@ -36,7 +36,7 @@ namespace Dominio.Repositorios
 
             try
             {
-                db.sorteo.Remove(s);
+                db.sorteos.Remove(s);
                 db.SaveChanges();
                 return true;
             }
@@ -53,9 +53,9 @@ namespace Dominio.Repositorios
 
             try
             {
-                if (db.sorteo.Count() > 0)
+                if (db.sorteos.Count() > 0)
                 {
-                    sLista = (from Sorteo s in db.sorteo select s).ToList();
+                    sLista = (from Sorteo s in db.sorteos select s).ToList();
                     db.Dispose();
                 }
             }
@@ -70,7 +70,7 @@ namespace Dominio.Repositorios
 
         public Sorteo findById(int sId)
         {
-            return db.sorteo.Find(sId);
+            return db.sorteos.Find(sId);
         }
 
         public bool update(Sorteo s)
@@ -78,7 +78,7 @@ namespace Dominio.Repositorios
             if (!s.esValido() || s == null) return false;
             try
             {
-                Sorteo sBuscado = db.sorteo.Find(s.id);
+                Sorteo sBuscado = db.sorteos.Find(s.id);
                 if (sBuscado != null)
                 {
                     sBuscado.fecha = s.fecha;

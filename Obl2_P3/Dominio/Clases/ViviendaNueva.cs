@@ -11,8 +11,13 @@ namespace Dominio.Clases
     [Table("ViviendaNueva")]
     public class ViviendaNueva:Vivienda
     {
+        #region properties
+
+        #endregion
+
+
         #region Metodos
-        
+
         #endregion
     }
 }

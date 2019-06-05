@@ -20,7 +20,7 @@ namespace Dominio.Repositorios
 
             try
             {
-                db.barrio.Add(b);
+                db.barrios.Add(b);
                 db.SaveChanges();
                 db.Dispose();
                 return true;
@@ -39,7 +39,7 @@ namespace Dominio.Repositorios
 
             try
             {
-                db.barrio.Remove(b);
+                db.barrios.Remove(b);
                 db.SaveChanges();
                 db.Dispose();
                 return true;
@@ -54,9 +54,9 @@ namespace Dominio.Repositorios
         {
             List<Barrio> listaBarrios = null;
 
-            if (db.barrio.Count() > 0)
+            if (db.barrios.Count() > 0)
             {
-                listaBarrios = (from Barrio b in db.barrio select b).ToList();
+                listaBarrios = (from Barrio b in db.barrios select b).ToList();
                 db.Dispose();
             }
 
@@ -67,7 +67,7 @@ namespace Dominio.Repositorios
         {
             try
             {
-                Barrio barrioBuscado = db.barrio.Find(bName);
+                Barrio barrioBuscado = db.barrios.Find(bName);
                 db.Dispose();
                 return barrioBuscado;
             }
@@ -93,7 +93,7 @@ namespace Dominio.Repositorios
 
                     add(new Barrio
                     {
-                        nombreBarrio = s[0],
+                        nombre_barrio = s[0],
                         descripcion = s[1]
                     });
 
@@ -111,7 +111,7 @@ namespace Dominio.Repositorios
         {
             try
             { 
-                Barrio barrioBuscado = db.barrio.Find(b.nombreBarrio);
+                Barrio barrioBuscado = db.barrios.Find(b.nombre_barrio);
                 if (barrioBuscado != null)
                 {
                     barrioBuscado.descripcion = b.descripcion;

@@ -13,7 +13,7 @@ namespace Dominio.Clases
         #region Props
 
         [Key]
-        public int idPostulante { get; set; }
+        public int id_postulante { get; set; }
 
         [Required]
         [MinLength(2)]
@@ -28,10 +28,15 @@ namespace Dominio.Clases
         [Required]
         [EmailAddress]
         [Index(IsUnique = true)]
+        [StringLength(254)]
         public string email { get; set; }
 
         [Required]
-        public DateTime fechaNac { get; set; }
+        public DateTime fecha_nac { get; set; }
+
+        public Sorteo sorteo { get; set; }
+
+        public List<Sorteo> sorteos { get; set; }
 
         #endregion
 
@@ -39,7 +44,7 @@ namespace Dominio.Clases
 
         public bool es_mayor()
         {
-            return this.fechaNac.AddYears(18) <= DateTime.Today;
+            return this.fecha_nac.AddYears(18) <= DateTime.Today;
         }
 
         public override bool esValido()

@@ -19,7 +19,7 @@ namespace Dominio.Repositorios
 
             try
             {
-                db.usuario.Add(u);
+                db.usuarios.Add(u);
                 db.SaveChanges();
                 db.Dispose();
                 return true;
@@ -37,7 +37,7 @@ namespace Dominio.Repositorios
 
             try
             {
-                db.usuario.Remove(u);
+                db.usuarios.Remove(u);
                 db.SaveChanges();
                 db.Dispose();
                 return true;
@@ -54,9 +54,9 @@ namespace Dominio.Repositorios
             List<Usuario> uLista = null;
             try
             {
-                if (db.usuario.Count() > 0)
+                if (db.usuarios.Count() > 0)
                 {
-                    uLista = (from Usuario u in db.usuario select u).ToList();
+                    uLista = (from Usuario u in db.usuarios select u).ToList();
                     db.Dispose();
                 }
             }
@@ -78,7 +78,7 @@ namespace Dominio.Repositorios
         {
             if (!u.esValido() || u == null) return false;
 
-            Usuario usu = db.usuario.Find(u.cedula);
+            Usuario usu = db.usuarios.Find(u.cedula);
             if (usu != null) return true;
             else return false;
         }
@@ -89,7 +89,7 @@ namespace Dominio.Repositorios
 
             try
             {
-                Usuario uBuscado = db.usuario.Find(u.cedula);
+                Usuario uBuscado = db.usuarios.Find(u.cedula);
                 if (uBuscado != null)
                 {
                     uBuscado.cedula = u.cedula;

@@ -20,7 +20,7 @@ namespace Dominio.Repositorios
 
             try
             {
-                db.parametro.Add(p);
+                db.parametros.Add(p);
                 db.SaveChanges();
                 db.Dispose();
                 return true;
@@ -38,7 +38,7 @@ namespace Dominio.Repositorios
 
             try
             {
-                db.parametro.Remove(p);
+                db.parametros.Remove(p);
                 db.SaveChanges();
                 db.Dispose();
                 return true;
@@ -56,7 +56,7 @@ namespace Dominio.Repositorios
 
             try
             { 
-                p = db.parametro.Find(pName);
+                p = db.parametros.Find(pName);
                 db.Dispose();
             }
             catch (Exception)
@@ -82,7 +82,7 @@ namespace Dominio.Repositorios
 
                     add(new Parametro
                     {
-                        nombreParametro = s[0],
+                        nombre_parametro = s[0],
                         valor = Convert.ToDecimal(s[1])
                     });
 
@@ -100,7 +100,7 @@ namespace Dominio.Repositorios
         {
             try
             {
-                Parametro pBuscado = db.parametro.Find(p.nombreParametro);
+                Parametro pBuscado = db.parametros.Find(p.nombre_parametro);
                 if (pBuscado != null)
                 {
                     pBuscado.valor = p.valor;

@@ -8,19 +8,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio.Clases
 {
-    //Dejando esta sentencia EF mapearia la tabla Vivienda como una 3er tabla
-
-    //[Table("Vivienda")]   
-
-    //Colocandole esta misma sentencia a las otras dos tablas de vivienda especificas mapeamos correctamente la herencia
-    //EF termina generando solo 2 tablas, una para Usada  y otra para Nueva.
     [Table("Vivienda")]
     public abstract class Vivienda
     {
         #region Props
 
         [Key]
-        public int idVivienda { get; set; }
+        public int id_vivienda { get; set; }
 
         [Required]
         public string estado { get; set; }
@@ -29,16 +23,12 @@ namespace Dominio.Clases
         public string calle { get; set; }
 
         [Required]
-        public int nroPuerta { get; set; }
+        public int nro_puerta { get; set; }
 
         [Required]
         public string descripcion { get; set; }
 
-
-        private string nombreBarrio { get; set; }
-
-        [ForeignKey("nombreBarrio"), Required]
-        public virtual Barrio barrio { get; set; }
+        public Barrio barrio { get; set; }
 
         [Required]
         public int banios { get; set; }
@@ -50,17 +40,14 @@ namespace Dominio.Clases
         public decimal metraje { get; set; }
 
         [Required]
-        public int anioConstruccion { get; set; }
+        public int anio_construccion { get; set; }
 
-       
-       
-        private string nombreParametro { get; set; }
-
-        [ForeignKey("nombreParametro"), Required]
-        public virtual Parametro moneda { get; set; }
+        public Parametro moneda { get; set; }
 
         [Required]
-        public decimal precioFinal { get; set; }
+        public decimal precio_final { get; set; }
+
+        public Sorteo sorteo { get; set; }
 
         #endregion
 
@@ -71,11 +58,11 @@ namespace Dominio.Clases
             return 
                 (estado == "Recibida" || estado == "Habilitada" || estado == "Inhabilitada") &&
                 Utilidades.esCampoValido(this.calle) &&
-                this.nroPuerta > 0 && this.nroPuerta < 9999 &&
+                this.nro_puerta > 0 && this.nro_puerta < 9999 &&
                 Utilidades.esCampoValido(this.descripcion) &&
                 this.banios > 0 &&
                 this.dormitorios > 0 &&
-                this.precioFinal > 0 &&
+                this.precio_final > 0 &&
                 this.metraje > 0;
         }
         

@@ -65,6 +65,14 @@
     <Compile Include="Interfaces\IRepoSorteo.cs" />
     <Compile Include="Interfaces\IRepoUsuario.cs" />
     <Compile Include="Interfaces\IRepoVivienda.cs" />
+    <Compile Include="Migrations\201906051257509_primer_migracion.cs" />
+    <Compile Include="Migrations\201906051257509_primer_migracion.Designer.cs">
+      <DependentUpon>201906051257509_primer_migracion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906051306105_segunda_migracion.cs" />
+    <Compile Include="Migrations\201906051306105_segunda_migracion.Designer.cs">
+      <DependentUpon>201906051306105_segunda_migracion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorios\RepoBarrio.cs" />
@@ -76,9 +84,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201906051257509_primer_migracion.resx">
+      <DependentUpon>201906051257509_primer_migracion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906051306105_segunda_migracion.resx">
+      <DependentUpon>201906051306105_segunda_migracion.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

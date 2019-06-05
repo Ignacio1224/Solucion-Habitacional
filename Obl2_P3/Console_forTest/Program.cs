@@ -12,9 +12,10 @@ namespace Console_forTest
     {
         static void Main(string[] args)
         {
-            Barrio barrioX = new Barrio() { nombreBarrio = "Cerrito", descripcion = "Casas sobre un cerrito" };
+            Barrio barrioX = new Barrio() { nombre_barrio = "Cerrito", descripcion = "Casas sobre un cerrito" };
 
             RepoBarrio repoB = new RepoBarrio();
+
 
             try
             {

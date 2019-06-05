@@ -20,7 +20,7 @@ namespace Dominio.Repositorios
 
             try
             {
-                db.vivienda.Add(v);
+                db.viviendas.Add(v);
                 db.SaveChanges();
                 db.Dispose();
                 return true;
@@ -38,7 +38,7 @@ namespace Dominio.Repositorios
 
             try
             {
-                db.vivienda.Remove(v);
+                db.viviendas.Remove(v);
                 db.SaveChanges();
                 db.Dispose();
                 return true;
@@ -54,9 +54,9 @@ namespace Dominio.Repositorios
             List<Vivienda> vLista = null;
             try
             {
-                if (db.vivienda.Count() > 0)
+                if (db.viviendas.Count() > 0)
                 {
-                    vLista = (from Vivienda v in db.vivienda select v).ToList();
+                    vLista = (from Vivienda v in db.viviendas select v).ToList();
                     db.Dispose();
                 }
             }
@@ -71,7 +71,7 @@ namespace Dominio.Repositorios
 
         public Vivienda findById(int vId)
         {
-            return db.vivienda.Find(vId);
+            return db.viviendas.Find(vId);
         }
 
         public bool import()
@@ -105,16 +105,16 @@ namespace Dominio.Repositorios
                     {
                         add(new ViviendaNueva
                         {
-                            idVivienda = id,
+                            id_vivienda = id,
                             calle = calle,
-                            nroPuerta = nroPuerta,
+                            nro_puerta = nroPuerta,
                             barrio = b,
                             descripcion = descripcion,
                             banios = nroBanios,
                             dormitorios = nroDormitorios,
                             metraje = metraje,
-                            anioConstruccion = anio,
-                            precioFinal = precio,
+                            anio_construccion = anio,
+                            precio_final = precio,
                             estado = estado,
                             moneda = rp.findByName("cotizacionUI")
                         });
@@ -123,19 +123,19 @@ namespace Dominio.Repositorios
                     {
                         add(new ViviendaUsada
                         {
-                            idVivienda = id,
+                            id_vivienda = id,
                             calle = calle,
-                            nroPuerta = nroPuerta,
+                            nro_puerta = nroPuerta,
                             barrio = b,
                             descripcion = descripcion,
                             banios = nroBanios,
                             dormitorios = nroDormitorios,
                             metraje = metraje,
-                            anioConstruccion = anio,
-                            precioFinal = precio,
+                            anio_construccion = anio,
+                            precio_final = precio,
                             estado = estado,
                             moneda = rp.findByName("cotizacionUSD"),
-                            montoContribucion = Convert.ToDecimal(s[11])
+                            monto_contribucion = Convert.ToDecimal(s[11])
                         });
                     }
 
@@ -157,10 +157,10 @@ namespace Dominio.Repositorios
 
             try
             {
-                Vivienda vBuscada = db.vivienda.Find(v.idVivienda);
+                Vivienda vBuscada = db.viviendas.Find(v.id_vivienda);
                 if (vBuscada != null)
                 {
-                    vBuscada.anioConstruccion = v.anioConstruccion;
+                    vBuscada.anio_construccion = v.anio_construccion;
                     vBuscada.banios = v.banios;
                     vBuscada.barrio = v.barrio;
                     vBuscada.calle = v.calle;
@@ -169,8 +169,8 @@ namespace Dominio.Repositorios
                     vBuscada.estado = v.estado;
                     vBuscada.metraje = v.metraje;
                     vBuscada.moneda = v.moneda;
-                    vBuscada.nroPuerta = v.nroPuerta;
-                    vBuscada.precioFinal = v.precioFinal;
+                    vBuscada.nro_puerta = v.nro_puerta;
+                    vBuscada.precio_final = v.precio_final;
 
                     if (vBuscada.esValida())
                     {

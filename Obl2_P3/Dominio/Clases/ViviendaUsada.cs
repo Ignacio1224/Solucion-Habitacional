@@ -14,7 +14,7 @@ namespace Dominio.Clases
         #region Props
 
         [Required]
-        public decimal montoContribucion { get; set; }
+        public decimal monto_contribucion { get; set; }
 
         #endregion
 
@@ -24,7 +24,7 @@ namespace Dominio.Clases
         {
             return 
                 base.esValida() &&
-                montoContribucion > 0;  
+                monto_contribucion > 0;  
         }
 
         #endregion

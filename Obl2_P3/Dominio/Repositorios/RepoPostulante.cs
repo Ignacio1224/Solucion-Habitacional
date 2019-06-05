@@ -97,7 +97,7 @@ namespace Dominio.Repositorios
                     pBuscado.apellido = p.apellido;
                     pBuscado.clave = p.clave;
                     pBuscado.email = p.email;
-                    pBuscado.fechaNac = p.fechaNac;
+                    pBuscado.fecha_nac = p.fecha_nac;
                     if (pBuscado.esValido())
                     {
                         db.SaveChanges();
