@@ -19,7 +19,7 @@ namespace Console_forTest
 
             try
             {
-                repoB.add(barrioX);
+                repoB.import();
                 Console.WriteLine("Gracias marcelo");
                 Console.ReadKey();
             }

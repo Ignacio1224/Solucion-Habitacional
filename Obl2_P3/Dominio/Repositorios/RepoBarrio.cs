@@ -16,19 +16,23 @@ namespace Dominio.Repositorios
 
         public bool add(Barrio b)
         {
+            Contexto db = new Contexto();
             if (b == null) return false;
 
             try
             {
                 db.barrios.Add(b);
                 db.SaveChanges();
-                db.Dispose();
                 return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message); 
                 return false;
+            }
+            finally
+            {
+                db.Dispose();
             }
 
         }
@@ -82,7 +86,7 @@ namespace Dominio.Repositorios
         {
             bool imported = false;
 
-            using (StreamReader file = new StreamReader("../../../Archivos_Para_Importar/Barrios.txt"))
+            using (StreamReader file = new StreamReader("../../../../Archivos_Para_Importar/Barrios.txt"))
             {
                 string ln;
 
@@ -90,7 +94,6 @@ namespace Dominio.Repositorios
                 {
 
                     string[] s = ln.Split('#');
-
                     add(new Barrio
                     {
                         nombre_barrio = s[0],
