@@ -7,15 +7,17 @@ using Dominio.Clases;
 using Dominio.Interfaces;
 using Dominio.Contexto_DB;
 using System.IO;
+using System.Diagnostics;
 
 namespace Dominio.Repositorios
 {
-    public class RepoParametro : IRepoParametro
+    public class RepoParametro : IRepoParametro, IRepoImport
     {
-        Contexto db = new Contexto();
 
         public bool add(Parametro p)
         {
+            Contexto db = new Contexto();
+
             if (p == null) return false;
 
             try
@@ -34,6 +36,8 @@ namespace Dominio.Repositorios
 
         public bool delete(Parametro p)
         {
+            Contexto db = new Contexto();
+
             if (p == null) return false;
 
             try
@@ -52,6 +56,8 @@ namespace Dominio.Repositorios
 
         public Parametro findByName(string pName)
         {
+            Contexto db = new Contexto();
+
             Parametro p = null;
 
             try
@@ -69,35 +75,49 @@ namespace Dominio.Repositorios
 
         public bool import()
         {
+            Contexto db = new Contexto();
+
+            List<Parametro> parametros_a_importar = new List<Parametro>();
+
             bool imported = false;
 
-            using (StreamReader file = new StreamReader("../../../Archivos_Para_Importar/Parametros.txt"))
+            using (StreamReader file = new StreamReader("../../../../Archivos_Para_Importar/Parametros.txt"))
             {
                 string ln;
-
                 while ((ln = file.ReadLine()) != null)
                 {
 
                     string[] s = ln.Split('#');
-
-                    add(new Parametro
+                    parametros_a_importar.Add(new Parametro
                     {
                         nombre_parametro = s[0],
                         valor = Convert.ToDecimal(s[1])
                     });
-
                 }
 
                 file.Close();
-                imported = true;
             }
 
+            try
+            {
+                db.parametros.AddRange(parametros_a_importar);
+                db.SaveChanges();
+
+                imported = true;
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
 
             return imported;
         }
 
         public bool update(Parametro p)
         {
+            Contexto db = new Contexto();
+
             try
             {
                 Parametro pBuscado = db.parametros.Find(p.nombre_parametro);

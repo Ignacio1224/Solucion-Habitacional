@@ -7,6 +7,7 @@ using Dominio.Clases;
 using Dominio.Interfaces;
 using Dominio.Contexto_DB;
 using System.IO;
+using System.Diagnostics;
 
 namespace Dominio.Repositorios
 {
@@ -76,18 +77,22 @@ namespace Dominio.Repositorios
 
         public bool import()
         {
-            bool imported = false;
+            Contexto db = new Contexto();
+
             RepoBarrio rb = new RepoBarrio();
             RepoParametro rp = new RepoParametro();
 
-            using (StreamReader file = new StreamReader("../../../Archivos_Para_Importar/Viviendas.txt"))
+            List<Vivienda> viviendas_a_importar = new List<Vivienda>();
+
+            bool imported = false;
+
+            using (StreamReader file = new StreamReader("../../../../Archivos_Para_Importar/Viviendas.txt"))
             {
                 string ln;
-
                 while ((ln = file.ReadLine()) != null)
                 {
-                    string[] s = ln.Split('#');
 
+                    string[] s = ln.Split('#');
                     int id = Convert.ToInt32(s[0]);
                     string calle = s[1];
                     int nroPuerta = Convert.ToInt32(s[2]);
@@ -103,7 +108,7 @@ namespace Dominio.Repositorios
 
                     if (tipo == "Nueva")
                     {
-                        add(new ViviendaNueva
+                        viviendas_a_importar.Add(new ViviendaNueva
                         {
                             id_vivienda = id,
                             calle = calle,
@@ -121,7 +126,7 @@ namespace Dominio.Repositorios
                     }
                     else if (tipo == "Usada")
                     {
-                        add(new ViviendaUsada
+                        viviendas_a_importar.Add(new ViviendaUsada
                         {
                             id_vivienda = id,
                             calle = calle,
@@ -139,13 +144,23 @@ namespace Dominio.Repositorios
                         });
                     }
 
-
                 }
 
                 file.Close();
-                imported = true;
             }
 
+            try
+            {
+                db.viviendas.AddRange(viviendas_a_importar);
+                db.SaveChanges();
+
+                imported = true;
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
 
             return imported;
         }

@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Dominio.Clases;
 using Dominio.Contexto_DB;
 using Dominio.Interfaces;
 using System.IO;
+using System.Diagnostics;
 
 namespace Dominio.Repositorios
 {
-    public class RepoBarrio : IRepoBarrio
+    public class RepoBarrio : IRepoBarrio, IRepoImport
     {
-        Contexto db = new Contexto();
-
+        
         public bool add(Barrio b)
         {
             Contexto db = new Contexto();
@@ -39,6 +37,8 @@ namespace Dominio.Repositorios
 
         public bool delete(Barrio b)
         {
+            Contexto db = new Contexto();
+
             if (b == null) return false;
 
             try
@@ -56,6 +56,8 @@ namespace Dominio.Repositorios
 
         public IEnumerable<Barrio> findAll()
         {
+            Contexto db = new Contexto();
+
             List<Barrio> listaBarrios = null;
 
             if (db.barrios.Count() > 0)
@@ -69,6 +71,8 @@ namespace Dominio.Repositorios
 
         public Barrio findByName(string bName)
         {
+            Contexto db = new Contexto();
+
             try
             {
                 Barrio barrioBuscado = db.barrios.Find(bName);
@@ -84,34 +88,48 @@ namespace Dominio.Repositorios
 
         public bool import()
         {
+            Contexto db = new Contexto();
+
+            List<Barrio> barrios_a_importar = new List<Barrio>();
+
             bool imported = false;
 
             using (StreamReader file = new StreamReader("../../../../Archivos_Para_Importar/Barrios.txt"))
             {
                 string ln;
-
                 while ((ln = file.ReadLine()) != null)
                 {
 
                     string[] s = ln.Split('#');
-                    add(new Barrio
+                    barrios_a_importar.Add(new Barrio
                     {
                         nombre_barrio = s[0],
                         descripcion = s[1]
                     });
-
                 }
 
                 file.Close();
-                imported = true;
             }
 
+            try
+            {
+                db.barrios.AddRange(barrios_a_importar);
+                db.SaveChanges();
+
+                imported = true;
+
+            } catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
 
             return imported;
         }
 
         public bool update(Barrio b)
         {
+            Contexto db = new Contexto();
+
             try
             { 
                 Barrio barrioBuscado = db.barrios.Find(b.nombre_barrio);

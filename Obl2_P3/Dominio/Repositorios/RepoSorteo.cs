@@ -11,10 +11,10 @@ namespace Dominio.Repositorios
 {
     public class RepoSorteo : IRepoSorteo
     {
-        Contexto db = new Contexto();
-
         public bool add(Sorteo s)
         {
+            Contexto db = new Contexto();
+
             if (!s.esValido() || s == null) return false;
 
             try
@@ -32,6 +32,8 @@ namespace Dominio.Repositorios
 
         public bool delete(Sorteo s)
         {
+            Contexto db = new Contexto();
+
             if (s == null) return false;
 
             try
@@ -49,6 +51,8 @@ namespace Dominio.Repositorios
 
         public IEnumerable<Sorteo> findAll()
         {
+            Contexto db = new Contexto();
+
             List<Sorteo> sLista = null;
 
             try
@@ -70,11 +74,15 @@ namespace Dominio.Repositorios
 
         public Sorteo findById(int sId)
         {
+            Contexto db = new Contexto();
+
             return db.sorteos.Find(sId);
         }
 
         public bool update(Sorteo s)
         {
+            Contexto db = new Contexto();
+
             if (!s.esValido() || s == null) return false;
             try
             {

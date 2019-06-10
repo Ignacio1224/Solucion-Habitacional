@@ -60,6 +60,7 @@
     <Compile Include="Clases\ViviendaUsada.cs" />
     <Compile Include="Contexto_DB\Contexto.cs" />
     <Compile Include="Interfaces\IRepoBarrio.cs" />
+    <Compile Include="Interfaces\IRepoImport.cs" />
     <Compile Include="Interfaces\IRepoParametro.cs" />
     <Compile Include="Interfaces\IRepoPostulante.cs" />
     <Compile Include="Interfaces\IRepoSorteo.cs" />

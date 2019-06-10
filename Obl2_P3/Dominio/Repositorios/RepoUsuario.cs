@@ -11,10 +11,12 @@ namespace Dominio.Repositorios
 {
     public class RepoUsuario : IRepoUsuario
     {
-        Contexto db = new Contexto();
+        
 
         public bool add(Usuario u)
         {
+            Contexto db = new Contexto();
+
             if (!u.esValido() || u == null) return false;
 
             try
@@ -33,6 +35,8 @@ namespace Dominio.Repositorios
 
         public bool delete(Usuario u)
         {
+            Contexto db = new Contexto();
+
             if (u == null) return false;
 
             try
@@ -51,6 +55,8 @@ namespace Dominio.Repositorios
 
         public IEnumerable<Usuario> findAll()
         {
+            Contexto db = new Contexto();
+
             List<Usuario> uLista = null;
             try
             {
@@ -71,11 +77,15 @@ namespace Dominio.Repositorios
 
         public Usuario findByCi(int uCi)
         {
+            Contexto db = new Contexto();
+
             return db.postulantes.Find(uCi);
         }
 
         public bool login(Usuario u)
         {
+            Contexto db = new Contexto();
+
             if (!u.esValido() || u == null) return false;
 
             Usuario usu = db.usuarios.Find(u.cedula);
@@ -85,6 +95,8 @@ namespace Dominio.Repositorios
 
         public bool update(Usuario u)
         {
+            Contexto db = new Contexto();
+
             if (!u.esValido() || u == null) return false;
 
             try
