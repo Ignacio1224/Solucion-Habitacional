@@ -173,6 +173,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Sorteo\Index.cshtml" />
     <Content Include="Views\Barrio\Index.cshtml" />
+    <Content Include="Views\Barrio\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

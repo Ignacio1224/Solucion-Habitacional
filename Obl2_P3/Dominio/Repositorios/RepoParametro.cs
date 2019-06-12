@@ -81,7 +81,7 @@ namespace Dominio.Repositorios
 
             bool imported = false;
 
-            using (StreamReader file = new StreamReader("../../../../Archivos_Para_Importar/Parametros.txt"))
+            using (StreamReader file = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "Archivos\\Parametros.txt"))
             {
                 string ln;
                 while ((ln = file.ReadLine()) != null)

@@ -42,6 +42,11 @@ namespace Dominio.Clases
                 Utilidades.esCampoValido(this.nombre_barrio, 1, 255);
         }
 
+        public override string ToString()
+        {
+            return nombre_barrio + "#" + descripcion;
+        }
+
         #endregion
 
     }

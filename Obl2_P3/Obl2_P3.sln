@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Obl2_P3", "Obl2_P3\Obl2_P3.csproj", "{7D9DCB48-C7A3-4AC5-A44A-7388E2609DDA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC", "Obl2_P3\MVC.csproj", "{7D9DCB48-C7A3-4AC5-A44A-7388E2609DDA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "Dominio\Dominio.csproj", "{8EECEF18-2136-494C-AD01-67A936859FFF}"
 EndProject

@@ -69,6 +69,23 @@ namespace Dominio.Repositorios
             return listaBarrios;
         }
 
+        public Barrio findById(int id)
+        {
+            Contexto db = new Contexto();
+
+            try
+            {
+                Barrio barrioBuscado = db.barrios.Find(id);
+                db.Dispose();
+                return barrioBuscado;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+
         public Barrio findByName(string bName)
         {
             Contexto db = new Contexto();
@@ -91,10 +108,11 @@ namespace Dominio.Repositorios
             Contexto db = new Contexto();
 
             List<Barrio> barrios_a_importar = new List<Barrio>();
+            List<string> errores = new List<string>();
 
-            bool imported = false;
+            bool imported = true;
 
-            using (StreamReader file = new StreamReader("../../../../Archivos_Para_Importar/Barrios.txt"))
+            using (StreamReader file = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "Archivos\\Barrios.txt"))
             {
                 string ln;
                 while ((ln = file.ReadLine()) != null)
@@ -113,10 +131,44 @@ namespace Dominio.Repositorios
 
             try
             {
-                db.barrios.AddRange(barrios_a_importar);
+
+                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "Archivos\\Errores.txt", string.Empty);
+
+                foreach (Barrio b in barrios_a_importar)
+                {
+                    if (! b.esValido())
+                    {
+                        // Mandarlo a errores.txt
+                        errores.Add("Nombre o descripcion no válida#" + b.ToString());
+                        imported = false;
+                    } else
+                    {
+                        if (db.barrios.Where(bd => bd.nombre_barrio == b.nombre_barrio).FirstOrDefault() != null)
+                        {
+                            // Mandar a errores.txt
+                            errores.Add("Barrio duplicado#" + b.ToString());
+                            imported = false;
+
+                        }
+                        else
+                        {
+                            db.barrios.Add(b);
+                        }
+                    }
+                }
+
                 db.SaveChanges();
 
-                imported = true;
+                using (StreamWriter file = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "Archivos\\Errores.txt"))
+                {
+                    foreach (string b in errores)
+                    {
+                        file.WriteLineAsync(b);
+                    }
+
+                    file.Close();
+                }
+
 
             } catch (Exception ex)
             {
