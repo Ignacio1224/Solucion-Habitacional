@@ -138,17 +138,14 @@ namespace Dominio.Repositorios
                 {
                     if (! b.esValido())
                     {
-                        // Mandarlo a errores.txt
                         errores.Add("Nombre o descripcion no válida#" + b.ToString());
                         imported = false;
                     } else
                     {
                         if (db.barrios.Where(bd => bd.nombre_barrio == b.nombre_barrio).FirstOrDefault() != null)
                         {
-                            // Mandar a errores.txt
                             errores.Add("Barrio duplicado#" + b.ToString());
                             imported = false;
-
                         }
                         else
                         {

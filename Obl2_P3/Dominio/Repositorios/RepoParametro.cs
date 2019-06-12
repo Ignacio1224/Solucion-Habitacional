@@ -78,8 +78,9 @@ namespace Dominio.Repositorios
             Contexto db = new Contexto();
 
             List<Parametro> parametros_a_importar = new List<Parametro>();
+            List<string> errores = new List<string>();
 
-            bool imported = false;
+            bool imported = true;
 
             using (StreamReader file = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "Archivos\\Parametros.txt"))
             {
@@ -100,10 +101,36 @@ namespace Dominio.Repositorios
 
             try
             {
-                db.parametros.AddRange(parametros_a_importar);
+                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "Archivos\\Errores.txt", string.Empty);
+
+                foreach (Parametro p in parametros_a_importar) {
+                    if (! p.esValido()) {
+                        errores.Add("Nombre o valor no válido#" + p.ToString());
+                        imported = false;
+                    } else {
+                        if (db.parametros.Where(pd => pd.nombre_parametro == p.nombre_parametro).FirstOrDefault() != null)
+                        {
+                            errores.Add("Parámetro duplicado#" + p.ToString());
+                            imported = false;
+                        }
+                        else
+                        {
+                            db.parametros.Add(p);
+                        }
+                    }
+                }
+                
                 db.SaveChanges();
 
-                imported = true;
+                using (StreamWriter file = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "Archivos\\Errores.txt"))
+                {
+                    foreach (string s in errores)
+                    {
+                        file.WriteLineAsync(s);
+                    }
+
+                    file.Close();
+                }
 
             }
             catch (Exception ex)
