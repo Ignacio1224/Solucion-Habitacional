@@ -65,7 +65,13 @@ namespace Dominio.Clases
                 this.precio_final > 0 &&
                 this.metraje > 0;
         }
-        
+
+        public override string ToString()
+        {
+            return calle + "#" + nro_puerta + "#" + descripcion + "#" + barrio.nombre_barrio + "#" + cant_banio + "#" + cant_dormitorio + "#" + metraje
+                 + "#" + anio_construccion + "#" + precio_final;
+        }
+
         #endregion
     }
 }

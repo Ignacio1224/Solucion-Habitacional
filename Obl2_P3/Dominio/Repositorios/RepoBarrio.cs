@@ -92,7 +92,7 @@ namespace Dominio.Repositorios
 
             try
             {
-                Barrio barrioBuscado = db.barrios.Find(bName);
+                Barrio barrioBuscado = db.barrios.Where(ba => ba.nombre_barrio == bName).SingleOrDefault();
                 db.Dispose();
                 return barrioBuscado;
             }
@@ -131,9 +131,6 @@ namespace Dominio.Repositorios
 
             try
             {
-
-                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "Archivos\\Errores.txt", string.Empty);
-
                 foreach (Barrio b in barrios_a_importar)
                 {
                     if (! b.esValido())
@@ -156,15 +153,7 @@ namespace Dominio.Repositorios
 
                 db.SaveChanges();
 
-                using (StreamWriter file = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "Archivos\\Errores.txt"))
-                {
-                    foreach (string b in errores)
-                    {
-                        file.WriteLineAsync(b);
-                    }
-
-                    file.Close();
-                }
+                Utilidades.escribirErrores(errores);
 
 
             } catch (Exception ex)

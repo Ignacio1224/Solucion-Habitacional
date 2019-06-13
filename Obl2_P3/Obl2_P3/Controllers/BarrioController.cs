@@ -27,52 +27,7 @@ namespace Obl2_P3.Controllers
             return View("Details", rb.findById(id));
         }
 
-        // GET: Barrio/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Barrio/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Barrio/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Barrio/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                RepoBarrio rb = new RepoBarrio();
-
-                //rb.delete(collection);
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
+        // POST: Barrio/Import
         [HttpPost]
         public ActionResult Import()
         {

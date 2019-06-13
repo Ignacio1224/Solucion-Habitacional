@@ -14,7 +14,7 @@ namespace Console_forTest
         {
             Barrio barrioX = new Barrio() { nombre_barrio = "Cerrito", descripcion = "Casas sobre un cerrito" };
 
-            RepoBarrio repoB = new RepoBarrio();
+            RepoVivienda repoB = new RepoVivienda();
 
 
             try

@@ -22,32 +22,22 @@
                     @Html.ActionLink("Inicio", "Index", "Home", new { area = "" })
                 </li>
 
-                <li class="dropdown">
-                    <a class="dropdown-toggle @(ViewBag.ActiveMenuItem == "sorteo" ? "active" : "" )" data-toggle="dropdown" href="#">
-                        Sorteo
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Sortear vivienda", "Index", "Sorteo")</li>
-                        <li>@Html.ActionLink("Ver sorteos", "About", "Home")</li>
-                    </ul>
+
+                <li class="@(ViewBag.ActiveMenuItem == "sorteo" ? "active" : "" )">
+                    @Html.ActionLink("Sorteos", "Index", "Sorteo")
                 </li>
 
-                <li class="dropdown">
-                    <a class="dropdown-toggle @(ViewBag.ActiveMenuItem == "home" ? "vivienda" : "" )" data-toggle="dropdown" href="#">
-                        Vivienda
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Ver viviendas", "About", "Home")</li>
-                        <li>@Html.ActionLink("Importar viviendas", "About", "Home")</li>
-                    </ul>
+                <li class="@(ViewBag.ActiveMenuItem == "vivienda" ? "active" : "" )">
+                    @Html.ActionLink("Viviendas", "Index", "Vivienda")
                 </li>
 
                 <li class=@(ViewBag.ActiveMenuItem == "barrio" ? "active" : "")>
                     @Html.ActionLink("Barrios", "Index", "Barrio")
                 </li>
                 
+                <li class=@(ViewBag.ActiveMenuItem == "parametro" ? "active" : "")>
+                    @Html.ActionLink("Parametros", "Index", "Parametro")
+                </li>
 
                 <li class = @(ViewBag.ActiveMenuItem == "about" ? "active" : "")>
                         @Html.ActionLink("Acerca de", "About", "Home")

@@ -27,6 +27,11 @@ namespace Dominio.Clases
                 monto_contribucion > 0;  
         }
 
+        public override string ToString()
+        {
+            return base.ToString() + "#" + monto_contribucion;
+        }
+
         #endregion
 
     }

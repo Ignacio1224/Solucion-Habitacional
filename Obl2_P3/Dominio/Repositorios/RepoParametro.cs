@@ -54,6 +54,21 @@ namespace Dominio.Repositorios
 
         }
 
+        public IEnumerable<Parametro> findAll()
+        {
+            Contexto db = new Contexto();
+
+            List<Parametro> listaParametros = null;
+
+            if (db.barrios.Count() > 0)
+            {
+                listaParametros = (from Parametro p in db.parametros select p).ToList();
+                db.Dispose();
+            }
+
+            return listaParametros;
+        }
+
         public Parametro findByName(string pName)
         {
             Contexto db = new Contexto();
@@ -88,12 +103,17 @@ namespace Dominio.Repositorios
                 while ((ln = file.ReadLine()) != null)
                 {
 
-                    string[] s = ln.Split('#');
-                    parametros_a_importar.Add(new Parametro
+                    string[] paramet = ln.Split('#');
+                    foreach (String st in paramet)
                     {
-                        nombre_parametro = s[0],
-                        valor = Convert.ToDecimal(s[1])
-                    });
+                        string[] s = st.Split('=');
+
+                        parametros_a_importar.Add(new Parametro
+                        {
+                            nombre_parametro = s[0],
+                            valor = Convert.ToDecimal(s[1])
+                        });
+                    }
                 }
 
                 file.Close();
@@ -101,7 +121,6 @@ namespace Dominio.Repositorios
 
             try
             {
-                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "Archivos\\Errores.txt", string.Empty);
 
                 foreach (Parametro p in parametros_a_importar) {
                     if (! p.esValido()) {
@@ -122,15 +141,7 @@ namespace Dominio.Repositorios
                 
                 db.SaveChanges();
 
-                using (StreamWriter file = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "Archivos\\Errores.txt"))
-                {
-                    foreach (string s in errores)
-                    {
-                        file.WriteLineAsync(s);
-                    }
-
-                    file.Close();
-                }
+                Utilidades.escribirErrores(errores);
 
             }
             catch (Exception ex)
