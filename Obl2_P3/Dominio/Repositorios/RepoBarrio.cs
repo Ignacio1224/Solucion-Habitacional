@@ -69,13 +69,30 @@ namespace Dominio.Repositorios
             return listaBarrios;
         }
 
+        public Barrio findById(int id)
+        {
+            Contexto db = new Contexto();
+
+            try
+            {
+                Barrio barrioBuscado = db.barrios.Find(id);
+                db.Dispose();
+                return barrioBuscado;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+
         public Barrio findByName(string bName)
         {
             Contexto db = new Contexto();
 
             try
             {
-                Barrio barrioBuscado = db.barrios.Find(bName);
+                Barrio barrioBuscado = db.barrios.Where(ba => ba.nombre_barrio == bName).SingleOrDefault();
                 db.Dispose();
                 return barrioBuscado;
             }
@@ -91,10 +108,11 @@ namespace Dominio.Repositorios
             Contexto db = new Contexto();
 
             List<Barrio> barrios_a_importar = new List<Barrio>();
+            List<string> errores = new List<string>();
 
-            bool imported = false;
+            bool imported = true;
 
-            using (StreamReader file = new StreamReader("../../../../Archivos_Para_Importar/Barrios.txt"))
+            using (StreamReader file = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "Archivos\\Barrios.txt"))
             {
                 string ln;
                 while ((ln = file.ReadLine()) != null)
@@ -113,10 +131,30 @@ namespace Dominio.Repositorios
 
             try
             {
-                db.barrios.AddRange(barrios_a_importar);
+                foreach (Barrio b in barrios_a_importar)
+                {
+                    if (! b.esValido())
+                    {
+                        errores.Add("Nombre o descripcion no válida#" + b.ToString());
+                        imported = false;
+                    } else
+                    {
+                        if (db.barrios.Where(bd => bd.nombre_barrio == b.nombre_barrio).FirstOrDefault() != null)
+                        {
+                            errores.Add("Barrio duplicado#" + b.ToString());
+                            imported = false;
+                        }
+                        else
+                        {
+                            db.barrios.Add(b);
+                        }
+                    }
+                }
+
                 db.SaveChanges();
 
-                imported = true;
+                Utilidades.escribirErrores(errores);
+
 
             } catch (Exception ex)
             {

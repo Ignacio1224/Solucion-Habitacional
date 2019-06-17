@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace Dominio.Repositorios
 {
-    public class RepoVivienda : IRepoVivienda
+    public class RepoVivienda : IRepoVivienda, IRepoImport
     {
         Contexto db = new Contexto();
 
@@ -83,16 +83,18 @@ namespace Dominio.Repositorios
             RepoParametro rp = new RepoParametro();
 
             List<Vivienda> viviendas_a_importar = new List<Vivienda>();
+            List<string> errores = new List<string>();
 
-            bool imported = false;
+            bool imported = true;
 
-            using (StreamReader file = new StreamReader("../../../../Archivos_Para_Importar/Viviendas.txt"))
+            using (StreamReader file = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "Archivos\\Viviendas.txt"))
             {
                 string ln;
                 while ((ln = file.ReadLine()) != null)
                 {
 
                     string[] s = ln.Split('#');
+
                     int id = Convert.ToInt32(s[0]);
                     string calle = s[1];
                     int nroPuerta = Convert.ToInt32(s[2]);
@@ -151,10 +153,21 @@ namespace Dominio.Repositorios
 
             try
             {
-                db.viviendas.AddRange(viviendas_a_importar);
+                foreach (Vivienda v in viviendas_a_importar)
+                {
+                    if (! v.esValida())
+                    {
+                        errores.Add("Vivienda no válida#" + v.ToString());
+                        imported = false;
+                    } else
+                    {
+                        db.viviendas.Add(v);
+                    }
+                }
+
                 db.SaveChanges();
 
-                imported = true;
+                Utilidades.escribirErrores(errores);
 
             }
             catch (Exception ex)

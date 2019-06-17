@@ -1,33 +1,49 @@
 ﻿@model IEnumerable<Dominio.Clases.Barrio>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Barrios";
+    ViewBag.ActiveMenuItem = "barrio";
 }
 
-<h2>Index</h2>
+<h2>Barrios</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="@ViewBag.message[0]" style="@ViewBag.message[1]">
+    @ViewBag.message[2]
+</div>
+
+<form action="/Barrio/Import" method="post" style="margin-bottom: 2em;">
+    <button type="submit">Importar</button>
+</form>
+
+
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.descripcion)
+            Barrio
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.descripcion)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.nombre }) |
-            @Html.ActionLink("Details", "Details", new { id=item.nombre }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.nombre })
-        </td>
-    </tr>
-}
+    @if (Model == null)
+    {
+        <tr>
+            <th>No hay datos.</th>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre_barrio)
+                </td>
+                <td>
+                    @Html.ActionLink("Detalles", "Details", new { id = item.id_barrio })
+                </td>
+            </tr>
+        }
+    }
 
 </table>

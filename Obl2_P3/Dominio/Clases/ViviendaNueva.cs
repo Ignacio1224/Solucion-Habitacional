@@ -18,6 +18,11 @@ namespace Dominio.Clases
 
         #region Metodos
 
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
         #endregion
     }
 }

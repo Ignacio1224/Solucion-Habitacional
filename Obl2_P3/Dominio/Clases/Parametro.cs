@@ -36,6 +36,11 @@ namespace Dominio.Clases
                 Utilidades.esCampoValido(this.nombre_parametro, 1, 255);
         }
 
+        public override string ToString()
+        {
+            return nombre_parametro + "=" + valor;
+        }
+
         #endregion
 
     }
