@@ -14,16 +14,15 @@ namespace Dominio.Clases
         #region Props
 
         [Key]
+        public int ParametroId { get; set; }
+
+        [Required]
+        [Index(IsUnique = true)]
+        [MaxLength(254)]
         public string nombre_parametro { get; set; }
 
         [Required]
-        public decimal valor { get; set; }
-
-        //____________________________________________________________________________________ //
-
-        // Atributo usado para generar la propiedad de navegación con FluentAPI en el Context.
-        public List<Vivienda> viviendas { get; set; }
-        //____________________________________________________________________________________ //
+        public decimal valor { get; set; } 
 
         #endregion
 

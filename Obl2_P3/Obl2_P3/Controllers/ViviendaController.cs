@@ -39,7 +39,7 @@ namespace Obl2_P3.Controllers
             if (imported)
             {
                 message[0] = "alert-success";
-                message[2] = "Barrios importados correctamente";
+                message[2] = "Viviendas importadas correctamente";
             }
 
             ViewBag.message = message;

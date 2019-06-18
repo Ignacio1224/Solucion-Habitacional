@@ -96,7 +96,7 @@ namespace Dominio.Repositorios
                 db.Dispose();
                 return barrioBuscado;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }

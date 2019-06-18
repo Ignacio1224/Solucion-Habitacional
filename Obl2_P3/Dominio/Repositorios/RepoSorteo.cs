@@ -86,15 +86,15 @@ namespace Dominio.Repositorios
             if (!s.esValido() || s == null) return false;
             try
             {
-                Sorteo sBuscado = db.sorteos.Find(s.id);
+                Sorteo sBuscado = db.sorteos.Find(s.SorteoId);
                 if (sBuscado != null)
                 {
                     sBuscado.fecha = s.fecha;
-                    sBuscado.ganador = s.ganador;
-                    sBuscado.id = s.id;
-                    sBuscado.postulantes = s.postulantes;
+                    sBuscado.Postulante = s.Postulante;
+                    sBuscado.SorteoId = s.SorteoId;
+                    sBuscado.Postulantes = s.Postulantes;
                     sBuscado.realizado = s.realizado;
-                    sBuscado.vivienda = s.vivienda;
+                    sBuscado.Vivienda = s.Vivienda;
 
                     if (sBuscado.esValido())
                     {

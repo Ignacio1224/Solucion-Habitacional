@@ -87,6 +87,8 @@ namespace Dominio.Repositorios
 
             bool imported = true;
 
+            Parametro p = null;
+
             using (StreamReader file = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "Archivos\\Viviendas.txt"))
             {
                 string ln;
@@ -112,10 +114,10 @@ namespace Dominio.Repositorios
                     {
                         viviendas_a_importar.Add(new ViviendaNueva
                         {
-                            id_vivienda = id,
+                            ViviendaId = id,
                             calle = calle,
                             nro_puerta = nroPuerta,
-                            barrio = b,
+                            Barrio = b,
                             descripcion = descripcion,
                             cant_banio = nroBanios,
                             cant_dormitorio = nroDormitorios,
@@ -123,17 +125,17 @@ namespace Dominio.Repositorios
                             anio_construccion = anio,
                             precio_final = precio,
                             estado = estado,
-                            moneda = rp.findByName("cotizacionUI")
+                            Parametro = rp.findByName("cotizacionUI")
                         });
                     }
                     else if (tipo == "Usada")
                     {
                         viviendas_a_importar.Add(new ViviendaUsada
                         {
-                            id_vivienda = id,
+                            ViviendaId = id,
                             calle = calle,
                             nro_puerta = nroPuerta,
-                            barrio = b,
+                            Barrio = b,
                             descripcion = descripcion,
                             cant_banio = nroBanios,
                             cant_dormitorio = nroDormitorios,
@@ -141,10 +143,11 @@ namespace Dominio.Repositorios
                             anio_construccion = anio,
                             precio_final = precio,
                             estado = estado,
-                            moneda = rp.findByName("cotizacionUSD"),
+                            Parametro = rp.findByName("cotizacionUSD"),
                             monto_contribucion = Convert.ToDecimal(s[11])
                         });
                     }
+
 
                 }
 
@@ -155,17 +158,21 @@ namespace Dominio.Repositorios
             {
                 foreach (Vivienda v in viviendas_a_importar)
                 {
-                    if (! v.esValida())
+                    if (!v.esValida())
                     {
                         errores.Add("Vivienda no válida#" + v.ToString());
                         imported = false;
-                    } else
+                    }
+                    else
                     {
                         db.viviendas.Add(v);
+                        db.Entry(v.Barrio).State = System.Data.Entity.EntityState.Unchanged;
+                        db.Entry(v.Parametro).State = System.Data.Entity.EntityState.Unchanged;
+                        db.SaveChanges();
                     }
                 }
 
-                db.SaveChanges();
+
 
                 Utilidades.escribirErrores(errores);
 
@@ -185,18 +192,18 @@ namespace Dominio.Repositorios
 
             try
             {
-                Vivienda vBuscada = db.viviendas.Find(v.id_vivienda);
+                Vivienda vBuscada = db.viviendas.Find(v.ViviendaId);
                 if (vBuscada != null)
                 {
                     vBuscada.anio_construccion = v.anio_construccion;
                     vBuscada.cant_banio = v.cant_banio;
-                    vBuscada.barrio = v.barrio;
+                    vBuscada.Barrio = v.Barrio;
                     vBuscada.calle = v.calle;
                     vBuscada.descripcion = v.descripcion;
                     vBuscada.cant_dormitorio = v.cant_dormitorio;
                     vBuscada.estado = v.estado;
                     vBuscada.metraje = v.metraje;
-                    vBuscada.moneda = v.moneda;
+                    vBuscada.Parametro = v.Parametro;
                     vBuscada.nro_puerta = v.nro_puerta;
                     vBuscada.precio_final = v.precio_final;
 

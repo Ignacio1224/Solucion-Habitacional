@@ -14,7 +14,8 @@ namespace Dominio.Clases
         #region Props
 
         [Key]
-        public int id_vivienda { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int ViviendaId { get; set; }
 
         [Required]
         public string estado { get; set; }
@@ -28,7 +29,8 @@ namespace Dominio.Clases
         [Required]
         public string descripcion { get; set; }
 
-        public Barrio barrio { get; set; }
+        [Required]
+        public virtual Barrio Barrio { get; set; }
 
         [Required]
         public int cant_banio { get; set; }
@@ -41,13 +43,13 @@ namespace Dominio.Clases
 
         [Required]
         public int anio_construccion { get; set; }
-
-        public Parametro moneda { get; set; }
+        
+        public virtual Parametro Parametro { get; set; } // Moneda
 
         [Required]
         public decimal precio_final { get; set; }
 
-        public Sorteo sorteo { get; set; }
+        public virtual Sorteo Sorteo { get; set; }
 
         #endregion
 
@@ -68,7 +70,9 @@ namespace Dominio.Clases
 
         public override string ToString()
         {
-            return calle + "#" + nro_puerta + "#" + descripcion + "#" + barrio.nombre_barrio + "#" + cant_banio + "#" + cant_dormitorio + "#" + metraje
+            return calle + "#" + nro_puerta + "#" + descripcion + "#"
+                + Barrio.nombre_barrio + "#" 
+                + cant_banio + "#" + cant_dormitorio + "#" + metraje
                  + "#" + anio_construccion + "#" + precio_final;
         }
 

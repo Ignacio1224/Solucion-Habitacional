@@ -15,6 +15,9 @@ namespace Dominio.Clases
         #region Props
 
         [Key]
+        public int UsuarioId { get; set; }
+
+        [Required]
         [MinLength(7)]
         [MaxLength(9)]
         public string cedula { get; set; }

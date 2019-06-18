@@ -12,8 +12,8 @@ namespace Dominio.Clases
     {
         #region Props
 
-        [Key]
-        public int id_postulante { get; set; }
+        //[Key]
+        //public int PostulanteID {get; set; }
 
         [Required]
         [MinLength(2)]
@@ -34,9 +34,11 @@ namespace Dominio.Clases
         [Required]
         public DateTime fecha_nac { get; set; }
 
-        public Sorteo sorteo { get; set; }
+        [ForeignKey("Sorteo")]
+        public int SorteoID { get; set; }
+        public virtual Sorteo Sorteo { get; set; }
 
-        public List<Sorteo> sorteos { get; set; }
+        public virtual ICollection<Sorteo> Sorteos { get; set; }
 
         #endregion
 

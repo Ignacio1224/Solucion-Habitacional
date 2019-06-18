@@ -60,7 +60,7 @@ namespace Dominio.Repositorios
 
             List<Parametro> listaParametros = null;
 
-            if (db.barrios.Count() > 0)
+            if (db.parametros.Count() > 0)
             {
                 listaParametros = (from Parametro p in db.parametros select p).ToList();
                 db.Dispose();
@@ -77,7 +77,7 @@ namespace Dominio.Repositorios
 
             try
             { 
-                p = db.parametros.Find(pName);
+                p = db.parametros.Where(pa => pa.nombre_parametro == pName).SingleOrDefault();
                 db.Dispose();
             }
             catch (Exception)

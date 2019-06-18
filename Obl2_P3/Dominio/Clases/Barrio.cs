@@ -14,7 +14,8 @@ namespace Dominio.Clases
         #region Props
        
         [Key]
-        public int id_barrio { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int BarrioId { get; set; }
 
         [Required]
         [Index(IsUnique = true)]
@@ -23,18 +24,14 @@ namespace Dominio.Clases
 
         [Required]
         public string descripcion { get; set; }
-
-        //____________________________________________________________________________________//
-
-        // Atributo usado para generar la propiedad de navegación con FluentAPI en el Context.
-        public List<Vivienda> viviendas { get; set; }
-        //____________________________________________________________________________________//
+        
+        public virtual ICollection<Vivienda> Vivienda { get; set; }
 
         #endregion
 
 
         #region Metodos
-        
+
         public bool esValido()
         {
             return 

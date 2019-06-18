@@ -10,9 +10,6 @@ C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Console_forTest\ob
 C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Console_forTest\obj\Debug\Console_forTest.pdb
 C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Console_forTest\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Dell\Desktop\Git Repos\Obligatorio P3\Obl2p3\Obl2_P3\Console_forTest\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Console_forTest\bin\Debug\Console_forTest.exe.config
-C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Console_forTest\obj\Debug\Console_forTest.exe
-C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Console_forTest\obj\Debug\Console_forTest.pdb
 C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Console_forTest\bin\Debug\Console_forTest.exe.config
 C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Console_forTest\bin\Debug\Console_forTest.exe
 C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Console_forTest\bin\Debug\Console_forTest.pdb
@@ -25,6 +22,7 @@ C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Console_forTest\bin\Debu
 C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Console_forTest\obj\Debug\Console_forTest.csprojResolveAssemblyReference.cache
 C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Console_forTest\obj\Debug\Console_forTest.exe
 C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Console_forTest\obj\Debug\Console_forTest.pdb
+C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Console_forTest\bin\Debug\Console_forTest.exe.config
 C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Console_forTest\bin\Debug\Console_forTest.exe
 C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Console_forTest\bin\Debug\Console_forTest.pdb
 C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Console_forTest\bin\Debug\Dominio.dll
@@ -34,3 +32,5 @@ C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Console
 C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Console_forTest\bin\Debug\EntityFramework.xml
 C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Console_forTest\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Console_forTest\obj\Debug\Console_forTest.csprojResolveAssemblyReference.cache
+C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Console_forTest\obj\Debug\Console_forTest.exe
+C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Console_forTest\obj\Debug\Console_forTest.pdb
