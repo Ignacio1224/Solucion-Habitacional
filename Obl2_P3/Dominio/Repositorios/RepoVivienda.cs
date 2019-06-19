@@ -8,6 +8,7 @@ using Dominio.Interfaces;
 using Dominio.Contexto_DB;
 using System.IO;
 using System.Diagnostics;
+using System.Data.Entity;
 
 namespace Dominio.Repositorios
 {
@@ -26,7 +27,7 @@ namespace Dominio.Repositorios
                 db.Dispose();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -57,7 +58,7 @@ namespace Dominio.Repositorios
             {
                 if (db.viviendas.Count() > 0)
                 {
-                    vLista = (from Vivienda v in db.viviendas select v).ToList();
+                    vLista = (from Vivienda v in db.viviendas select v).Include(v => v.Barrio).Include(v => v.Sorteo).ToList();
                     db.Dispose();
                 }
             }
@@ -87,8 +88,6 @@ namespace Dominio.Repositorios
 
             bool imported = true;
 
-            Parametro p = null;
-
             using (StreamReader file = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "Archivos\\Viviendas.txt"))
             {
                 string ln;
@@ -100,7 +99,7 @@ namespace Dominio.Repositorios
                     int id = Convert.ToInt32(s[0]);
                     string calle = s[1];
                     int nroPuerta = Convert.ToInt32(s[2]);
-                    Barrio b = rb.findByName(s[3]);
+                    int b = rb.findByName(s[3]).BarrioId;
                     string descripcion = s[4];
                     int nroBanios = Convert.ToInt32(s[5]);
                     int nroDormitorios = Convert.ToInt32(s[6]);
@@ -108,7 +107,7 @@ namespace Dominio.Repositorios
                     int anio = Convert.ToInt32(s[8]);
                     decimal precio = Convert.ToDecimal(s[9]);
                     string tipo = s[10];
-                    string estado = "Habilitada";
+                    string estado = "Recibida";
 
                     if (tipo == "Nueva")
                     {
@@ -117,7 +116,7 @@ namespace Dominio.Repositorios
                             ViviendaId = id,
                             calle = calle,
                             nro_puerta = nroPuerta,
-                            Barrio = b,
+                            BarrioId = b,
                             descripcion = descripcion,
                             cant_banio = nroBanios,
                             cant_dormitorio = nroDormitorios,
@@ -125,7 +124,7 @@ namespace Dominio.Repositorios
                             anio_construccion = anio,
                             precio_final = precio,
                             estado = estado,
-                            Parametro = rp.findByName("cotizacionUI")
+                            moneda = "cotizacionUI"
                         });
                     }
                     else if (tipo == "Usada")
@@ -135,7 +134,7 @@ namespace Dominio.Repositorios
                             ViviendaId = id,
                             calle = calle,
                             nro_puerta = nroPuerta,
-                            Barrio = b,
+                            BarrioId = b,
                             descripcion = descripcion,
                             cant_banio = nroBanios,
                             cant_dormitorio = nroDormitorios,
@@ -143,7 +142,7 @@ namespace Dominio.Repositorios
                             anio_construccion = anio,
                             precio_final = precio,
                             estado = estado,
-                            Parametro = rp.findByName("cotizacionUSD"),
+                            moneda = "cotizacionUSD",
                             monto_contribucion = Convert.ToDecimal(s[11])
                         });
                     }
@@ -165,13 +164,19 @@ namespace Dominio.Repositorios
                     }
                     else
                     {
-                        db.viviendas.Add(v);
-                        db.Entry(v.Barrio).State = System.Data.Entity.EntityState.Unchanged;
-                        db.Entry(v.Parametro).State = System.Data.Entity.EntityState.Unchanged;
-                        db.SaveChanges();
+                        if (findById(v.ViviendaId) != null)
+                        {
+                            errores.Add("Vivienda duplicada#" + v.ToString());
+                            imported = false;
+                        }
+                        else
+                        {
+
+                            db.viviendas.Add(v);
+                            db.SaveChanges();
+                        }
                     }
                 }
-
 
 
                 Utilidades.escribirErrores(errores);
@@ -179,7 +184,7 @@ namespace Dominio.Repositorios
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                imported = false;
             }
 
             return imported;
@@ -203,7 +208,7 @@ namespace Dominio.Repositorios
                     vBuscada.cant_dormitorio = v.cant_dormitorio;
                     vBuscada.estado = v.estado;
                     vBuscada.metraje = v.metraje;
-                    vBuscada.Parametro = v.Parametro;
+                    vBuscada.moneda = v.moneda;
                     vBuscada.nro_puerta = v.nro_puerta;
                     vBuscada.precio_final = v.precio_final;
 

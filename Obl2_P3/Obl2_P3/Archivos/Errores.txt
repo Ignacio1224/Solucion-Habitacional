@@ -1,2 +1,5 @@
-﻿Barrio duplicado#Centro#asdasd
-Barrio duplicado#Malvin#El propio
+﻿Vivienda duplicada#Rivera#1236#Mi casa#1#1#1#1999#123456#123456
+Vivienda duplicada#Rivera#1237#Mi casa#1#1#1#1999#123456#123456
+Vivienda duplicada#Rivera#1238#Mi casa#1#1#1#1999#123456#123456
+Vivienda duplicada#Rivera#1239#Mi casa#1#1#1#1999#123456#123456
+Vivienda duplicada#Rivera#1240#Mi casa#1#1#1#1999#123456#123456

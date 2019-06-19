@@ -1,9 +1,11 @@
 ﻿using Dominio.Repositorios;
+using Dominio.Clases;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Obl2_P3.Models;
 
 namespace Obl2_P3.Controllers
 {
@@ -16,7 +18,7 @@ namespace Obl2_P3.Controllers
 
             RepoVivienda rv = new RepoVivienda();
 
-            return View(rv.findAll());
+            return View(VMVivienda.ConvertToVMVivienda(rv.findAll()));
         }
 
         // GET: Vivienda/Details/5
@@ -24,7 +26,7 @@ namespace Obl2_P3.Controllers
         {
             RepoVivienda rv = new RepoVivienda();
 
-            return View("Details", rv.findById(id));
+            return View("Details", VMVivienda.ConvertToVMVivienda(rv.findById(id)));
         }
 
         // POST: Vivienda/Import
@@ -44,7 +46,7 @@ namespace Obl2_P3.Controllers
 
             ViewBag.message = message;
 
-            return View("Index", rv.findAll());
+            return View("Index", VMVivienda.ConvertToVMVivienda(rv.findAll()));
         }
     }
 }

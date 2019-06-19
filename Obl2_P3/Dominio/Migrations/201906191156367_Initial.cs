@@ -31,15 +31,36 @@ namespace Dominio.Migrations
                         cant_dormitorio = c.Int(nullable: false),
                         metraje = c.Decimal(nullable: false, precision: 18, scale: 2),
                         anio_construccion = c.Int(nullable: false),
+                        moneda = c.String(),
                         precio_final = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        Parametro_ParametroId = c.Int(),
                         Barrio_BarrioId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ViviendaId)
-                .ForeignKey("dbo.Parametro", t => t.Parametro_ParametroId)
                 .ForeignKey("dbo.Barrio", t => t.Barrio_BarrioId, cascadeDelete: true)
-                .Index(t => t.Parametro_ParametroId)
                 .Index(t => t.Barrio_BarrioId);
+            
+            CreateTable(
+                "dbo.Sorteo",
+                c => new
+                    {
+                        SorteoId = c.Int(nullable: false),
+                        fecha = c.DateTime(nullable: false),
+                        realizado = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.SorteoId)
+                .ForeignKey("dbo.Postulante", t => t.SorteoId)
+                .ForeignKey("dbo.Vivienda", t => t.SorteoId)
+                .Index(t => t.SorteoId);
+            
+            CreateTable(
+                "dbo.Usuario",
+                c => new
+                    {
+                        UsuarioId = c.Int(nullable: false, identity: true),
+                        cedula = c.String(nullable: false, maxLength: 9),
+                        clave = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.UsuarioId);
             
             CreateTable(
                 "dbo.Parametro",
@@ -53,44 +74,32 @@ namespace Dominio.Migrations
                 .Index(t => t.nombre_parametro, unique: true);
             
             CreateTable(
-                "dbo.Sorteo",
+                "dbo.Postulante_Sorteo",
                 c => new
                     {
+                        PostulanteId = c.Int(nullable: false),
                         SorteoId = c.Int(nullable: false),
-                        fecha = c.DateTime(nullable: false),
-                        realizado = c.Boolean(nullable: false),
-                        Postulante_UsuarioId = c.Int(),
-                        Postulante_UsuarioId1 = c.Int(),
                     })
-                .PrimaryKey(t => t.SorteoId)
-                .ForeignKey("dbo.Usuario", t => t.Postulante_UsuarioId)
-                .ForeignKey("dbo.Usuario", t => t.Postulante_UsuarioId1)
-                .ForeignKey("dbo.Vivienda", t => t.SorteoId)
-                .Index(t => t.SorteoId)
-                .Index(t => t.Postulante_UsuarioId)
-                .Index(t => t.Postulante_UsuarioId1);
+                .PrimaryKey(t => new { t.PostulanteId, t.SorteoId })
+                .ForeignKey("dbo.Postulante", t => t.PostulanteId, cascadeDelete: true)
+                .ForeignKey("dbo.Sorteo", t => t.SorteoId, cascadeDelete: true)
+                .Index(t => t.PostulanteId)
+                .Index(t => t.SorteoId);
             
             CreateTable(
-                "dbo.Usuario",
+                "dbo.Postulante",
                 c => new
                     {
-                        UsuarioId = c.Int(nullable: false, identity: true),
-                        cedula = c.String(nullable: false, maxLength: 9),
-                        clave = c.String(nullable: false),
-                        nombre = c.String(maxLength: 50),
-                        apellido = c.String(maxLength: 50),
-                        email = c.String(maxLength: 254),
-                        fecha_nac = c.DateTime(),
-                        SorteoID = c.Int(),
-                        Discriminator = c.String(nullable: false, maxLength: 128),
-                        Sorteo_SorteoId = c.Int(),
+                        UsuarioId = c.Int(nullable: false),
+                        nombre = c.String(nullable: false, maxLength: 50),
+                        apellido = c.String(nullable: false, maxLength: 50),
+                        email = c.String(nullable: false, maxLength: 254),
+                        fecha_nac = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.UsuarioId)
-                .ForeignKey("dbo.Sorteo", t => t.SorteoID, cascadeDelete: true)
-                .ForeignKey("dbo.Sorteo", t => t.Sorteo_SorteoId)
-                .Index(t => t.email, unique: true)
-                .Index(t => t.SorteoID)
-                .Index(t => t.Sorteo_SorteoId);
+                .ForeignKey("dbo.Usuario", t => t.UsuarioId)
+                .Index(t => t.UsuarioId)
+                .Index(t => t.email, unique: true);
             
             CreateTable(
                 "dbo.ViviendaNueva",
@@ -119,30 +128,29 @@ namespace Dominio.Migrations
         {
             DropForeignKey("dbo.ViviendaUsada", "ViviendaId", "dbo.Vivienda");
             DropForeignKey("dbo.ViviendaNueva", "ViviendaId", "dbo.Vivienda");
+            DropForeignKey("dbo.Postulante", "UsuarioId", "dbo.Usuario");
             DropForeignKey("dbo.Vivienda", "Barrio_BarrioId", "dbo.Barrio");
             DropForeignKey("dbo.Sorteo", "SorteoId", "dbo.Vivienda");
-            DropForeignKey("dbo.Usuario", "Sorteo_SorteoId", "dbo.Sorteo");
-            DropForeignKey("dbo.Sorteo", "Postulante_UsuarioId1", "dbo.Usuario");
-            DropForeignKey("dbo.Sorteo", "Postulante_UsuarioId", "dbo.Usuario");
-            DropForeignKey("dbo.Usuario", "SorteoID", "dbo.Sorteo");
-            DropForeignKey("dbo.Vivienda", "Parametro_ParametroId", "dbo.Parametro");
+            DropForeignKey("dbo.Sorteo", "SorteoId", "dbo.Postulante");
+            DropForeignKey("dbo.Postulante_Sorteo", "SorteoId", "dbo.Sorteo");
+            DropForeignKey("dbo.Postulante_Sorteo", "PostulanteId", "dbo.Postulante");
             DropIndex("dbo.ViviendaUsada", new[] { "ViviendaId" });
             DropIndex("dbo.ViviendaNueva", new[] { "ViviendaId" });
-            DropIndex("dbo.Usuario", new[] { "Sorteo_SorteoId" });
-            DropIndex("dbo.Usuario", new[] { "SorteoID" });
-            DropIndex("dbo.Usuario", new[] { "email" });
-            DropIndex("dbo.Sorteo", new[] { "Postulante_UsuarioId1" });
-            DropIndex("dbo.Sorteo", new[] { "Postulante_UsuarioId" });
-            DropIndex("dbo.Sorteo", new[] { "SorteoId" });
+            DropIndex("dbo.Postulante", new[] { "email" });
+            DropIndex("dbo.Postulante", new[] { "UsuarioId" });
+            DropIndex("dbo.Postulante_Sorteo", new[] { "SorteoId" });
+            DropIndex("dbo.Postulante_Sorteo", new[] { "PostulanteId" });
             DropIndex("dbo.Parametro", new[] { "nombre_parametro" });
+            DropIndex("dbo.Sorteo", new[] { "SorteoId" });
             DropIndex("dbo.Vivienda", new[] { "Barrio_BarrioId" });
-            DropIndex("dbo.Vivienda", new[] { "Parametro_ParametroId" });
             DropIndex("dbo.Barrio", new[] { "nombre_barrio" });
             DropTable("dbo.ViviendaUsada");
             DropTable("dbo.ViviendaNueva");
+            DropTable("dbo.Postulante");
+            DropTable("dbo.Postulante_Sorteo");
+            DropTable("dbo.Parametro");
             DropTable("dbo.Usuario");
             DropTable("dbo.Sorteo");
-            DropTable("dbo.Parametro");
             DropTable("dbo.Vivienda");
             DropTable("dbo.Barrio");
         }

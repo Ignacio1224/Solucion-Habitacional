@@ -22,8 +22,8 @@ namespace Dominio.Clases
         public virtual Vivienda Vivienda { get; set; }
 
         public virtual ICollection<Postulante> Postulantes { get; set; }
-        
-        public virtual Postulante Postulante { get; set; } // ganador
+
+        public virtual Postulante Ganador { get; set; }
 
         public bool realizado { get; set; } = false;
         
@@ -34,8 +34,8 @@ namespace Dominio.Clases
         public Postulante sortear()
         {
             Random r = new Random();
-            this.Postulante = ((List<Postulante>)Postulantes)[r.Next(Postulantes.Count)];
-            return this.Postulante;  
+            this.Ganador = ((List<Postulante>)Postulantes)[r.Next(Postulantes.Count)];
+            return this.Ganador;  
         }
 
         public bool esValido()

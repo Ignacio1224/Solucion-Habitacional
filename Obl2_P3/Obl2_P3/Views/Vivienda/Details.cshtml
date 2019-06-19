@@ -1,0 +1,114 @@
+﻿@model Obl2_P3.Models.VMVivienda
+
+@{
+    ViewBag.Title = "Vivienda detalles";
+    ViewBag.ActiveMenuItem = "vivienda";
+}
+
+<h2>Detalle de vivienda</h2>
+
+<div>
+    <h4>Vivienda</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ViviendaId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ViviendaId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.calle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.calle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nro_puerta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nro_puerta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Barrio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Barrio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cant_banio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cant_banio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cant_dormitorio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cant_dormitorio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.metraje)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.metraje)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.anio_construccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.anio_construccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.moneda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.moneda)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.precio_final)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.precio_final)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Volver al listado", "Index")
+</p>

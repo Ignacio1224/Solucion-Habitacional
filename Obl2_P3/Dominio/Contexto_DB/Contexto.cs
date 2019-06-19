@@ -21,7 +21,7 @@ namespace Dominio.Contexto_DB
 
         public Contexto() : base("cadenaConexion")
         {
-
+            //this.Configuration.LazyLoadingEnabled = false;
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -32,6 +32,19 @@ namespace Dominio.Contexto_DB
                 .HasMany<Vivienda>(b => b.Vivienda)
                 .WithRequired(v => v.Barrio)
                 .WillCascadeOnDelete();
+
+            modelBuilder.Entity<Postulante>()
+                .HasMany<Sorteo>(s => s.Sorteos)
+                .WithMany(p => p.Postulantes)
+                .Map(r => {
+                    r.ToTable("Postulante_Sorteo");
+                    r.MapLeftKey("PostulanteId");
+                    r.MapRightKey("SorteoId");
+                });
+
+            modelBuilder.Entity<Sorteo>()
+                .HasRequired<Postulante>(p => p.Ganador)
+                .WithOptional(s => s.Sorteo);
 
         }
 

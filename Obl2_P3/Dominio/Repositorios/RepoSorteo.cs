@@ -90,7 +90,7 @@ namespace Dominio.Repositorios
                 if (sBuscado != null)
                 {
                     sBuscado.fecha = s.fecha;
-                    sBuscado.Postulante = s.Postulante;
+                    sBuscado.Ganador = s.Ganador;
                     sBuscado.SorteoId = s.SorteoId;
                     sBuscado.Postulantes = s.Postulantes;
                     sBuscado.realizado = s.realizado;

@@ -30,6 +30,8 @@ namespace Dominio.Clases
         public string descripcion { get; set; }
 
         [Required]
+        [ForeignKey("Barrio")]
+        public int BarrioId { get; set; }
         public virtual Barrio Barrio { get; set; }
 
         [Required]
@@ -44,7 +46,7 @@ namespace Dominio.Clases
         [Required]
         public int anio_construccion { get; set; }
         
-        public virtual Parametro Parametro { get; set; } // Moneda
+        public String moneda { get; set; } // Parametro --> se busca por nombre
 
         [Required]
         public decimal precio_final { get; set; }
@@ -71,7 +73,6 @@ namespace Dominio.Clases
         public override string ToString()
         {
             return calle + "#" + nro_puerta + "#" + descripcion + "#"
-                + Barrio.nombre_barrio + "#" 
                 + cant_banio + "#" + cant_dormitorio + "#" + metraje
                  + "#" + anio_construccion + "#" + precio_final;
         }

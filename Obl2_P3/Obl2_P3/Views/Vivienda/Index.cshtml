@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Dominio.Clases.Vivienda>
+﻿@model IEnumerable<Obl2_P3.Models.VMVivienda>
 
 @{
     ViewBag.Title = "Viviendas";
@@ -18,35 +18,27 @@
 <table class="table">
     <tr>
         <th>
-            Estado
+            @Html.DisplayNameFor(model => model.estado)
         </th>
         <th>
-            Calle
+            @Html.DisplayNameFor(model => model.calle)
         </th>
         <th>
-            Número de Puerta
+            @Html.DisplayNameFor(model => model.nro_puerta)
         </th>
         <th>
-            Barrio
+            @Html.DisplayNameFor(model => model.Barrio)
         </th>
         <th>
-            Año de Construccion
+            @Html.DisplayNameFor(model => model.anio_construccion)
         </th>
         <th>
-            Precio Final
+            @Html.DisplayNameFor(model => model.precio_final)
         </th>
         <th></th>
     </tr>
-@if (Model == null)
-{
-    <tr>
-        <th colspan="6">No hay datos.</th>
-    </tr>
-}
-else
-{
-    foreach (var item in Model)
-    {
+
+@foreach (var item in Model) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.estado)
@@ -58,16 +50,7 @@ else
             @Html.DisplayFor(modelItem => item.nro_puerta)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cant_banio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cant_dormitorio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.metraje)
+            @Html.DisplayFor(modelItem => item.Barrio)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.anio_construccion)
@@ -76,10 +59,9 @@ else
             @Html.DisplayFor(modelItem => item.precio_final)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id = item.ViviendaId })
+            @Html.ActionLink("Detalles", "Details", new { id=item.ViviendaId })
         </td>
     </tr>
-    }
 }
 
 </table>

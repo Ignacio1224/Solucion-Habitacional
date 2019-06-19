@@ -8,12 +8,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio.Clases
 {
+    [Table("Postulante")]
     public class Postulante : Usuario
     {
         #region Props
 
         //[Key]
-        //public int PostulanteID {get; set; }
+        //public int PostulanteID { get; set; }
 
         [Required]
         [MinLength(2)]
@@ -34,9 +35,8 @@ namespace Dominio.Clases
         [Required]
         public DateTime fecha_nac { get; set; }
 
-        [ForeignKey("Sorteo")]
-        public int SorteoID { get; set; }
-        public virtual Sorteo Sorteo { get; set; }
+        //public int SorteoID { get; set; }
+        public virtual Sorteo Sorteo { get; set; } // Sorteo ganado
 
         public virtual ICollection<Sorteo> Sorteos { get; set; }
 
