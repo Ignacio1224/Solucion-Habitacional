@@ -107,8 +107,7 @@ namespace Dominio.Repositorios
                     int anio = Convert.ToInt32(s[8]);
                     decimal precio = Convert.ToDecimal(s[9]);
                     string tipo = s[10];
-                    string estado = "Recibida";
-
+                    
                     if (tipo == "Nueva")
                     {
                         viviendas_a_importar.Add(new ViviendaNueva
@@ -123,7 +122,7 @@ namespace Dominio.Repositorios
                             metraje = metraje,
                             anio_construccion = anio,
                             precio_final = precio,
-                            estado = estado,
+                            estado = Vivienda.Estados.Recibida,
                             moneda = "cotizacionUI"
                         });
                     }
@@ -141,7 +140,7 @@ namespace Dominio.Repositorios
                             metraje = metraje,
                             anio_construccion = anio,
                             precio_final = precio,
-                            estado = estado,
+                            estado = Vivienda.Estados.Recibida,
                             moneda = "cotizacionUSD",
                             monto_contribucion = Convert.ToDecimal(s[11])
                         });

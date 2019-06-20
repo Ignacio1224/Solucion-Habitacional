@@ -31,4 +31,3 @@ C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Dominio
 C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.csproj.GenerateResource.Cache
 C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.Migrations.Initial.resources
 C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.csproj.GenerateResource.Cache
-C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.Migrations.fk_barrio_en_vivienda.resources

@@ -18,7 +18,15 @@ namespace Dominio.Clases
         public int ViviendaId { get; set; }
 
         [Required]
-        public string estado { get; set; }
+        public Estados estado { get; set; }
+
+        public enum Estados
+        {
+            Habilitada,
+            Inhabilitada,
+            Recibida,
+            Sorteada
+        };
 
         [Required]
         public string calle { get; set; }
@@ -60,7 +68,6 @@ namespace Dominio.Clases
         public virtual bool esValida()
         {
             return 
-                (estado == "Recibida" || estado == "Habilitada" || estado == "Inhabilitada") &&
                 Utilidades.esCampoValido(this.calle) &&
                 this.nro_puerta > 0 && this.nro_puerta < 9999 &&
                 Utilidades.esCampoValido(this.descripcion) &&

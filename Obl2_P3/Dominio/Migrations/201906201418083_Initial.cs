@@ -23,21 +23,21 @@ namespace Dominio.Migrations
                 c => new
                     {
                         ViviendaId = c.Int(nullable: false),
-                        estado = c.String(nullable: false),
+                        estado = c.Int(nullable: false),
                         calle = c.String(nullable: false),
                         nro_puerta = c.Int(nullable: false),
                         descripcion = c.String(nullable: false),
+                        BarrioId = c.Int(nullable: false),
                         cant_banio = c.Int(nullable: false),
                         cant_dormitorio = c.Int(nullable: false),
                         metraje = c.Decimal(nullable: false, precision: 18, scale: 2),
                         anio_construccion = c.Int(nullable: false),
                         moneda = c.String(),
                         precio_final = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        Barrio_BarrioId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ViviendaId)
-                .ForeignKey("dbo.Barrio", t => t.Barrio_BarrioId, cascadeDelete: true)
-                .Index(t => t.Barrio_BarrioId);
+                .ForeignKey("dbo.Barrio", t => t.BarrioId, cascadeDelete: true)
+                .Index(t => t.BarrioId);
             
             CreateTable(
                 "dbo.Sorteo",
@@ -129,7 +129,7 @@ namespace Dominio.Migrations
             DropForeignKey("dbo.ViviendaUsada", "ViviendaId", "dbo.Vivienda");
             DropForeignKey("dbo.ViviendaNueva", "ViviendaId", "dbo.Vivienda");
             DropForeignKey("dbo.Postulante", "UsuarioId", "dbo.Usuario");
-            DropForeignKey("dbo.Vivienda", "Barrio_BarrioId", "dbo.Barrio");
+            DropForeignKey("dbo.Vivienda", "BarrioId", "dbo.Barrio");
             DropForeignKey("dbo.Sorteo", "SorteoId", "dbo.Vivienda");
             DropForeignKey("dbo.Sorteo", "SorteoId", "dbo.Postulante");
             DropForeignKey("dbo.Postulante_Sorteo", "SorteoId", "dbo.Sorteo");
@@ -142,7 +142,7 @@ namespace Dominio.Migrations
             DropIndex("dbo.Postulante_Sorteo", new[] { "PostulanteId" });
             DropIndex("dbo.Parametro", new[] { "nombre_parametro" });
             DropIndex("dbo.Sorteo", new[] { "SorteoId" });
-            DropIndex("dbo.Vivienda", new[] { "Barrio_BarrioId" });
+            DropIndex("dbo.Vivienda", new[] { "BarrioId" });
             DropIndex("dbo.Barrio", new[] { "nombre_barrio" });
             DropTable("dbo.ViviendaUsada");
             DropTable("dbo.ViviendaNueva");

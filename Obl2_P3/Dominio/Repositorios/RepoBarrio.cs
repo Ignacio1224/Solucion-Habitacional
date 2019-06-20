@@ -139,7 +139,7 @@ namespace Dominio.Repositorios
                         imported = false;
                     } else
                     {
-                        if (db.barrios.Where(bd => bd.nombre_barrio == b.nombre_barrio).FirstOrDefault() != null)
+                        if (findByName(b.nombre_barrio) != null)
                         {
                             errores.Add("Barrio duplicado#" + b.ToString());
                             imported = false;

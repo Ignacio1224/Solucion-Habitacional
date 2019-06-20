@@ -48,5 +48,21 @@ namespace Obl2_P3.Controllers
 
             return View("Index", VMVivienda.ConvertToVMVivienda(rv.findAll()));
         }
+
+        // GET: Vivienda/Edit
+        public ActionResult Edit(int id)
+        {
+            RepoVivienda rv = new RepoVivienda();
+
+            return View("Edit", VMVivienda.ConvertToVMVivienda(rv.findById(id)));
+        }
+
+        // POST: Vivienda/Edit
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            return View();
+        }
+
     }
 }

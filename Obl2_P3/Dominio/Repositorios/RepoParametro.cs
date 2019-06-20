@@ -127,7 +127,7 @@ namespace Dominio.Repositorios
                         errores.Add("Nombre o valor no válido#" + p.ToString());
                         imported = false;
                     } else {
-                        if (db.parametros.Where(pd => pd.nombre_parametro == p.nombre_parametro).FirstOrDefault() != null)
+                        if (findByName(p.nombre_parametro) != null)
                         {
                             errores.Add("Parámetro duplicado#" + p.ToString());
                             imported = false;

@@ -66,13 +66,9 @@
     <Compile Include="Interfaces\IRepoSorteo.cs" />
     <Compile Include="Interfaces\IRepoUsuario.cs" />
     <Compile Include="Interfaces\IRepoVivienda.cs" />
-    <Compile Include="Migrations\201906191156367_Initial.cs" />
-    <Compile Include="Migrations\201906191156367_Initial.Designer.cs">
-      <DependentUpon>201906191156367_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906191235308_fk_barrio_en_vivienda.cs" />
-    <Compile Include="Migrations\201906191235308_fk_barrio_en_vivienda.Designer.cs">
-      <DependentUpon>201906191235308_fk_barrio_en_vivienda.cs</DependentUpon>
+    <Compile Include="Migrations\201906201418083_Initial.cs" />
+    <Compile Include="Migrations\201906201418083_Initial.Designer.cs">
+      <DependentUpon>201906201418083_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,11 +85,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201906191156367_Initial.resx">
-      <DependentUpon>201906191156367_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906191235308_fk_barrio_en_vivienda.resx">
-      <DependentUpon>201906191235308_fk_barrio_en_vivienda.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201906201418083_Initial.resx">
+      <DependentUpon>201906201418083_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
