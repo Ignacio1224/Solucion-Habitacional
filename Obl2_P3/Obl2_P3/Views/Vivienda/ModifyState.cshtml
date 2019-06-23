@@ -1,26 +1,17 @@
 ﻿@model Obl2_P3.Models.VMVivienda
-
+@using Dominio.Clases;
 @{
-    ViewBag.Title = "Vivienda detalles";
+    ViewBag.Title = "Modificar estado";
     ViewBag.ActiveMenuItem = "vivienda";
 }
 
 <h2>Vivienda</h2>
-<h4>Información detallada</h4>
-<hr />
-<div>
-    <div class="alert alert-success" role="alert">
-        @ViewBag.Success
-    </div>
-   
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ViviendaId)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ViviendaId)
-        </dd>
+<div class="form-horizontal">
+    <h4>Modificar estado</h4>
+    <hr />
+
+    <dl class="dl-horizontal">
 
         <dt>
             @Html.DisplayNameFor(model => model.estado)
@@ -28,6 +19,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ViviendaId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ViviendaId)
         </dd>
 
         <dt>
@@ -109,9 +108,50 @@
         <dd>
             @Html.DisplayFor(model => model.precio_final)
         </dd>
-
     </dl>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.estado, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <select id="slc_EstadosVivienda" class="form-control">
+                <option>Nuevo estado</option>
+                <option value="@Vivienda.Estados.Habilitada">@Vivienda.Estados.Habilitada</option>
+                <option value="@Vivienda.Estados.Inhabilitada">@Vivienda.Estados.Inhabilitada</option>
+                <option value="@Vivienda.Estados.Recibida">@Vivienda.Estados.Recibida</option>
+                <option value="@Vivienda.Estados.Sorteada">@Vivienda.Estados.Sorteada</option>
+            </select>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Index", "Index")
+
+<p style="font-size:19px; font-weight: bold; color: darkred; margin-bottom: 15px;">
+    @ViewBag.Message
 </p>
+
+
+<div>
+    <form>
+        <button type="submit" class="btn btn-primary" style="margin-bottom:20px">Enviar</button>
+    </form>
+</div>
+
+
+<div>
+    @Html.ActionLink("Volver", "UnfoldVivienda")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $("#slc_EstadosVivienda").on("change", function () {
+            var idVivienda = @Model.ViviendaId;
+            var nuevoEstadoVivienda = $("#slc_EstadosVivienda").val();
+
+            var url = "/Vivienda/SaveModifyState?id="+idVivienda+"&nuevoEstado="+nuevoEstadoVivienda;
+
+            $("form").prop("action", url);
+            $("form").prop("method", "post");
+        });
+    </script>
+}

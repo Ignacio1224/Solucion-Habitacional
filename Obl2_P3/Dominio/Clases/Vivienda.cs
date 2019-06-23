@@ -84,6 +84,8 @@ namespace Dominio.Clases
                  + "#" + anio_construccion + "#" + precio_final;
         }
 
+        public abstract string ReturnType();
+
         #endregion
     }
 }

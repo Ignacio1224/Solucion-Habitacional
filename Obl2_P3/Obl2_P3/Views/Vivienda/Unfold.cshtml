@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Obl2_P3.Models.VMVivienda>
+
+@{
+    ViewBag.Title = "Modificar estado vivienda";
+
+
+    var vUsada = new List<Obl2_P3.Models.VMVivienda>();
+    var vNueva = new List<Obl2_P3.Models.VMVivienda>();
+
+    foreach (Obl2_P3.Models.VMVivienda v in Model)
+    {
+        if (v.tipo_vivienda == "u")
+        {
+            vUsada.Add(v);
+        }
+        else if (v.tipo_vivienda == "n")
+        {
+            vNueva.Add(v);
+        }
+    }
+}
+<h2>Vivienda</h2>
+<h4>Desplegar</h4>
+<hr />
+<div class="panel panel-default" style="margin-top: 20px">
+    <div class="panel-heading">
+        <h2 class="panel-title">Vivienda:</h2>
+    </div>
+
+    <div class="panel-body">
+        <select class="mdb-select md-form" id="slc_UnfoldVivienda">
+            <option >...</option>
+            <optgroup label="Viviendas nuevas">
+                @foreach (Obl2_P3.Models.VMVivienda v in @vUsada)
+            {
+                    <option value="@v.ViviendaId">id = @v.ViviendaId  (@v.calle / @v.nro_puerta)</option>
+                }
+            </optgroup>
+            <optgroup label="Viviendas usadas">
+                @foreach (Obl2_P3.Models.VMVivienda v in @vNueva)
+            {
+                    <option value="@v.ViviendaId">@v.ViviendaId</option>
+                }
+            </optgroup>
+        </select>
+    </div>
+</div>
+
+<div>
+    <form>
+        <button type="submit" class="btn btn-primary">Seleccionar</button>
+    </form> 
+</div>
+
+<div>
+    <p style="font-size: 19px; color:darkred">
+        @ViewBag.Message
+    </p>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval");
+
+    <script type="text/javascript">
+
+        //var idVivienda = -1;
+        $("#slc_UnfoldVivienda").on("change", function () {
+            var idVivienda = $("#slc_UnfoldVivienda").val();
+            var url = "/Vivienda/ModifyState?id=" + idVivienda;
+            $("form").prop("action", url);
+            $("form").prop("method", "post");
+        });
+    </script>
+}
+
+

@@ -23,6 +23,11 @@ namespace Dominio.Clases
             return base.ToString();
         }
 
+        public override string ReturnType()
+        {
+            return "n";
+        }
+
         #endregion
     }
 }

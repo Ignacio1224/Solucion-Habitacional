@@ -11,9 +11,10 @@ namespace Obl2_P3.Models
 {
     public class VMVivienda
     {
+        [DisplayName("Id vivienda:")]
         public int ViviendaId { get; set; }
 
-        [DisplayName("Estado")]
+        [DisplayName("Estado actual")]
         public Vivienda.Estados estado { get; set; }
 
         [DisplayName("Calle")]
@@ -28,10 +29,10 @@ namespace Obl2_P3.Models
         [DisplayName("Barrio")]
         public string Barrio { get; set; }
 
-        [DisplayName("Cantidad de baños")]
+        [DisplayName("Cant. baños")]
         public int cant_banio { get; set; }
 
-        [DisplayName("Cantidad de dormitorios")]
+        [DisplayName("Cant. dormitorios")]
         public int cant_dormitorio { get; set; }
 
         [DisplayName("Superficie")]
@@ -50,6 +51,8 @@ namespace Obl2_P3.Models
         public virtual Sorteo Sorteo { get; set; }
 
         public Enum estados;
+
+        public string tipo_vivienda { get; set; }
 
 
         public static List<VMVivienda> ConvertToVMVivienda (IEnumerable<Vivienda> vs)
@@ -82,7 +85,8 @@ namespace Obl2_P3.Models
                 metraje = v.metraje,
                 anio_construccion = v.anio_construccion,
                 moneda = v.moneda,
-                precio_final = v.precio_final
+                precio_final = v.precio_final,
+                tipo_vivienda = v.ReturnType()
             };
         }
 

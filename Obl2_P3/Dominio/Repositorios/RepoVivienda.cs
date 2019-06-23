@@ -71,8 +71,12 @@ namespace Dominio.Repositorios
 
         }
 
-        public Vivienda findById(int vId)
+        public Vivienda findById(int? vId)
         {
+            if (vId == null)
+            {
+                return null;
+            }
             return db.viviendas.Find(vId);
         }
 

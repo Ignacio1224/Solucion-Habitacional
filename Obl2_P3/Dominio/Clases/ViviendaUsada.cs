@@ -32,6 +32,11 @@ namespace Dominio.Clases
             return base.ToString() + "#" + monto_contribucion;
         }
 
+        public override string ReturnType()
+        {
+            return "u";
+        }
+
         #endregion
 
     }
