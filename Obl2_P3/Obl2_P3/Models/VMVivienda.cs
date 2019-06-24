@@ -54,6 +54,9 @@ namespace Obl2_P3.Models
 
         public string tipo_vivienda { get; set; }
 
+        [DisplayName("Contribución")]
+        public decimal monto_contribucion { get; set; }
+
 
         public static List<VMVivienda> ConvertToVMVivienda (IEnumerable<Vivienda> vs)
         {
@@ -86,8 +89,53 @@ namespace Obl2_P3.Models
                 anio_construccion = v.anio_construccion,
                 moneda = v.moneda,
                 precio_final = v.precio_final,
+                monto_contribucion = ((ViviendaUsada) v).monto_contribucion,
                 tipo_vivienda = v.ReturnType()
             };
+        }
+
+        public static Vivienda ConvertToVivienda (VMVivienda vmv)
+        {
+            RepoBarrio rb = new RepoBarrio();
+            Vivienda v;
+
+            if (vmv.tipo_vivienda == "ViviendaNueva")
+            {
+                v = new ViviendaNueva
+                {
+                    ViviendaId = vmv.ViviendaId,
+                    estado = vmv.estado,
+                    calle = vmv.calle,
+                    nro_puerta = vmv.nro_puerta,
+                    descripcion = vmv.descripcion,
+                    Barrio = rb.findByName(vmv.Barrio),
+                    cant_banio = vmv.cant_banio,
+                    cant_dormitorio = vmv.cant_dormitorio,
+                    metraje = vmv.metraje,
+                    anio_construccion = vmv.anio_construccion,
+                    moneda = vmv.moneda,
+                    precio_final = vmv.precio_final
+                };
+
+            } else {
+                v = new ViviendaUsada {
+                    ViviendaId = vmv.ViviendaId,
+                    estado = vmv.estado,
+                    calle = vmv.calle,
+                    nro_puerta = vmv.nro_puerta,
+                    descripcion = vmv.descripcion,
+                    Barrio = rb.findByName(vmv.Barrio),
+                    cant_banio = vmv.cant_banio,
+                    cant_dormitorio = vmv.cant_dormitorio,
+                    metraje = vmv.metraje,
+                    anio_construccion = vmv.anio_construccion,
+                    moneda = vmv.moneda,
+                    precio_final = vmv.precio_final,
+                    monto_contribucion = vmv.monto_contribucion
+                };
+            }
+
+            return v;
         }
 
     }

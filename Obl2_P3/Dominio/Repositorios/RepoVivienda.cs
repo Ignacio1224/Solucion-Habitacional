@@ -111,7 +111,7 @@ namespace Dominio.Repositorios
                     int anio = Convert.ToInt32(s[8]);
                     decimal precio = Convert.ToDecimal(s[9]);
                     string tipo = s[10];
-                    
+
                     if (tipo == "Nueva")
                     {
                         viviendas_a_importar.Add(new ViviendaNueva
@@ -195,8 +195,11 @@ namespace Dominio.Repositorios
 
         public bool update(Vivienda v)
         {
+            bool updated = false;
 
-            if (v == null) return false;
+            if (v == null) return updated;
+
+            RepoBarrio rb = new RepoBarrio();
 
             try
             {
@@ -205,7 +208,7 @@ namespace Dominio.Repositorios
                 {
                     vBuscada.anio_construccion = v.anio_construccion;
                     vBuscada.cant_banio = v.cant_banio;
-                    vBuscada.Barrio = v.Barrio;
+                    vBuscada.BarrioId = v.Barrio.BarrioId;
                     vBuscada.calle = v.calle;
                     vBuscada.descripcion = v.descripcion;
                     vBuscada.cant_dormitorio = v.cant_dormitorio;
@@ -219,16 +222,16 @@ namespace Dominio.Repositorios
                     {
                         db.SaveChanges();
                         db.Dispose();
-                        return true;
+                        updated = true;
                     }
-                    return false;
                 }
-                return false;
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+
             }
+            return updated;
         }
 
     }

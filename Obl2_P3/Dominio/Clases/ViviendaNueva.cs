@@ -25,7 +25,7 @@ namespace Dominio.Clases
 
         public override string ReturnType()
         {
-            return "n";
+            return "ViviendaNueva";
         }
 
         #endregion

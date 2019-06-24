@@ -27,6 +27,21 @@ namespace Obl2_P3.Controllers
             return View("Details", VMVivienda.ConvertToVMVivienda(rv.findById(id)));
         }
 
+        // GET: /Vivienda/Edit/{id}
+        public ActionResult Edit(int id)
+        {
+            Vivienda vivienda = rv.findById(id);
+            return View(VMVivienda.ConvertToVMVivienda(vivienda));
+        }
+
+        // POST: /Vivienda/Edit/{id}
+        [HttpPost]
+        public ActionResult Edit(VMVivienda vmv)
+        {
+            rv.update(VMVivienda.ConvertToVivienda(vmv));
+            return View(vmv);
+        }
+
         // POST: Vivienda/Import
         [HttpPost]
         public ActionResult Import()
@@ -46,61 +61,62 @@ namespace Obl2_P3.Controllers
             return View("Index", VMVivienda.ConvertToVMVivienda(rv.findAll()));
         }
 
-        //GET: Vivienda/UnfoldVivienda
-        public ActionResult Unfold()
-        {
-            return View(VMVivienda.ConvertToVMVivienda(rv.findAll()));
-        }
 
-        // POST: Vivienda/ModifyState
-        [HttpPost]
-        public ActionResult ModifyState(int? id)
-        {
-            //no pude controlar aca
-            if (id == null)
-            {
-                ViewBag.Message = "Debes seleccionar una vivienda.";
-                return View("Unfold", VMVivienda.ConvertToVMVivienda(rv.findAll()));
-            }
-            return View("ModifyState", VMVivienda.ConvertToVMVivienda(rv.findById(id)));
-        }
+        //GET: Vivienda/UnfoldVivienda
+        //public ActionResult Unfold()
+        //{
+        //    return View(VMVivienda.ConvertToVMVivienda(rv.findAll()));
+        //}
+
+        //// POST: Vivienda/ModifyState
+        //[HttpPost]
+        //public ActionResult ModifyState(int? id)
+        //{
+        //    //no pude controlar aca
+        //    if (id == null)
+        //    {
+        //        ViewBag.Message = "Debes seleccionar una vivienda.";
+        //        return View("Unfold", VMVivienda.ConvertToVMVivienda(rv.findAll()));
+        //    }
+        //    return View("ModifyState", VMVivienda.ConvertToVMVivienda(rv.findById(id)));
+        //}
 
         //POST: Vivienda/SaveModifyState
-        [HttpPost]
-        public ActionResult SaveModifyState(int id, string nuevoEstado)
-        {
-            //aca tampoco
-            if (nuevoEstado == null)
-            {
-                ViewBag.Message = "Debes seleccionar un tipo de estado.";
-                return View("ModifyState", VMVivienda.ConvertToVMVivienda(rv.findById(id)));
-            }
+        //[HttpPost]
+        //public ActionResult SaveModifyState(int id, string nuevoEstado)
+        //{
+        //    //aca tampoco
+        //    if (nuevoEstado == null)
+        //    {
+        //        ViewBag.Message = "Debes seleccionar un tipo de estado.";
+        //        return View("ModifyState", VMVivienda.ConvertToVMVivienda(rv.findById(id)));
+        //    }
 
-            Vivienda vivienda = rv.findById(id);
+        //    Vivienda vivienda = rv.findById(id);
 
-            //Programación 1
-            if (nuevoEstado == "Inhabilitada")
-            {
-                vivienda.estado = Vivienda.Estados.Inhabilitada;
-            }
-            else if (nuevoEstado == "Recibida")
-            {
-                vivienda.estado = Vivienda.Estados.Recibida;
-            }
-            else if (nuevoEstado == "Sorteada")
-            {
-                vivienda.estado = Vivienda.Estados.Sorteada;
-            }
-            else if (nuevoEstado == "Habilitada")
-            {
-                vivienda.estado = Vivienda.Estados.Habilitada;
-            }
+        //    //Programación 1
+        //    if (nuevoEstado == "Inhabilitada")
+        //    {
+        //        vivienda.estado = Vivienda.Estados.Inhabilitada;
+        //    }
+        //    else if (nuevoEstado == "Recibida")
+        //    {
+        //        vivienda.estado = Vivienda.Estados.Recibida;
+        //    }
+        //    else if (nuevoEstado == "Sorteada")
+        //    {
+        //        vivienda.estado = Vivienda.Estados.Sorteada;
+        //    }
+        //    else if (nuevoEstado == "Habilitada")
+        //    {
+        //        vivienda.estado = Vivienda.Estados.Habilitada;
+        //    }
 
-            rv.update(vivienda);
+        //    rv.update(vivienda);
 
-            ViewBag.Success = "Estado modificado con éxito.";
-            return View("Details", VMVivienda.ConvertToVMVivienda(vivienda));
-        }
+        //    ViewBag.Success = "Estado modificado con éxito.";
+        //    return View("Details", VMVivienda.ConvertToVMVivienda(vivienda));
+        //}
 
     }
 }

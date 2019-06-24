@@ -34,7 +34,7 @@ namespace Dominio.Clases
 
         public override string ReturnType()
         {
-            return "u";
+            return "ViviendaUsada";
         }
 
         #endregion

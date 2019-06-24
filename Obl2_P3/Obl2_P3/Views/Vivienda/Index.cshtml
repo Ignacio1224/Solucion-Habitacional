@@ -5,9 +5,34 @@
     ViewBag.ActiveMenuItem = "vivienda";
 }
 
-<h2>Vivienda</h2
+@section Styles {
+    <style>
+        .no-result {
+            display: none;
+        }
+
+        .counter {
+            padding: 8px;
+            color: #ccc;
+        }
+
+        .results tr[visible='false'],
+        .no-result {
+            display: none;
+        }
+
+        .results tr[visible='true'] {
+            display: table-row;
+        }
+    </style>
+}
+
+<h2>Vivienda</h2>
+
 <h4>Listado de viviendas ingresadas</h4>
-<hr/>
+
+<hr />
+
 <div class="@ViewBag.message[0]" style="@ViewBag.message[1]">
     @ViewBag.message[2]
 </div>
@@ -16,60 +41,145 @@
     <button type="submit" class="btn btn-primary">Importar</button>
 </form>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.estado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.calle)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nro_puerta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Barrio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.anio_construccion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.precio_final)
-        </th>
-        <th></th>
-    </tr>
-    @if (Model.Count() != 0) {
-    
-        foreach (var item in Model) {
+<div class="form-group pull-right">
+    <input type="text" class="search form-control" placeholder="Que buscas?">
+</div>
+
+<span class="counter pull-right"></span>
+
+<table class="table results" id="table-viviendas">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.calle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nro_puerta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Barrio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.anio_construccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.precio_final)
+            </th>
+            <th>
+                Acciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() != 0)
+        {
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.estado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.calle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nro_puerta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Barrio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.anio_construccion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.precio_final)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Detalles", "Details", new { id = item.ViviendaId }) |
+                        @Html.ActionLink("Editar", "Edit", new { id = item.ViviendaId })
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.estado)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.calle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nro_puerta)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Barrio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.anio_construccion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.precio_final)
-                </td>
-                <td>
-                    @Html.ActionLink("Detalles", "Details", new { id=item.ViviendaId })
-                </td>
+                <td colspan="7">No hay datos disponibles.</td>
             </tr>
         }
-    } else
-    {
-        <tr>
-            <td colspan="6">No hay datos disponibles.</td>
+
+        <tr class="warning no-result">
+            <td colspan="7"><i class="fa fa-warning"></i> No hay resultados</td>
         </tr>
-    }
+    </tbody>
 
 </table>
+
+
+@section Scripts {
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('tbody tr.no-result').attr('visible', 'false');
+
+            if ($('tbody tr').length < 3) {
+                $('.search').css('display', 'none');
+                $('.counter').css('display', 'none');
+            } else {
+                $('.search').css('display', 'inline-block');
+            }
+
+            $(".search").keyup(function () {
+                $('tbody tr.no-result').attr('visible', 'false');
+
+                var searchTerm = $(".search").val();
+
+                if (searchTerm == '') {
+                    $('.counter').css('display', 'none');
+                } else {
+                    $('.counter').css('display', 'inline-block')
+                }
+
+                var listItem = $('.results tbody').children('tr');
+                var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
+
+                $.extend($.expr[':'], {
+                    'containsi': function (elem, i, match, array) {
+                        return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+                    }
+                });
+
+                $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function (e) {
+                    $(this).attr('visible', 'false');
+                });
+
+                $(".results tbody tr:containsi('" + searchSplit + "')").each(function (e) {
+                    $(this).attr('visible', 'true');
+                });
+
+
+                var jobCount = $('.results tbody tr[visible="true"]').length;
+                $('.counter').text(jobCount + ' items');
+
+                if (jobCount == '0') {
+                    $('.no-result').attr('visible', 'true');
+                }
+                else {
+                    $('.no-result').attr('visible', 'false');
+                }
+
+            });
+        });
+
+    </script>
+}
+
+
+
