@@ -136,6 +136,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\VMSorteo.cs" />
     <Compile Include="Models\VMVivienda.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -184,6 +185,8 @@
     <Content Include="Views\Vivienda\Edit.cshtml" />
     <Content Include="Views\Vivienda\ModifyState.cshtml" />
     <Content Include="Views\Vivienda\Unfold.cshtml" />
+    <Content Include="Views\Sorteo\Details.cshtml" />
+    <Content Include="Views\Sorteo\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

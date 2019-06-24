@@ -53,3 +53,6 @@ C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\API_SH\bin\System.Web.Ht
 C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\API_SH\obj\Debug\API_SH.csprojResolveAssemblyReference.cache
 C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\API_SH\obj\Debug\API_SH.dll
 C:\Users\alumnoFI\Desktop\Solucion-Habitacional\Obl2_P3\API_SH\obj\Debug\API_SH.pdb
+C:\Users\alumnoFI\Desktop\Solucion-Habitacional-master\Obl2_P3\API_SH\obj\Debug\API_SH.csprojResolveAssemblyReference.cache
+C:\Users\alumnoFI\Desktop\Solucion-Habitacional-master\Obl2_P3\API_SH\obj\Debug\API_SH.dll
+C:\Users\alumnoFI\Desktop\Solucion-Habitacional-master\Obl2_P3\API_SH\obj\Debug\API_SH.pdb

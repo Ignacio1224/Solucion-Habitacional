@@ -12,6 +12,7 @@ namespace Dominio.Clases
     public class Sorteo
     {
         #region Props
+        [Key]
         [ForeignKey("Vivienda")]
         public int SorteoId { get; set; }
 
@@ -23,6 +24,8 @@ namespace Dominio.Clases
 
         public virtual ICollection<Postulante> Postulantes { get; set; }
 
+        [ForeignKey("Ganador")]
+        public int GanadorId { get; set; }
         public virtual Postulante Ganador { get; set; }
 
         public bool realizado { get; set; } = false;
@@ -40,10 +43,9 @@ namespace Dominio.Clases
 
         public bool esValido()
         {
-            return 
-                fecha != null &&
-                Vivienda != null &&
-                Postulantes != null;
+            return
+                fecha != null && fecha > DateTime.Now &&
+                Vivienda != null;
         }
 
         #endregion

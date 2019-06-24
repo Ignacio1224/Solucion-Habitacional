@@ -15,7 +15,15 @@ namespace Obl2_P3.Models
         public int ViviendaId { get; set; }
 
         [DisplayName("Estado actual")]
-        public Vivienda.Estados estado { get; set; }
+        public Estaditos estado { get; set; }
+
+        public enum Estaditos
+        {
+            Habilitada,
+            Inhabilitada,
+            Recibida,
+            Sorteada
+        };
 
         [DisplayName("Calle")]
         public string calle { get; set; }
@@ -78,7 +86,7 @@ namespace Obl2_P3.Models
             return new VMVivienda
             {
                 ViviendaId = v.ViviendaId,
-                estado = v.estado,
+                estado = (VMVivienda.Estaditos) v.estado,
                 calle = v.calle,
                 nro_puerta = v.nro_puerta,
                 descripcion = v.descripcion,
@@ -89,7 +97,7 @@ namespace Obl2_P3.Models
                 anio_construccion = v.anio_construccion,
                 moneda = v.moneda,
                 precio_final = v.precio_final,
-                monto_contribucion = ((ViviendaUsada) v).monto_contribucion,
+                monto_contribucion = ((ViviendaUsada)v).monto_contribucion,
                 tipo_vivienda = v.ReturnType()
             };
         }
@@ -104,7 +112,7 @@ namespace Obl2_P3.Models
                 v = new ViviendaNueva
                 {
                     ViviendaId = vmv.ViviendaId,
-                    estado = vmv.estado,
+                    estado = (Vivienda.Estados)vmv.estado,
                     calle = vmv.calle,
                     nro_puerta = vmv.nro_puerta,
                     descripcion = vmv.descripcion,
@@ -120,7 +128,7 @@ namespace Obl2_P3.Models
             } else {
                 v = new ViviendaUsada {
                     ViviendaId = vmv.ViviendaId,
-                    estado = vmv.estado,
+                    estado = (Vivienda.Estados)vmv.estado,
                     calle = vmv.calle,
                     nro_puerta = vmv.nro_puerta,
                     descripcion = vmv.descripcion,

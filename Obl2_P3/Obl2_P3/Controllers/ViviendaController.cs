@@ -30,8 +30,7 @@ namespace Obl2_P3.Controllers
         // GET: /Vivienda/Edit/{id}
         public ActionResult Edit(int id)
         {
-            Vivienda vivienda = rv.findById(id);
-            return View(VMVivienda.ConvertToVMVivienda(vivienda));
+            return View("Edit", VMVivienda.ConvertToVMVivienda(rv.findById(id)));
         }
 
         // POST: /Vivienda/Edit/{id}

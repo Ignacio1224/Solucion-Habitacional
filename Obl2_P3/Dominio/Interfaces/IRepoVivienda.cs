@@ -12,7 +12,7 @@ namespace Dominio.Interfaces
         bool add(Vivienda v);
         bool update(Vivienda v);
         bool delete(Vivienda v);
-        Vivienda findById(int? vId);
+        Vivienda findById(int vId);
         IEnumerable<Vivienda> findAll();
     }
 }

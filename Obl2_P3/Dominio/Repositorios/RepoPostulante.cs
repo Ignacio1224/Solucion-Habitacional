@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using Dominio.Clases;
 using Dominio.Interfaces;
 using Dominio.Contexto_DB;
+using System.Data.Entity;
 
 namespace Dominio.Repositorios
 {
     public class RepoPostulante : IRepoPostulante
     {
+        Contexto db = new Contexto();
+
         public bool add(Postulante p)
         {
             Contexto db = new Contexto();
@@ -72,11 +75,10 @@ namespace Dominio.Repositorios
 
         }
 
-        public Postulante findByCi(int pCi)
+        public Postulante findByCi(string pCi)
         {
-            Contexto db = new Contexto();
-
-            return db.postulantes.Find(pCi);
+            return db.postulantes.Where(p => p.cedula == pCi).Include(p => p.Sorteos).Include(p => p.Sorteo).FirstOrDefault();
+            db.Dispose();
         }
 
         public bool login(Postulante p)

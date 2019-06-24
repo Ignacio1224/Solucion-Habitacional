@@ -1,0 +1,90 @@
+﻿@model Obl2_P3.Models.VMSorteo
+
+@{
+    ViewBag.Title = "Detalles Sorteo";
+    ViewBag.ActiveMenuItem = "sorteo";
+
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>VMSorteo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SorteoId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SorteoId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.realizado)
+        </dt>
+
+        <dd>
+            @if (Model.realizado)
+            {
+                <span class="glyphicon glyphicon-ok text-success"></span>
+            }
+            else
+            {
+                <span class="glyphicon glyphicon-remove text-danger"></span>
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Postulantes)
+        </dt>
+        <dd>
+            @if (Model.Postulantes.Count() > 0)
+            {
+                foreach(var item in Model.Postulantes)
+                {
+                    Html.DisplayText(item.cedula);
+                }
+            } else
+            {
+                Html.DisplayText("No hay inscriptos");
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ganador)
+        </dt>
+        
+        <dd>
+            @if (Model.Ganador != null)
+            {
+                Html.DisplayFor(model => model.Ganador.cedula);
+            } else
+            {
+                Model.Ganador = new Dominio.Clases.Postulante { cedula = "No hay gaador" };
+                Html.DisplayFor(model => model.Ganador.cedula);
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Vivienda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vivienda)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Editar", "Edit", new { id = Model.SorteoId }) |*@
+    @Html.ActionLink("Volver al listado", "Index")
+</p>

@@ -71,13 +71,36 @@ namespace Dominio.Repositorios
 
         }
 
-        public Vivienda findById(int? vId)
+        public IEnumerable<int> findAllEnabled()
         {
-            if (vId == null)
+            List<int> vLista = null;
+            try
+            {
+                if (db.viviendas.Count() > 0)
+                {
+                    vLista = db.viviendas.Where(
+                        v => v.estado == Vivienda.Estados.Habilitada
+                        ).Select(v => v.ViviendaId).ToList();
+                    db.Dispose();
+                }
+            }
+            catch (Exception)
             {
                 return null;
             }
-            return db.viviendas.Find(vId);
+
+            return vLista;
+        }
+
+        public Vivienda findById(int vId)
+        {
+            //Contexto db = new Contexto();
+            
+            Vivienda v = db.viviendas.Where(vi => vi.ViviendaId == vId).Include(vi => vi.Barrio).SingleOrDefault();
+
+            db.Dispose();
+
+            return v;
         }
 
         public bool import()
@@ -167,7 +190,8 @@ namespace Dominio.Repositorios
                     }
                     else
                     {
-                        if (findById(v.ViviendaId) != null)
+                        RepoVivienda rv = new RepoVivienda();
+                        if (rv.findById(v.ViviendaId) != null)
                         {
                             errores.Add("Vivienda duplicada#" + v.ToString());
                             imported = false;

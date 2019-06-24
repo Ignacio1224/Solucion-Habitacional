@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dominio.Repositorios;
+using Obl2_P3.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,31 +10,37 @@ namespace Obl2_P3.Controllers
 {
     public class SorteoController : Controller
     {
+
+        RepoSorteo rs = new RepoSorteo();
+        RepoVivienda rv = new RepoVivienda();
+
         // GET: Sorteo
         public ActionResult Index()
         {
-            return View();
+            return View(VMSorteo.ConvertToVMSorteo(rs.findAll()));
         }
 
-        // GET: Sorteo/Details/5
+        // GET: Sorteo/Details/{id}
         public ActionResult Details(int id)
         {
-            return View();
+            return View(VMSorteo.ConvertToVMSorteo(rs.findById(id)));
         }
 
         // GET: Sorteo/Create
         public ActionResult Create()
         {
+
+            ViewBag.viviendas = rv.findAllEnabled();
             return View();
         }
 
         // POST: Sorteo/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(VMSorteo vms)
         {
             try
             {
-                // TODO: Add insert logic here
+                rs.add(VMSorteo.ConvertToSorteo(vms));
 
                 return RedirectToAction("Index");
             }
@@ -42,13 +50,13 @@ namespace Obl2_P3.Controllers
             }
         }
 
-        // GET: Sorteo/Edit/5
+        // GET: Sorteo/Edit/{id}
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Sorteo/Edit/5
+        // POST: Sorteo/Edit/{id}
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -64,13 +72,13 @@ namespace Obl2_P3.Controllers
             }
         }
 
-        // GET: Sorteo/Delete/5
+        // GET: Sorteo/Delete/{id}
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Sorteo/Delete/5
+        // POST: Sorteo/Delete/{id}
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
@@ -85,5 +93,15 @@ namespace Obl2_P3.Controllers
                 return View();
             }
         }
+
+        // POST: Sorteo/Raffle
+        [HttpPost]
+        public ActionResult Raffle(int id)
+        {
+            // Sortear
+            return RedirectToAction("Details", "Sorteo", new { id = id });
+
+        }
+
     }
 }

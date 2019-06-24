@@ -1,39 +1,68 @@
-﻿@model IEnumerable<Dominio.Clases.Sorteo>
+﻿@model IEnumerable<Obl2_P3.Models.VMSorteo>
 
 @{
-    ViewBag.Title = "Sorteo";
+    ViewBag.Title = "Sorteos";
+    ViewBag.ActiveMenuItem = "sorteo";
 }
 
-<h2>Sorteo</h2>
+<h2>Listado de Sorteos</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Agregar +", "Create", null, new { @class = "btn btn-success" })
 </p>
+
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SorteoId)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.fecha)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.realizado)
         </th>
-        <th></th>
+        <th>Acciones</th>
     </tr>
+    @if (Model != null && Model.Count() > 0)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SorteoId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fecha)
+                </td>
+                <td>
+                    @if (item.realizado)
+                    {
+                        <span class="glyphicon glyphicon-ok text-success"></span>
+                    }
+                    else
+                    {
+                        <span class="glyphicon glyphicon-remove text-danger"></span>
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Detalles", "Details", new { id = item.SorteoId }) |
+                    @*@Html.ActionLink("Editar", "Edit", new { id=item.SorteoId }) |*@
+                    @*@Html.ActionLink("Eliminar", "Delete", new { id=item.SorteoId }) |*@
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.realizado)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+                    <form action="/Sorteo/Raffle/@item.SorteoId" method="post">
+                        <input type="submit" class="btn-link" value="Sortear" name="bttn-raffle" />
+                    </form>
+                    
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="4">No hay sorteos disponibles.</td>
+        </tr>
+    }
 
 </table>

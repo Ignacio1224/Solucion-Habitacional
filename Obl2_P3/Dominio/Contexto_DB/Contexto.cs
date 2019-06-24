@@ -42,9 +42,13 @@ namespace Dominio.Contexto_DB
                     r.MapRightKey("SorteoId");
                 });
 
+            //modelBuilder.Entity<Sorteo>()
+            //    .HasRequired<Postulante>(p => p.Ganador)
+            //    .WithOptional(s => s.Sorteo);
+
             modelBuilder.Entity<Sorteo>()
-                .HasRequired<Postulante>(p => p.Ganador)
-                .WithOptional(s => s.Sorteo);
+                .HasOptional<Postulante>(p => p.Ganador)
+                .WithRequired(s => s.Sorteo);
 
         }
 

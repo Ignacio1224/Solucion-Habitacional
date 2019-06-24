@@ -6,28 +6,53 @@ using System.Threading.Tasks;
 using Dominio.Clases;
 using Dominio.Interfaces;
 using Dominio.Contexto_DB;
+using System.Data.Entity;
 
 namespace Dominio.Repositorios
 {
     public class RepoSorteo : IRepoSorteo
     {
+        Contexto db = new Contexto();
+
         public bool add(Sorteo s)
         {
+            bool added = false;
             Contexto db = new Contexto();
+            RepoVivienda rv = new RepoVivienda();
 
-            if (!s.esValido() || s == null) return false;
+            if (!s.esValido() || s == null) return added;
 
             try
             {
-                db.sorteos.Add(s);
-                db.SaveChanges();
-                db.Dispose();
-                return true;
+                
+                s.Vivienda.estado = Vivienda.Estados.Sorteada;
+
+                if (rv.update(s.Vivienda))
+                {
+                    db.Entry(s.Vivienda).State = EntityState.Unchanged;
+                    if (s.Postulantes != null)
+                    {
+                        db.Entry(s.Postulantes).State = EntityState.Unchanged;
+                    }
+
+                    if (s.Ganador != null)
+                    {
+                        db.Entry(s.Ganador).State = EntityState.Unchanged;
+                    }
+
+                    db.sorteos.Add(s);
+                    db.SaveChanges();
+                    db.Dispose();
+                    added = true;
+                }
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+
             }
+
+            return added;
         }
 
         public bool delete(Sorteo s)
@@ -51,15 +76,13 @@ namespace Dominio.Repositorios
 
         public IEnumerable<Sorteo> findAll()
         {
-            Contexto db = new Contexto();
-
             List<Sorteo> sLista = null;
 
             try
             {
                 if (db.sorteos.Count() > 0)
                 {
-                    sLista = (from Sorteo s in db.sorteos select s).ToList();
+                    sLista = (from Sorteo s in db.sorteos select s).Include(s => s.Vivienda).Include(s => s.Postulantes).Include(s => s.Ganador).Include(so => so.Vivienda).ToList();
                     db.Dispose();
                 }
             }
@@ -74,9 +97,9 @@ namespace Dominio.Repositorios
 
         public Sorteo findById(int sId)
         {
-            Contexto db = new Contexto();
-
-            return db.sorteos.Find(sId);
+            Sorteo s = db.sorteos.Where(so => so.SorteoId == sId).Include(so => so.Postulantes).Include(so => so.Ganador).Include(so => so.Vivienda).FirstOrDefault();
+            db.Dispose();
+            return s;
         }
 
         public bool update(Sorteo s)
