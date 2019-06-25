@@ -45,11 +45,6 @@ namespace Dominio.Clases
 
         #region Metodos
 
-        public bool es_mayor()
-        {
-            return this.fecha_nac.AddYears(18) <= DateTime.Today;
-        }
-
         public override bool esValido()
         {
             return
@@ -57,7 +52,7 @@ namespace Dominio.Clases
                 Utilidades.esCampoValido(this.nombre, 2, 50) &&
                 Utilidades.esCampoValido(this.apellido, 2, 50) &&
                 Utilidades.esEmailValido(this.email) &&
-                es_mayor();
+                fecha_nac.AddYears(18) <= DateTime.Today;
         }
 
         public override string getRole()

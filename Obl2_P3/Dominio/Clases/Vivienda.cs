@@ -86,6 +86,7 @@ namespace Dominio.Clases
 
         public abstract string ReturnType();
 
+        public abstract decimal ReturnContribucion();
         #endregion
     }
 }

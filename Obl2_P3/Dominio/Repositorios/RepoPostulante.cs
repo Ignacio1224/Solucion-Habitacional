@@ -78,7 +78,6 @@ namespace Dominio.Repositorios
         public Postulante findByCi(string pCi)
         {
             return db.postulantes.Where(p => p.cedula == pCi).Include(p => p.Sorteos).Include(p => p.Sorteo).FirstOrDefault();
-            db.Dispose();
         }
 
         public bool login(Postulante p)

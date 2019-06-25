@@ -183,8 +183,6 @@
     <Content Include="Views\Vivienda\Index.cshtml" />
     <Content Include="Views\Vivienda\Details.cshtml" />
     <Content Include="Views\Vivienda\Edit.cshtml" />
-    <Content Include="Views\Vivienda\ModifyState.cshtml" />
-    <Content Include="Views\Vivienda\Unfold.cshtml" />
     <Content Include="Views\Sorteo\Details.cshtml" />
     <Content Include="Views\Sorteo\Create.cshtml" />
   </ItemGroup>

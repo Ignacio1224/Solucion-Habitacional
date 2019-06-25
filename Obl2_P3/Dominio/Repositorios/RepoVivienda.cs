@@ -29,6 +29,7 @@ namespace Dominio.Repositorios
             }
             catch (Exception ex)
             {
+                string error = ex.Message;
                 return false;
             }
 
@@ -211,6 +212,7 @@ namespace Dominio.Repositorios
             }
             catch (Exception ex)
             {
+                string error = ex.Message;
                 imported = false;
             }
 
@@ -253,7 +255,8 @@ namespace Dominio.Repositorios
             }
             catch (Exception ex)
             {
-
+                string error = ex.Message;
+                return updated;
             }
             return updated;
         }

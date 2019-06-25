@@ -28,6 +28,11 @@ namespace Dominio.Clases
             return "ViviendaNueva";
         }
 
+        public override decimal ReturnContribucion()
+        {
+            return 0;
+        }
+
         #endregion
     }
 }

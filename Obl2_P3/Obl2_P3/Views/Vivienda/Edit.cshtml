@@ -6,6 +6,11 @@
 }
 
 <h2>Vivienda</h2>
+<h4>Editar información</h4>
+<hr />
+
+<div class='alert alert-success' role='alert'> @ViewBag.Message </div >
+
 
 
 @using (Html.BeginForm())
@@ -13,8 +18,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Editar información</h4>
-        <hr/>
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <dl class="dl-horizontal">
@@ -118,15 +122,15 @@
             </dd>
 
             @if (Model.monto_contribucion > 0)
-            {
+                {
                 <dt>
                     @Html.DisplayNameFor(model => model.monto_contribucion)
                 </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.monto_contribucion)
-                    @Html.HiddenFor(model => model.monto_contribucion)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.monto_contribucion)
+                        @Html.HiddenFor(model => model.monto_contribucion)
+                    </dd>
             }
 
             <dd>
@@ -147,7 +151,7 @@
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Save" class="btn btn-default" />
                 </div>
-            </dd>
+            </dd>s
     </div>
 }
 

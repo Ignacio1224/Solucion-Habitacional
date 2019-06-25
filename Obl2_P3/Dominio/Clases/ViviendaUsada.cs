@@ -37,6 +37,11 @@ namespace Dominio.Clases
             return "ViviendaUsada";
         }
 
+        public override decimal ReturnContribucion()
+        {
+            return this.monto_contribucion;
+        }
+
         #endregion
 
     }

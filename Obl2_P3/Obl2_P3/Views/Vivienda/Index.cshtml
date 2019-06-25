@@ -100,7 +100,7 @@
                     </td>
                     <td>
                         @Html.ActionLink("Detalles", "Details", new { id = item.ViviendaId }) |
-                        @Html.ActionLink("Editar", "Edit", new { id = item.ViviendaId })
+                        @Html.ActionLink("Modificar estado", "Edit", new { id = item.ViviendaId })
                     </td>
                 </tr>
             }
@@ -121,8 +121,6 @@
 
 
 @section Scripts {
-
-
     <script type="text/javascript">
 
         $(document).ready(function () {

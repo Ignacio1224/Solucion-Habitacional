@@ -6,35 +6,38 @@ using System.Net.Http;
 using System.Web.Http;
 using Dominio.Repositorios;
 using Dominio.Clases;
-
+using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
-    [RoutePrefix("API_SH/Postulante")]
+    [RoutePrefix("api/Postulante")]
     public class PostulanteController : ApiController
     {
         RepoPostulante rp = new RepoPostulante();
         RepoUsuario ru = new RepoUsuario();
 
-        // Postulante/POST
-        public IHttpActionResult Post(Postulante p)
+        //POST: <server>/api/Postulante/POST
+        [HttpPost]
+        [Route("")]
+        public IHttpActionResult Post([FromBody] VMPostulanteAPI p)
         {
-            Postulante pAux = rp.findByCi(p.cedula);
-
-            if (pAux != null)
+            if (ModelState.IsValid && p.esValido())
             {
-                Usuario u = new Usuario()
+                Postulante pAux = rp.findByCi(p.cedula);
+
+                if (pAux != null)
                 {
-                    cedula = p.cedula,
-                    clave = p.clave
-                };
-
-                ru.add(u);
-                return Ok();
+                    if (ru.add(VMPostulanteAPI.ConvertToPostulante(p)))
+                    {
+                        return Ok();
+                    }
+                    else return InternalServerError();
+                }
+                else return BadRequest();
             }
-
             else return NotFound();
-        }
 
+        }
     }
 }
+

@@ -98,6 +98,7 @@ namespace Dominio.Repositorios
             }
             catch (Exception ex)
             {
+                string error = ex.Message;
                 return null;
             }
             
