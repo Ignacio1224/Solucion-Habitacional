@@ -1,26 +1,41 @@
-﻿using Dominio.Clases;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+//
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+//
+using Dominio.Clases;
+using Dominio.Repositorios;
 
-namespace WebAPI.Models
+namespace Obl2_P3.Models
 {
-    public class VMPostulanteAPI
+    public class VMPostulante
     {
         #region props
+
+        [DisplayName("Nombre:")]
         public string nombre { get; set; }
 
+        [DisplayName("Apellido:")]
         public string apellido { get; set; }
 
+        [DisplayName("Email:")]
         public string email { get; set; }
 
+        [DisplayName("Fecha de nacimiento:")]
         public DateTime fecha_nac { get; set; }
 
+        [DisplayName("Cédula de identidad:")]
         public string cedula { get; set; }
 
+        [DisplayName("Id vivienda:")]
+        [PasswordPropertyTextAttribute(true)]
         public string clave { get; set; }
+
         #endregion
+
 
         #region methods
         public bool esValido()
@@ -34,7 +49,7 @@ namespace WebAPI.Models
                 fecha_nac.AddYears(18) <= DateTime.Today;
         }
 
-        public static Postulante ConvertToPostulante(VMPostulanteAPI p)
+        public static Postulante ConvertToPostulante(VMPostulante p)
         {
             return new Postulante
             {
@@ -47,5 +62,6 @@ namespace WebAPI.Models
             };
         }
         #endregion
+
     }
 }

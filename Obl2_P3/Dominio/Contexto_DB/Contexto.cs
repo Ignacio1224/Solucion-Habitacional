@@ -29,7 +29,7 @@ namespace Dominio.Contexto_DB
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             modelBuilder.Entity<Barrio>()
-                .HasMany<Vivienda>(b => b.Vivienda)
+                .HasMany<Vivienda>(b => b.Vivienda) //El barrio puede que no tenga viviendas?
                 .WithRequired(v => v.Barrio)
                 .WillCascadeOnDelete();
 
@@ -48,7 +48,7 @@ namespace Dominio.Contexto_DB
 
             modelBuilder.Entity<Sorteo>()
                 .HasOptional<Postulante>(p => p.Ganador)
-                .WithRequired(s => s.Sorteo);
+                .WithRequired(s => s.Sorteo); // WithOptional ???
 
         }
 

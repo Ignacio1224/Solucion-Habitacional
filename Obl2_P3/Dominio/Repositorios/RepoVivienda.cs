@@ -79,9 +79,7 @@ namespace Dominio.Repositorios
             {
                 if (db.viviendas.Count() > 0)
                 {
-                    vLista = db.viviendas.Where(
-                        v => v.estado == Vivienda.Estados.Habilitada
-                        ).Select(v => v.ViviendaId).ToList();
+                    vLista = db.viviendas.Where(v => v.estado == Vivienda.Estados.Habilitada).Select(v => v.ViviendaId).ToList();
                     db.Dispose();
                 }
             }

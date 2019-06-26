@@ -1,21 +1,22 @@
-﻿using Dominio.Clases;
-using Dominio.Repositorios;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+//
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+//
+using Dominio.Clases;
+using Dominio.Repositorios;
 
 namespace Obl2_P3.Models
 {
     public class VMVivienda
     {
+        #region props
+
         [DisplayName("Id vivienda:")]
         public int ViviendaId { get; set; }
-
-        [DisplayName("Estado actual")]
-        public Estaditos estado { get; set; }
 
         public enum Estaditos
         {
@@ -25,6 +26,17 @@ namespace Obl2_P3.Models
             Sorteada
         };
 
+        [DisplayName("Estado actual")]
+        public Estaditos estado { get; set; }
+
+        [DisplayName("Barrio")]
+        public string Barrio { get; set; }
+
+        [DisplayName("Sorteo")]
+        public virtual Sorteo Sorteo { get; set; } // En el modelo no podría ser un string con el IdSorteo?
+
+        public Enum estados; // why
+
         [DisplayName("Calle")]
         public string calle { get; set; }
 
@@ -33,9 +45,6 @@ namespace Obl2_P3.Models
 
         [DisplayName("Descripción")]
         public string descripcion { get; set; }
-
-        [DisplayName("Barrio")]
-        public string Barrio { get; set; }
 
         [DisplayName("Cant. baños")]
         public int cant_banio { get; set; }
@@ -50,21 +59,20 @@ namespace Obl2_P3.Models
         public int anio_construccion { get; set; }
 
         [DisplayName("Moneda")]
-        public String moneda { get; set; }
+        public string moneda { get; set; }
 
         [DisplayName("Precio final")]
         public decimal precio_final { get; set; }
 
-        [DisplayName("Sorteo")]
-        public virtual Sorteo Sorteo { get; set; }
-
-        public Enum estados;
-
+        [DisplayName("Tipo")]
         public string tipo_vivienda { get; set; }
 
         [DisplayName("Contribución")]
         public decimal monto_contribucion { get; set; }
+        
+        #endregion
 
+        #region methods
 
         public static List<VMVivienda> ConvertToVMVivienda (IEnumerable<Vivienda> vs)
         {
@@ -146,5 +154,6 @@ namespace Obl2_P3.Models
             return v;
         }
 
+        #endregion
     }
 }

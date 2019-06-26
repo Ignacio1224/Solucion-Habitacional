@@ -10,16 +10,16 @@ using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
-    [RoutePrefix("api/Postulante")]
+    //[RoutePrefix("api/Postulante")]
     public class PostulanteController : ApiController
     {
         RepoPostulante rp = new RepoPostulante();
         RepoUsuario ru = new RepoUsuario();
 
-        //POST: <server>/api/Postulante/POST
+        //POST: <server>/api/RegisterPostulante/{p}
+        //[Route("")]
         [HttpPost]
-        [Route("")]
-        public IHttpActionResult Post([FromBody] VMPostulanteAPI p)
+        public IHttpActionResult RegisterPostulante([FromBody] VMPostulanteAPI p)
         {
             if (ModelState.IsValid && p.esValido())
             {
@@ -36,7 +36,6 @@ namespace WebAPI.Controllers
                 else return BadRequest();
             }
             else return NotFound();
-
         }
     }
 }
