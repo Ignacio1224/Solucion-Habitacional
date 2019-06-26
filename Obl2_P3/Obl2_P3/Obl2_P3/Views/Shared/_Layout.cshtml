@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title | Solucion Habitacional</title>
+    @Styles.Render("~/Content/css")
+    @RenderSection("Styles", false)
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    @Html.ActionLink("Solucion Habitacional", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </a>
+            </div>
+            <ul class="nav navbar-nav">
+
+                <li class = @(ViewBag.ActiveMenuItem == "home" ? "active" : "" )>
+                    @Html.ActionLink("Inicio", "Index", "Home", new { area = "" })
+                </li>
+
+
+                <li class="@(ViewBag.ActiveMenuItem == "sorteo" ? "active" : "" )">
+                    @Html.ActionLink("Sorteos", "Index", "Sorteo")
+                </li>
+
+                <li class="@(ViewBag.ActiveMenuItem == "vivienda" ? "active" : "" )">
+                    @Html.ActionLink("Viviendas", "Index", "Vivienda")
+                </li>
+
+                <li class=@(ViewBag.ActiveMenuItem == "barrio" ? "active" : "")>
+                    @Html.ActionLink("Barrios", "Index", "Barrio")
+                </li>
+                
+                <li class=@(ViewBag.ActiveMenuItem == "parametro" ? "active" : "")>
+                    @Html.ActionLink("Parametros", "Index", "Parametro")
+                </li>
+
+                <li class = @(ViewBag.ActiveMenuItem == "about" ? "active" : "")>
+                        @Html.ActionLink("Acerca de", "About", "Home")
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Ignacio Cabrera - Santiago Manzoni.</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

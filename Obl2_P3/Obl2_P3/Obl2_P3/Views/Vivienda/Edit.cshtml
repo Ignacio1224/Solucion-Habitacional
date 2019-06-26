@@ -1,0 +1,164 @@
+﻿@model Obl2_P3.Models.VMVivienda
+
+@{
+    ViewBag.Title = "Vivienda editar";
+    ViewBag.ActiveMenuItem = "vivienda";
+}
+
+<h2>Vivienda</h2>
+<h4>Editar información</h4>
+<hr />
+
+<div class='alert alert-success' role='alert'> @ViewBag.Message </div >
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ViviendaId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ViviendaId)
+                @Html.HiddenFor(model => model.ViviendaId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.calle)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.calle)
+                @Html.HiddenFor(model => model.calle)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.nro_puerta)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.nro_puerta)
+                @Html.HiddenFor(model => model.nro_puerta)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.descripcion)
+                @Html.HiddenFor(model => model.descripcion)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Barrio)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Barrio)
+                @Html.HiddenFor(model => model.Barrio)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.cant_banio)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.cant_banio)
+                @Html.HiddenFor(model => model.cant_banio)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.cant_dormitorio)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.cant_dormitorio)
+                @Html.HiddenFor(model => model.cant_dormitorio)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.metraje)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.metraje)
+                @Html.HiddenFor(model => model.metraje)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.anio_construccion)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.anio_construccion)
+                @Html.HiddenFor(model => model.anio_construccion)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.moneda)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.moneda)
+                @Html.HiddenFor(model => model.moneda)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.precio_final)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.precio_final)
+                @Html.HiddenFor(model => model.precio_final)
+            </dd>
+
+            @if (Model.monto_contribucion > 0)
+                {
+                <dt>
+                    @Html.DisplayNameFor(model => model.monto_contribucion)
+                </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.monto_contribucion)
+                        @Html.HiddenFor(model => model.monto_contribucion)
+                    </dd>
+            }
+
+            <dd>
+                @Html.HiddenFor(model => model.tipo_vivienda)
+            </dd>
+
+            <dd class="form-group">
+                @Html.LabelFor(model => model.estado, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.estado,
+                                          new SelectList(Enum.GetValues(typeof(Obl2_P3.Models.VMVivienda.Estaditos))),
+                                          "Seleccionar")
+                    @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
+                </div>
+            </dd>
+
+            <dd class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </dd>s
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver a la lista", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
