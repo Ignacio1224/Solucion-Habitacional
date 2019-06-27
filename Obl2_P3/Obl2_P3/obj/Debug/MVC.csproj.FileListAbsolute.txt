@@ -157,3 +157,5 @@ C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Obl2_P3
 C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Obl2_P3\obj\Debug\MVC.csprojResolveAssemblyReference.cache
 C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Obl2_P3\obj\Debug\Obl2_P3.dll
 C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Obl2_P3\obj\Debug\Obl2_P3.pdb
+C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Obl2_P3\bin\System.Net.Http.Formatting.dll
+C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Obl2_P3\bin\System.Net.Http.Formatting.xml

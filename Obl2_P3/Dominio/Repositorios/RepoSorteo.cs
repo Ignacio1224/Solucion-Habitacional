@@ -24,7 +24,7 @@ namespace Dominio.Repositorios
 
             try
             {
-                
+
                 s.Vivienda.estado = Vivienda.Estados.Sorteada;
 
                 if (rv.update(s.Vivienda))
@@ -77,19 +77,19 @@ namespace Dominio.Repositorios
 
         public IEnumerable<Sorteo> findAll()
         {
-            List<Sorteo> sLista = null;
+            List<Sorteo> sLista = new List<Sorteo>();
 
             try
             {
-                if (db.sorteos.Count() > 0)
+                if (db.viviendas.Count() > 0)
                 {
                     sLista = (from Sorteo s in db.sorteos select s).Include(s => s.Vivienda).Include(s => s.Postulantes).Include(s => s.Ganador).Include(so => so.Vivienda).ToList();
                     db.Dispose();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+
             }
 
             return sLista;
@@ -101,6 +101,14 @@ namespace Dominio.Repositorios
             Sorteo s = db.sorteos.Where(so => so.SorteoId == sId).Include(so => so.Postulantes).Include(so => so.Ganador).Include(so => so.Vivienda).FirstOrDefault();
             db.Dispose();
             return s;
+        }
+
+        public Sorteo raffle(Sorteo s)
+        {
+            s.sortear();
+            bool addedd = add(s);
+            return s;
+            
         }
 
         public bool update(Sorteo s)

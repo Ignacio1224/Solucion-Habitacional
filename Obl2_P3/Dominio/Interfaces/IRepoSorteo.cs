@@ -10,9 +10,10 @@ namespace Dominio.Interfaces
     interface IRepoSorteo
     {
         bool add(Sorteo s);
-        bool update(Sorteo s);
         bool delete(Sorteo s);
-        Sorteo findById(int sId);
         IEnumerable<Sorteo> findAll();
+        Sorteo findById(int sId);
+        Sorteo raffle(Sorteo s);
+        bool update(Sorteo s);
     }
 }

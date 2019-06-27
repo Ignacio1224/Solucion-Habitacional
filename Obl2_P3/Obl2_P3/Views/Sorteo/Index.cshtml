@@ -7,6 +7,10 @@
 
 <h2>Listado de Sorteos</h2>
 
+<div class="@ViewBag.message[0]" style="@ViewBag.message[1]">
+    @ViewBag.message[2]
+</div>
+
 <p>
     @Html.ActionLink("Agregar +", "Create", null, new { @class = "btn btn-success" })
 </p>
@@ -46,14 +50,16 @@
                     }
                 </td>
                 <td>
-                    @Html.ActionLink("Detalles", "Details", new { id = item.SorteoId }) |
+                    @Html.ActionLink("Detalles", "Details", new { id = item.SorteoId })
                     @*@Html.ActionLink("Editar", "Edit", new { id=item.SorteoId }) |*@
                     @*@Html.ActionLink("Eliminar", "Delete", new { id=item.SorteoId }) |*@
 
-                    <form action="/Sorteo/Raffle/@item.SorteoId" method="post">
-                        <input type="submit" class="btn-link" value="Sortear" name="bttn-raffle" />
-                    </form>
-                    
+                    @if(item.Postulantes.Count() > 0)
+                    {
+                        <form action="/Sorteo/Raffle/@item.SorteoId" method="post">
+                            | <input type="submit" class="btn-link" value="Sortear" name="bttn-raffle" />
+                        </form>
+                    }
                 </td>
             </tr>
         }

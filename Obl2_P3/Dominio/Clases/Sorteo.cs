@@ -38,7 +38,7 @@ namespace Dominio.Clases
         {
             Random r = new Random();
             this.Ganador = ((List<Postulante>)Postulantes)[r.Next(Postulantes.Count)];
-            return this.Ganador;  
+            return this.Ganador;
         }
 
         public bool esValido()

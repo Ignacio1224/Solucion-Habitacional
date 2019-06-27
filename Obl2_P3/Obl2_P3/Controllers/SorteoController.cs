@@ -3,6 +3,7 @@ using Obl2_P3.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,10 +14,12 @@ namespace Obl2_P3.Controllers
 
         RepoSorteo rs = new RepoSorteo();
         RepoVivienda rv = new RepoVivienda();
+        RepoBarrio rb = new RepoBarrio();
 
         // GET: Sorteo
         public ActionResult Index()
         {
+            ViewBag.message = new string[] { "d-none", "", "" };
             return View(VMSorteo.ConvertToVMSorteo(rs.findAll()));
         }
 
@@ -30,7 +33,9 @@ namespace Obl2_P3.Controllers
         public ActionResult Create()
         {
 
-            ViewBag.viviendas = rv.findAllEnabled();
+            ViewBag.viviendas = Enumerable.Empty<Dominio.Clases.Vivienda>().ToList();
+            //ViewBag.viviendas = rv.findAllEnabled();
+            ViewBag.barrios = rb.findAll();
             return View();
         }
 
@@ -56,51 +61,51 @@ namespace Obl2_P3.Controllers
             return View();
         }
 
-        // POST: Sorteo/Edit/{id}
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult ViviendaPorBarrio(int id)
         {
-            try
-            {
-                // TODO: Add update logic here
+            //HttpClient client = new HttpClient();
+            //HttpResponseMessage res = new HttpResponseMessage();
+            //string url = null;
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            //client.BaseAddress = new Uri("http://localhost:50265/api/");
+            //url = "GetByBarrio/" + id;
 
-        // GET: Sorteo/Delete/{id}
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+            //client.DefaultRequestHeaders.Accept.Clear();
+            //client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-        // POST: Sorteo/Delete/{id}
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+            //res = client.GetAsync(url).Result;
+            //List<VMVivienda> vs = new List<VMVivienda>();
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            //if (res.IsSuccessStatusCode)
+            //{
+            //    vs = res.Content.ReadAsAsync<IEnumerable<VMVivienda>>().Result.ToList();
+            //}
+
+            //ViewBag.viviendas = res.Content.ReadAsAsync<IEnumerable<VMVivienda>>().Result;
+            ViewBag.viviendas = rv.findByBarrio(id);
+            ViewBag.barrios = rb.findAll();
+            return View("Create", "Sorteo");
         }
 
         // POST: Sorteo/Raffle
         [HttpPost]
         public ActionResult Raffle(int id)
         {
-            // Sortear
-            return RedirectToAction("Details", "Sorteo", new { id = id });
+            RepoSorteo rss = new RepoSorteo();
+            VMSorteo vms = new VMSorteo();
+            vms = VMSorteo.ConvertToVMSorteo(rs.findById(id));
 
+            if (vms.Postulantes.Count() == 0)
+            {
+                string[] message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "El sorteo no posee postulantes" };
+                ViewBag.message = message;
+                return View("Index", VMSorteo.ConvertToVMSorteo(rss.findAll()));
+            }
+            
+            // Sortear
+            vms = VMSorteo.ConvertToVMSorteo(rss.raffle(VMSorteo.ConvertToSorteo(vms)));
+
+            return RedirectToAction("Details", "Sorteo", new { id = id });
         }
 
     }

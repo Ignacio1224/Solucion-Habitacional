@@ -1,4 +1,5 @@
 ﻿@model Obl2_P3.Models.VMSorteo
+@*@using Obl2_P3.Models;*@
 
 @{
     ViewBag.Title = "Create";
@@ -26,11 +27,30 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Vivienda, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label for="cmb-barrio-filter" class="control-label col-md-2">Barrio</label>
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.Vivienda,
-                                          new SelectList(ViewBag.viviendas),
-                                          "Seleccionar")
+                <select id="cmb-barrio-filter">
+                    <option value="">Seleccionar</option>
+                    @foreach(var b in ViewBag.barrios)
+                    {
+                        <option value="@b.BarrioId">@b.nombre_barrio</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Vivienda, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" id="div-cmb-vivienda">
+                @*Enumerable.Empty<VMVivienda>().ToList()*@
+                @Html.DropDownListFor(m => m.Vivienda, new SelectList(ViewBag.viviendas), "Seleccionar")
+                @*<select data-val="true" data-val-number="The field Vivienda sorteada must be a number." data-val-required="The Vivienda sorteada field is required." id="Vivienda" name="Vivienda">
+                    <option value="">Seleccionar</option>
+                    @foreach (var v in ViewBag.viviendas)
+                    {
+                        <option value="@v.ViviendaId">@v.ViviendaId</option>
+                    }
+                </select>*@
                 @Html.ValidationMessageFor(model => model.Vivienda, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -46,3 +66,16 @@
 <div>
     @Html.ActionLink("Volver al listado", "Index")
 </div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $('#cmb-barrio-filter').on('change', function () {
+            if ($(this).val() != '') {
+                $.ajax({
+                    type: 'GET',
+                    url: `/Sorteo/ViviendaPorBarrio/${$(this).val()}`,
+                });
+            }
+        });
+    </script>    
+}

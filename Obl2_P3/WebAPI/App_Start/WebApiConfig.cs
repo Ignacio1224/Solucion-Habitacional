@@ -21,6 +21,7 @@ namespace WebAPI
                     controller = "Vivienda",
                     action = "GetByManyBedrooms"
                 }
+
             );
 
 
@@ -31,19 +32,23 @@ namespace WebAPI
                 {
                     controller = "Vivienda",
                     action = "GetByPriceRange",
+
+                    pMin = RouteParameter.Optional,
                     pMax = RouteParameter.Optional
                 });
 
 
             config.Routes.MapHttpRoute(
                name: "GetByBarrio",
-               routeTemplate: "api/GetByBarrio/{idBarrio:int}",
+
+               routeTemplate: "api/GetByBarrio/{idBarrio}",
                defaults: new
                {
                    controller = "Vivienda",
                    action = "GetByBarrio"
-               });
 
+               }
+           );
 
             config.Routes.MapHttpRoute(
                name: "GetByState",
@@ -52,8 +57,28 @@ namespace WebAPI
                {
                    controller = "Vivienda",
                    action = "GetByState"
-               });
+               }
+           );
 
+            config.Routes.MapHttpRoute(
+                name: "GetByType",
+                routeTemplate: "api/GetByType/{type:alpha}",
+                defaults: new
+                {
+                    controller = "Vivienda",
+                    action = "GetByType"
+                }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "RegisterPostulante",
+                routeTemplate: "api/RegisterPostulante/{p}",
+                defaults: new
+                {
+                    controller = "Vivienda",
+                    action = "RegisterPostulante"
+                }
+            );
 
             config.Routes.MapHttpRoute(
                name: "GetByType",
@@ -72,6 +97,7 @@ namespace WebAPI
                  controller = "Postulante",
                  action = "RegisterPostulante"
              });
+
         }
     }
 }

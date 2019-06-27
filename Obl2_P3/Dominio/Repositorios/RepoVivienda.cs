@@ -91,10 +91,33 @@ namespace Dominio.Repositorios
             return vLista;
         }
 
+        public List<int> findByBarrio(int bId)
+        {
+            //Contexto db = new Contexto();
+            List<int> vLista = null;
+
+            try
+            {
+                if (db.viviendas.Count() > 0)
+                {
+                    vLista = db.viviendas.Where(
+                        v => v.estado == Vivienda.Estados.Habilitada
+                        && v.BarrioId == bId).Select(v => v.ViviendaId).ToList();
+                    db.Dispose();
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+            return vLista;
+        }
+
         public Vivienda findById(int vId)
         {
             //Contexto db = new Contexto();
-            
+
             Vivienda v = db.viviendas.Where(vi => vi.ViviendaId == vId).Include(vi => vi.Barrio).SingleOrDefault();
 
             db.Dispose();
