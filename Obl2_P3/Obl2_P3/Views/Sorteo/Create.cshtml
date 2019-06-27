@@ -7,10 +7,10 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Sorteo</h4>
         <hr />
@@ -31,7 +31,7 @@
             <div class="col-md-10">
                 <select id="cmb-barrio-filter">
                     <option value="">Seleccionar</option>
-                    @foreach(var b in ViewBag.barrios)
+                    @foreach (var b in ViewBag.barrios)
                     {
                         <option value="@b.BarrioId">@b.nombre_barrio</option>
                     }
@@ -42,15 +42,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Vivienda, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10" id="div-cmb-vivienda">
-                @*Enumerable.Empty<VMVivienda>().ToList()*@
-                @Html.DropDownListFor(m => m.Vivienda, new SelectList(ViewBag.viviendas), "Seleccionar")
-                @*<select data-val="true" data-val-number="The field Vivienda sorteada must be a number." data-val-required="The Vivienda sorteada field is required." id="Vivienda" name="Vivienda">
+                @*Enumerable.Empty<VMVivienda>().ToList()
+                    @Html.DropDownListFor(m => m.Vivienda, new SelectList(ViewBag.viviendas), "Seleccionar") *@
+                <select data-val="true" data-val-number="The field Vivienda sorteada must be a number." data-val-required="The Vivienda sorteada field is required." id="cmb-viviendas" name="Vivienda">
                     <option value="">Seleccionar</option>
-                    @foreach (var v in ViewBag.viviendas)
-                    {
-                        <option value="@v.ViviendaId">@v.ViviendaId</option>
-                    }
-                </select>*@
+                </select>
                 @Html.ValidationMessageFor(model => model.Vivienda, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -71,11 +67,22 @@
     <script type="text/javascript">
         $('#cmb-barrio-filter').on('change', function () {
             if ($(this).val() != '') {
-                $.ajax({
-                    type: 'GET',
-                    url: `/Sorteo/ViviendaPorBarrio/${$(this).val()}`,
-                });
+
+                var idBarrio = $("#cmb-barrio-filter").val();
+                var slc = $("#cmb-barrio-filter");
+
+                while (slc.length > 0) {
+                    slc.remove(1);
+                }
+
+                $("#cmb-viviendas").append(" <option value=''>Seleccionar</option>");
+
+                for(var v in @ViewBag.viviendas){
+                    if (v.BarrioId = idBarrio) {
+                        $("#cmb-viviendas").append(" <option value="+ v.ViviendaId +">"+ v.ViviendaId +"</option> ");
+                    }
+                }
             }
         });
-    </script>    
+    </script>
 }
