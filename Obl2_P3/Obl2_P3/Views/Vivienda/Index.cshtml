@@ -99,8 +99,11 @@
                         @Html.DisplayFor(modelItem => item.precio_final)
                     </td>
                     <td>
-                        @Html.ActionLink("Detalles", "Details", new { id = item.ViviendaId }) |
-                        @Html.ActionLink("Modificar estado", "Edit", new { id = item.ViviendaId })
+                        @Html.ActionLink("Detalles", "Details", new { id = item.ViviendaId })
+                        @if (item.estado != Obl2_P3.Models.VMVivienda.Estaditos.Sorteada)
+                        {
+                            <text> | </text> @Html.ActionLink("Modificar estado", "Edit", new { id = item.ViviendaId })
+                        }
                     </td>
                 </tr>
             }

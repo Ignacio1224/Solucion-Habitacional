@@ -189,7 +189,8 @@
     <Content Include="Views\Vivienda\Details.cshtml" />
     <Content Include="Views\Vivienda\Edit.cshtml" />
     <Content Include="Views\Sorteo\Details.cshtml" />
-    <Content Include="Views\Sorteo\Create.cshtml" />
+    <Content Include="Views\Sorteo\CreatePreSorteo.cshtml" />
+    <Content Include="Views\Sorteo\CreateSorteo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

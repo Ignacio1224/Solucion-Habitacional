@@ -32,6 +32,8 @@ namespace Obl2_P3.Controllers
         // GET: /Vivienda/Edit/{id}
         public ActionResult Edit(int id)
         {
+            string[] message = new string[] { "d-none", "padding: 1em; margin-bottom: 0.6em;", "" };
+            ViewBag.message = message;
             return View("Edit", VMVivienda.ConvertToVMVivienda(rv.findById(id)));
         }
 
@@ -39,8 +41,16 @@ namespace Obl2_P3.Controllers
         [HttpPost]
         public ActionResult Edit(VMVivienda vmv)
         {
-            rv.update(VMVivienda.ConvertToVivienda(vmv));
-            ViewBag.Message = "Se ha cambiado el estado exitosamente";
+            
+            string[] message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "Ha ocurrido un error!" };
+
+            if (vmv.estado != VMVivienda.Estaditos.Sorteada && rv.update(VMVivienda.ConvertToVivienda(vmv)))
+            {
+                message[0] = "alert-success";
+                message[2] = "Edición correcta!";
+            }
+
+            ViewBag.message = message;
             return View(vmv);
         }
 
@@ -48,11 +58,10 @@ namespace Obl2_P3.Controllers
         [HttpPost]
         public ActionResult Import()
         {
-            bool imported = rv.import();
 
             string[] message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "Ha ocurrido un error, verifique el archivo Errores.txt" };
 
-            if (imported)
+            if (rv.import())
             {
                 message[0] = "alert-success";
                 message[2] = "Viviendas importadas correctamente";

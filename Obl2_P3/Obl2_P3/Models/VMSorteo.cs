@@ -32,6 +32,8 @@ namespace Obl2_P3.Models
         [DisplayName("Realizado")]
         public bool realizado { get; set; } = false;
 
+        public int BarrioId { get; set; }
+
 
         public static VMSorteo ConvertToVMSorteo (Sorteo s)
         {

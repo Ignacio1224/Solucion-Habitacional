@@ -106,7 +106,27 @@ namespace Dominio.Repositorios
             {
                 return listaV;
             }
-            else return Enumerable.Empty<Vivienda>();
+
+            return Enumerable.Empty<Vivienda>();
+        }
+
+        public IEnumerable<Vivienda> findByBarrioToRaffle(int bId)
+        {
+            RepoBarrio rb = new RepoBarrio();
+            Barrio aux = rb.findById(bId);
+
+            if (aux == null) return null;
+
+            var listaV = (from v in db.viviendas
+                          where v.BarrioId == bId && v.estado == Vivienda.Estados.Habilitada
+                          select v).ToList();
+
+            if (listaV != null)
+            {
+                return listaV;
+            }
+
+            return Enumerable.Empty<Vivienda>();
         }
 
         public Vivienda findById(int vId)

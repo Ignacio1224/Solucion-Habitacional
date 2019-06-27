@@ -30,6 +30,7 @@ namespace Dominio.Repositorios
                 if (rv.update(s.Vivienda))
                 {
                     db.Entry(s.Vivienda).State = EntityState.Unchanged;
+
                     if (s.Postulantes != null)
                     {
                         db.Entry(s.Postulantes).State = EntityState.Unchanged;

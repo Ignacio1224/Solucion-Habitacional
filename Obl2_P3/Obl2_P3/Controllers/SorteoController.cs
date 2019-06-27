@@ -31,56 +31,57 @@ namespace Obl2_P3.Controllers
         }
 
         // GET: Sorteo/Create
-        public ActionResult Create()
+        public ActionResult CreatePreSorteo()
         {
-            ViewBag.barrios = rb.findAll();
-
-            if (TempData["viviendas"] == null)
-            {
-                ViewBag.viviendas = Enumerable.Empty<VMVivienda>();
-            }
-            else
-            {
-                //nos falta hacer funkar esto
-                ViewBag.viviendas = TempData["viviendas"];
-            }
-
-
-
+            ViewBag.barrios = new SelectList(rb.findAll(), "BarrioId", "nombre_barrio");
             return View();
-        }
-
-
-        public ActionResult CreateWithSLCViviendas(int id)
-        {
-            TempData["viviendas"] = VMVivienda.ConvertToVMVivienda(rv.getByBarrio(id));
-
-            return RedirectToAction("Create");
         }
 
 
         // POST: Sorteo/Create
         [HttpPost]
-        public ActionResult Create(VMSorteo vms)
+        public ActionResult CreatePreSorteo(VMSorteo vms)
         {
-            try
+            if (vms.BarrioId != 0)
             {
-                rs.add(VMSorteo.ConvertToSorteo(vms));
-
-                return RedirectToAction("Index");
+                return RedirectToAction("CreateSorteo/" + vms.BarrioId);
             }
-            catch
-            {
-                return View();
-            }
-        }
 
-
-        // GET: Sorteo/Edit/{id}
-        public ActionResult Edit(int id)
-        {
             return View();
         }
+
+        // GET: Sorteo/CreateSorteo
+        public ActionResult CreateSorteo(int id)
+        {
+            ViewBag.viviendas = new SelectList(rv.findByBarrioToRaffle(id), "ViviendaId", "ViviendaId");
+            VMSorteo vms = new VMSorteo();
+            vms.BarrioId = id;
+            string[] message = new string[] { "d-none", "padding: 1em; margin-bottom: 0.6em;", "" };
+
+            ViewBag.message = message;
+
+            return View(vms);
+        }
+
+        // POST: Sorteo/CreateSorteo
+        [HttpPost]
+        public ActionResult CreateSorteo(VMSorteo vms)
+        {
+            string[] message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "El sorteo no posee postulantes" };
+
+            if (rs.add(VMSorteo.ConvertToSorteo(vms)))
+            {
+                message[0] = "alert-success";
+                message[2] = "Operacion correcta";
+            }
+
+
+            ViewBag.viviendas = new SelectList(rv.findByBarrioToRaffle(vms.BarrioId), "ViviendaId", "ViviendaId");
+            ViewBag.message = message;
+
+            return View(vms);
+        }
+
 
         // POST: Sorteo/Raffle
         [HttpPost]
@@ -104,30 +105,3 @@ namespace Obl2_P3.Controllers
         }
     }
 }
-
-
-
-
-
-
-
-
-//HttpClient client = new HttpClient();
-//HttpResponseMessage res = new HttpResponseMessage();
-//string url = null;
-
-//client.BaseAddress = new Uri("http://localhost:50265/api/");
-//url = "GetByBarrio/" + id;
-
-//client.DefaultRequestHeaders.Accept.Clear();
-//client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-//res = client.GetAsync(url).Result;
-//List<VMVivienda> vs = new List<VMVivienda>();
-
-//if (res.IsSuccessStatusCode)
-//{
-//    vs = res.Content.ReadAsAsync<IEnumerable<VMVivienda>>().Result.ToList();
-//}
-
-//ViewBag.viviendas = res.Content.ReadAsAsync<IEnumerable<VMVivienda>>().Result;
