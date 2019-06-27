@@ -1,5 +1,5 @@
 ﻿@model Obl2_P3.Models.VMSorteo
-@*@using Obl2_P3.Models;*@
+@using Obl2_P3.Models;
 
 @{
     ViewBag.Title = "Create";
@@ -19,34 +19,40 @@
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
+
             @Html.LabelFor(model => model.fecha, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+           
+             <div class="col-md-10">
                 @Html.EditorFor(model => model.fecha, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <label for="cmb-barrio-filter" class="control-label col-md-2">Barrio</label>
+
+            <label for="slc-barrio-filter" class="control-label col-md-2">Barrio</label>
             <div class="col-md-10">
-                <select id="cmb-barrio-filter">
+
+                <select id="slc-barrio-filter">
                     <option value="">Seleccionar</option>
                     @foreach (var b in ViewBag.barrios)
                     {
                         <option value="@b.BarrioId">@b.nombre_barrio</option>
                     }
                 </select>
+
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Vivienda, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10" id="div-cmb-vivienda">
-                @*Enumerable.Empty<VMVivienda>().ToList()
-                    @Html.DropDownListFor(m => m.Vivienda, new SelectList(ViewBag.viviendas), "Seleccionar") *@
-                <select data-val="true" data-val-number="The field Vivienda sorteada must be a number." data-val-required="The Vivienda sorteada field is required." id="cmb-viviendas" name="Vivienda">
-                    <option value="">Seleccionar</option>
-                </select>
+            <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.Vivienda, new SelectList(ViewBag.viviendas), "Seleccionar")
+
+                @*<select id="slc-viviendas">
+        <option value="">Seleccionar</option>
+    </select>*@
+
                 @Html.ValidationMessageFor(model => model.Vivienda, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -65,24 +71,30 @@
 
 @section Scripts {
     <script type="text/javascript">
-        $('#cmb-barrio-filter').on('change', function () {
+   //     $('#slc-barrio-filter').on('change', function () {
+   //         if ($(this).val() != '') {
+
+   //             var id_Barrio = $("#slc-barrio-filter").value();
+
+   //             $.ajax({
+   //                 type: 'GET',
+   //                 url: 'Sorteo/CreateWithCMBViviendas',
+   //                 data: { id: id_Barrio },
+   //                 dataType: 'json'
+   //             });
+   //         }
+   //     }
+        //);
+    
+        $('#slc-barrio-filter').on('change', function () {
             if ($(this).val() != '') {
-
-                var idBarrio = $("#cmb-barrio-filter").val();
-                var slc = $("#cmb-barrio-filter");
-
-                while (slc.length > 0) {
-                    slc.remove(1);
-                }
-
-                $("#cmb-viviendas").append(" <option value=''>Seleccionar</option>");
-
-                for(var v in @ViewBag.viviendas){
-                    if (v.BarrioId = idBarrio) {
-                        $("#cmb-viviendas").append(" <option value="+ v.ViviendaId +">"+ v.ViviendaId +"</option> ");
-                    }
-                }
+                $.ajax({
+                    type: 'GET',
+                    url: `/Sorteo/CreateWithSLCViviendas/${$(this).val()}`,
+                });
             }
         });
+    
     </script>
 }
+

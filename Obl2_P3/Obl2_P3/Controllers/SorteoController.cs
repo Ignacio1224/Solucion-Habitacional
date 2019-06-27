@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
+using Dominio.Clases;
 
 namespace Obl2_P3.Controllers
 {
@@ -32,12 +33,31 @@ namespace Obl2_P3.Controllers
         // GET: Sorteo/Create
         public ActionResult Create()
         {
-
-            ViewBag.viviendas = Enumerable.Empty<Dominio.Clases.Vivienda>().ToList();
-            //ViewBag.viviendas = rv.findAllEnabled();
             ViewBag.barrios = rb.findAll();
+
+            if (TempData["viviendas"] == null)
+            {
+                ViewBag.viviendas = Enumerable.Empty<VMVivienda>();
+            }
+            else
+            {
+                //nos falta hacer funkar esto
+                ViewBag.viviendas = TempData["viviendas"];
+            }
+
+
+
             return View();
         }
+
+
+        public ActionResult CreateWithSLCViviendas(int id)
+        {
+            TempData["viviendas"] = VMVivienda.ConvertToVMVivienda(rv.getByBarrio(id));
+
+            return RedirectToAction("Create");
+        }
+
 
         // POST: Sorteo/Create
         [HttpPost]
@@ -55,36 +75,11 @@ namespace Obl2_P3.Controllers
             }
         }
 
+
         // GET: Sorteo/Edit/{id}
         public ActionResult Edit(int id)
         {
             return View();
-        }
-
-        public ActionResult ViviendaPorBarrio(int id)
-        {
-            //HttpClient client = new HttpClient();
-            //HttpResponseMessage res = new HttpResponseMessage();
-            //string url = null;
-
-            //client.BaseAddress = new Uri("http://localhost:50265/api/");
-            //url = "GetByBarrio/" + id;
-
-            //client.DefaultRequestHeaders.Accept.Clear();
-            //client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-            //res = client.GetAsync(url).Result;
-            //List<VMVivienda> vs = new List<VMVivienda>();
-
-            //if (res.IsSuccessStatusCode)
-            //{
-            //    vs = res.Content.ReadAsAsync<IEnumerable<VMVivienda>>().Result.ToList();
-            //}
-
-            //ViewBag.viviendas = res.Content.ReadAsAsync<IEnumerable<VMVivienda>>().Result;
-            ViewBag.viviendas = rv.findByBarrio(id);
-            ViewBag.barrios = rb.findAll();
-            return View("Create", "Sorteo");
         }
 
         // POST: Sorteo/Raffle
@@ -101,12 +96,38 @@ namespace Obl2_P3.Controllers
                 ViewBag.message = message;
                 return View("Index", VMSorteo.ConvertToVMSorteo(rss.findAll()));
             }
-            
+
             // Sortear
             vms = VMSorteo.ConvertToVMSorteo(rss.raffle(VMSorteo.ConvertToSorteo(vms)));
 
             return RedirectToAction("Details", "Sorteo", new { id = id });
         }
-
     }
 }
+
+
+
+
+
+
+
+
+//HttpClient client = new HttpClient();
+//HttpResponseMessage res = new HttpResponseMessage();
+//string url = null;
+
+//client.BaseAddress = new Uri("http://localhost:50265/api/");
+//url = "GetByBarrio/" + id;
+
+//client.DefaultRequestHeaders.Accept.Clear();
+//client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+//res = client.GetAsync(url).Result;
+//List<VMVivienda> vs = new List<VMVivienda>();
+
+//if (res.IsSuccessStatusCode)
+//{
+//    vs = res.Content.ReadAsAsync<IEnumerable<VMVivienda>>().Result.ToList();
+//}
+
+//ViewBag.viviendas = res.Content.ReadAsAsync<IEnumerable<VMVivienda>>().Result;

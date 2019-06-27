@@ -91,33 +91,26 @@ namespace Dominio.Repositorios
             return vLista;
         }
 
-        public List<int> findByBarrio(int bId)
+        public IEnumerable<Vivienda> findByBarrio(int bId)
         {
-            //Contexto db = new Contexto();
-            List<int> vLista = null;
+            RepoBarrio rb = new RepoBarrio();
+            Barrio aux = rb.findById(bId);
 
-            try
-            {
-                if (db.viviendas.Count() > 0)
-                {
-                    vLista = db.viviendas.Where(
-                        v => v.estado == Vivienda.Estados.Habilitada
-                        && v.BarrioId == bId).Select(v => v.ViviendaId).ToList();
-                    db.Dispose();
-                }
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            if (aux == null) return null;
 
-            return vLista;
+            var listaV = (from v in db.viviendas
+                          where v.BarrioId == bId
+                          select v).ToList();
+
+            if (listaV != null)
+            {
+                return listaV;
+            }
+            else return Enumerable.Empty<Vivienda>();
         }
 
         public Vivienda findById(int vId)
         {
-            //Contexto db = new Contexto();
-
             Vivienda v = db.viviendas.Where(vi => vi.ViviendaId == vId).Include(vi => vi.Barrio).SingleOrDefault();
 
             db.Dispose();
@@ -282,5 +275,94 @@ namespace Dominio.Repositorios
             return updated;
         }
 
+        public IEnumerable<Vivienda> getByManyBedrooms(int cantDorm)
+        {
+            if (cantDorm < 1) return null;
+
+            var vLista = (from v in db.viviendas
+                          where v.cant_dormitorio == cantDorm
+                          select v).ToList();
+
+            if (vLista.Count > 0)
+            {
+                return vLista;
+            }
+
+            else return Enumerable.Empty<Vivienda>();
+        }
+
+        public IEnumerable<Vivienda> getByPriceRange(decimal pMin, decimal pMax)
+        {
+            if (pMin < 0) return null;
+
+            if (pMin > pMax)
+            {
+                decimal aux = pMin;
+                pMin = pMax;
+                pMax = aux;
+            }
+
+            RepoParametro rp = new RepoParametro();
+
+            var listaV = (from v in db.viviendas
+                          where (v.precio_final / rp.findByName(v.moneda).valor) >= pMin &&
+                                (v.precio_final / rp.findByName(v.moneda).valor <= pMax)
+                          select v).ToList();
+
+            if (listaV.Count > 0)
+            {
+                return listaV;
+            }
+            else return Enumerable.Empty<Vivienda>();
+
+        }
+
+        public IEnumerable<Vivienda> getByBarrio(int idBarrio)
+        {
+            RepoBarrio rb = new RepoBarrio();
+            Barrio aux = rb.findById(idBarrio);
+
+            if (aux == null) return null;
+
+            var listaV = (from v in db.viviendas
+                          where v.BarrioId == idBarrio
+                          select v).ToList();
+
+            if (listaV != null)
+            {
+                return listaV;
+            }
+            else return Enumerable.Empty<Vivienda>();
+        }
+
+        public IEnumerable<Vivienda> getByState(int state)
+        {
+            if (state == -1) return null;
+
+            var listaV = (from v in db.viviendas
+                          where (int)v.estado == state
+                          select v).ToList();
+
+            if (listaV != null)
+            {
+                return listaV;
+            }
+            else return Enumerable.Empty<Vivienda>();
+        }
+
+        public IEnumerable<Vivienda> getByType(string type)
+        {
+            if (type == "-1") return null;
+
+            var listaV = (from v in db.viviendas
+                          where v.ReturnType() == type
+                          select v).ToList();
+
+            if (listaV != null)
+            {
+                return listaV;
+            }
+            else return Enumerable.Empty<Vivienda>();
+        }
     }
 }

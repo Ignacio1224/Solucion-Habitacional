@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
         {
             if (cantDormitorios < 1) return BadRequest();
 
-            var vLista = rv.findAll();
+            var vLista = rv.getByManyBedrooms(cantDormitorios);
 
             if (vLista != null)
             {
@@ -35,18 +35,7 @@ namespace WebAPI.Controllers
         {
             if (pMin < 0) return BadRequest();
 
-            if (pMin > pMax)
-            {
-                decimal aux = pMin;
-                pMin = pMax;
-                pMax = aux;
-            }
-
-            RepoParametro rp = new RepoParametro();
-
-            var listaV = (from v in rv.findAll()
-                         where (v.precio_final / rp.findByName(v.moneda).valor) >= pMin && (v.precio_final / rp.findByName(v.moneda).valor <= pMax)
-                         select v).ToList();
+            var listaV = rv.getByPriceRange(pMin, pMax);
 
             if (listaV != null)
             {
@@ -59,14 +48,9 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IHttpActionResult GetByBarrio(int idBarrio)
         {
-            RepoBarrio rb = new RepoBarrio();
-            Barrio aux = rb.findById(idBarrio);
+            if (idBarrio < 1) return BadRequest();
 
-            if (aux == null) return BadRequest();
-
-            var listaV = (from v in rv.findAll()
-                         where v.BarrioId == idBarrio
-                         select v).ToList();
+            var listaV = rv.getByBarrio(idBarrio);
 
             if (listaV != null)
             {
@@ -77,12 +61,12 @@ namespace WebAPI.Controllers
 
         //GET: <server>/api/Vivienda/GetByState/{state}
         [HttpGet]
-        public IHttpActionResult GetByState(string state)
+        public IHttpActionResult GetByState(int state)
         {
-            if (state == "-1") return BadRequest();
+            if (state == -1) return BadRequest();
 
             var listaV = (from v in rv.findAll()
-                         where v.estado.ToString() == state
+                         where (int)v.estado == state
                          select v).ToList();
 
             if (listaV != null)
@@ -98,9 +82,7 @@ namespace WebAPI.Controllers
         {
             if (type == "-1") return BadRequest();
 
-            var listaV = (from v in rv.findAll()
-                         where v.ReturnType() == type
-                         select v).ToList();
+            var listaV = rv.getByType(type);
 
             if (listaV != null)
             {
