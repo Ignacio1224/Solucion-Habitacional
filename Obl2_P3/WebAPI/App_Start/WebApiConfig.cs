@@ -10,12 +10,13 @@ namespace WebAPI
         public static void Register(HttpConfiguration config)
         {
             // Configuración del ruteo de la API (RCP (NO REST) )
-
             config.MapHttpAttributeRoutes();
+
+            //Configuración de ruteos para controller Vivienda
 
             config.Routes.MapHttpRoute(
                 name: "GetByManyBedrooms",
-                routeTemplate: "api/GetByManyBedrooms/{cantDormitorios:int}",
+                routeTemplate: "api/GetByManyBedrooms/{cantDormitorios}",
                 defaults: new
                 {
                     controller = "Vivienda",
@@ -24,10 +25,9 @@ namespace WebAPI
 
             );
 
-
             config.Routes.MapHttpRoute(
                 name: "GetByPriceRange",
-                routeTemplate: "api/GetByPriceRange/{pMin:decimal}/{pMax:decimal}",
+                routeTemplate: "api/GetByPriceRange/{pMin}/{pMax}",
                 defaults: new
                 {
                     controller = "Vivienda",
@@ -52,7 +52,7 @@ namespace WebAPI
 
             config.Routes.MapHttpRoute(
                name: "GetByState",
-               routeTemplate: "api/GetByState/{state:int}",
+               routeTemplate: "api/GetByState/{state}",
                defaults: new
                {
                    controller = "Vivienda",
@@ -62,7 +62,7 @@ namespace WebAPI
 
             config.Routes.MapHttpRoute(
                 name: "GetByType",
-                routeTemplate: "api/GetByType/{type:alpha}",
+                routeTemplate: "api/GetByType/{type}",
                 defaults: new
                 {
                     controller = "Vivienda",
@@ -70,25 +70,7 @@ namespace WebAPI
                 }
             );
 
-            config.Routes.MapHttpRoute(
-                name: "RegisterPostulante",
-                routeTemplate: "api/RegisterPostulante/{p}",
-                defaults: new
-                {
-                    controller = "Vivienda",
-                    action = "RegisterPostulante"
-                }
-            );
-
-            config.Routes.MapHttpRoute(
-               name: "GetByType",
-               routeTemplate: "api/GetByType/{type:alpha}",
-               defaults: new
-               {
-                   controller = "Vivienda",
-                   action = "GetByType"
-               });
-
+            //Configuración ruteo para el controller de postulante
             config.Routes.MapHttpRoute(
              name: "RegisterPostulante",
              routeTemplate: "api/RegisterPostulante/{p}",
