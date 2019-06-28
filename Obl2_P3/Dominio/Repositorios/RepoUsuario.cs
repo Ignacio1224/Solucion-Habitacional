@@ -79,7 +79,7 @@ namespace Dominio.Repositorios
         {
             Contexto db = new Contexto();
 
-            return db.postulantes.Find(uCi);
+            return db.usuarios.Where(u => u.cedula == uCi.ToString()).FirstOrDefault();
         }
 
         public bool login(Usuario u)

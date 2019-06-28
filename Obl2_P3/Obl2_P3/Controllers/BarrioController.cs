@@ -1,20 +1,29 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Dominio.Repositorios;
+using Obl2_P3.Utilities;
 
 namespace Obl2_P3.Controllers
 {
     public class BarrioController : Controller
     {
+        #region RepoInstances
+        RepoBarrio rb = new RepoBarrio();
+        #endregion
+
+        #region Logic
+
+        #region GET
+
         // GET: Barrio
         public ActionResult Index()
         {
-            ViewBag.message = new string[] { "d-none", "", "" };
+            //if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
-            RepoBarrio rb = new RepoBarrio();
+            ViewBag.message = new string[] { "d-none", "", "" };
 
             return View(rb.findAll());
         }
@@ -22,19 +31,24 @@ namespace Obl2_P3.Controllers
         // GET: Barrio/Details/5
         public ActionResult Details(int id)
         {
-            RepoBarrio rb = new RepoBarrio();
+            //if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             return View("Details", rb.findById(id));
         }
+
+        #endregion
+
+        #region POST
 
         // POST: Barrio/Import
         [HttpPost]
         public ActionResult Import()
         {
-            RepoBarrio rb = new RepoBarrio();
+            //if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+
             bool imported = rb.import();
 
-            string[] message = new string[] {"alert-danger", "padding: 1em; margin-bottom: 0.6em;", "Ha ocurrido un error, verifique el archivo Errores.txt" };
+            string[] message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "Ha ocurrido un error, verifique el archivo Errores.txt" };
 
             if (imported)
             {
@@ -46,5 +60,9 @@ namespace Obl2_P3.Controllers
 
             return View("Index", rb.findAll());
         }
+
+        #endregion
+
+        #endregion
     }
 }

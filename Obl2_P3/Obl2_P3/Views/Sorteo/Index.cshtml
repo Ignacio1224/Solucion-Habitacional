@@ -1,74 +1,180 @@
 ﻿@model IEnumerable<Obl2_P3.Models.VMSorteo>
+@using System.Linq;
 
 @{
     ViewBag.Title = "Sorteos";
     ViewBag.ActiveMenuItem = "sorteo";
+
+
+    bool jefeLogged = false;
+    if (Session["userRole"].ToString() == "jefe") { jefeLogged = true; }
+
+    List<Obl2_P3.Models.VMSorteo> sRealizado = new List<Obl2_P3.Models.VMSorteo>();
+    List<Obl2_P3.Models.VMSorteo> sNoRealizado = new List<Obl2_P3.Models.VMSorteo>();
+
+    foreach (Obl2_P3.Models.VMSorteo sorteo in Model)
+    {
+        if (sorteo.realizado)
+        {
+            sRealizado.Add(sorteo);
+        }
+        else
+        {
+            sNoRealizado.Add(sorteo);
+        }
+    }
+    sRealizado = sRealizado.OrderByDescending(s => s.fecha).ToList();
+    sNoRealizado = sNoRealizado.OrderByDescending(s => s.fecha).ToList();
 }
 
-<h2>Listado de Sorteos</h2>
+
+
+<h2>Sorteos</h2>
+<h4>Listado</h4>
+<hr />
 
 <div class="@ViewBag.message[0]" style="@ViewBag.message[1]">
     @ViewBag.message[2]
 </div>
 
-<p>
-    @Html.ActionLink("Agregar +", "CreatePreSorteo", null, new { @class = "btn btn-success" })
-</p>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.SorteoId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fecha)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.realizado)
-        </th>
-        <th>Acciones</th>
-    </tr>
-    @if (Model != null && Model.Count() > 0)
-    {
-        foreach (var item in Model)
-        {
+
+@if (jefeLogged)
+{
+    <p>
+        @Html.ActionLink("Agregar +", "CreatePreSorteo", null, new { @class = "btn btn-success" })
+    </p>
+    <hr />
+}
+
+    @*
+        <p>
+            @Html.ActionLink("Agregar +", "CreatePreSorteo", null, new { @class = "btn btn-success" })
+        </p>*@
+
+
+    <div class="panel panel-success ">
+        <div class="panel-heading">
+            Activos
+        </div>
+        <table class="table">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SorteoId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.fecha)
-                </td>
-                <td>
-                    @if (item.realizado)
-                    {
-                        <span class="glyphicon glyphicon-ok text-success"></span>
-                    }
-                    else
-                    {
-                        <span class="glyphicon glyphicon-remove text-danger"></span>
-                    }
-                </td>
-                <td>
-                    @Html.ActionLink("Detalles", "Details", new { id = item.SorteoId })
-                    @*@Html.ActionLink("Editar", "Edit", new { id=item.SorteoId }) |*@
-                    @*@Html.ActionLink("Eliminar", "Delete", new { id=item.SorteoId }) |*@
-
-                    @if(item.Postulantes.Count() > 0)
-                    {
-                        <form action="/Sorteo/Raffle/@item.SorteoId" method="post">
-                            | <input type="submit" class="btn-link" value="Sortear" name="bttn-raffle" />
-                        </form>
-                    }
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.SorteoId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.realizado)
+                </th>
+                <th>Acciones</th>
             </tr>
-        }
-    }
-    else
-    {
-        <tr>
-            <td colspan="4">No hay sorteos disponibles.</td>
-        </tr>
-    }
+            @if (sNoRealizado != null && sNoRealizado.Count() > 0)
+            {
+                foreach (var item in sNoRealizado)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SorteoId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fecha)
+                        </td>
+                        <td>
+                            @if (item.realizado)
+                    {
+                                <span class="glyphicon glyphicon-ok text-success"></span>
+                            }
+                            else
+                            {
+                                <span class="glyphicon glyphicon-remove text-danger"></span>
+                            }
+                        </td>
+                        <td>
+                            @Html.ActionLink("Detalles", "Details", new { id = item.SorteoId })
+                            @*@Html.ActionLink("Editar", "Edit", new { id=item.SorteoId }) |*@
+                            @*@Html.ActionLink("Eliminar", "Delete", new { id=item.SorteoId }) |*@
 
-</table>
+
+                            @*&& item.fecha.ToShortDateString() == DateTime.Now.ToShortDateString())*@
+                            @if (jefeLogged)   
+                            { <form action="/Sorteo/Raffle/@item.SorteoId" method="post">
+                                     <input type="submit" class="btn btn-primary" value="Sortear" name="bttn-raffle" />
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4">No hay sorteos disponibles.</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            Realizados
+        </div>
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.SorteoId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.realizado)
+                </th>
+                <th>Acciones</th>
+            </tr>
+            @if (sRealizado != null && sRealizado.Count() > 0)
+            {
+                foreach (var item in sRealizado)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SorteoId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fecha)
+                        </td>
+                        <td>
+                            @if (item.realizado)
+                    {
+                                <span class="glyphicon glyphicon-ok text-success"></span>
+                            }
+                            else
+                            {
+                                <span class="glyphicon glyphicon-remove text-danger"></span>
+                            }
+                        </td>
+                        <td>
+                            @Html.ActionLink("Detalles", "Details", new { id = item.SorteoId })
+                            @*@Html.ActionLink("Editar", "Edit", new { id=item.SorteoId }) |*@
+                            @*@Html.ActionLink("Eliminar", "Delete", new { id=item.SorteoId }) |*@
+
+                            @if (item.Postulantes.Count() > 0 && item.fecha.ToShortDateString() == DateTime.Now.ToShortDateString())
+                    {
+                                <form action="/Sorteo/Raffle/@item.SorteoId" method="post">
+                                    | <input type="submit" class="btn-link" value="Sortear" name="bttn-raffle" />
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4">No hay sorteos disponibles.</td>
+                </tr>
+            }
+        </table>
+    </div>

@@ -43,6 +43,10 @@
                 <li class = @(ViewBag.ActiveMenuItem == "about" ? "active" : "")>
                         @Html.ActionLink("Acerca de", "About", "Home")
                 </li>
+
+                <li class=@(ViewBag.ActiveMenuItem == "about" ? "active" : "")>
+                    @Html.ActionLink("Crear postulante", "CrearPostulante", "Postulante")
+                </li>
             </ul>
         </div>
     </nav>

@@ -12,15 +12,17 @@ namespace Dominio.Clases
     public class Sorteo
     {
         #region Props
+
         [Key]
         [ForeignKey("Vivienda")]
         public int SorteoId { get; set; }
 
         [Required]
-        public DateTime fecha { get; set; }
+        public virtual Vivienda Vivienda { get; set; }
+
 
         [Required]
-        public virtual Vivienda Vivienda { get; set; }
+        public DateTime fecha { get; set; }
 
         public virtual ICollection<Postulante> Postulantes { get; set; }
 
@@ -29,23 +31,28 @@ namespace Dominio.Clases
         public virtual Postulante Ganador { get; set; }
 
         public bool realizado { get; set; } = false;
-        
+
         #endregion
 
         #region Metodos
 
-        public Postulante sortear()
+        //public Postulante sortear()
+        public void sortear()
         {
             Random r = new Random();
-            this.Ganador = ((List<Postulante>)Postulantes)[r.Next(Postulantes.Count)];
-            return this.Ganador;
+            //Lista de postulantes ordenada alfabeticamente
+            List<Postulante> pAux = this.Postulantes.OrderBy(p => p.apellido).ToList();
+
+            //Rango del random [ 0 - Count-1] para abarcar todo el indice de la lista.
+            this.Ganador = pAux[r.Next(Postulantes.Count - 1)];
+            this.realizado = true;
         }
 
         public bool esValido()
         {
             return
-                fecha != null && fecha > DateTime.Now &&
-                Vivienda != null;
+                this.fecha != null && fecha > DateTime.Now &&
+                this.Vivienda != null;
         }
 
         #endregion

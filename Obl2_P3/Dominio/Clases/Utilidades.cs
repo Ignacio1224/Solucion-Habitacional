@@ -47,12 +47,23 @@ namespace Dominio.Clases
             }
         }
 
+        public static bool isNumber(string campo)
+        {
+            try
+            {
+                Convert.ToInt32(campo);
+                return true;
+            }catch
+            {
+                return false;
+            }
+        }
 
-        // TODO: Sin implementar
         public static decimal convertirValor(Parametro moneda, Decimal valor)
         {
             return 0;
         }
+
         #endregion
     }
 }

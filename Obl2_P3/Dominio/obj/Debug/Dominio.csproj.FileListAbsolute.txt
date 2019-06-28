@@ -44,3 +44,15 @@ C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Dominio
 C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.Migrations.Initial.resources
 C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.csproj.GenerateResource.Cache
 C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.csprojResolveAssemblyReference.cache
+C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\bin\Debug\Dominio.dll.config
+C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\bin\Debug\Dominio.dll
+C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\bin\Debug\Dominio.pdb
+C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\bin\Debug\EntityFramework.dll
+C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\bin\Debug\EntityFramework.xml
+C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.csprojResolveAssemblyReference.cache
+C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.Migrations.Initial.resources
+C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.csproj.GenerateResource.Cache
+C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.dll
+C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.pdb

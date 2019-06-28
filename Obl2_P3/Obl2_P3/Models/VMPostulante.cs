@@ -30,12 +30,11 @@ namespace Obl2_P3.Models
         [DisplayName("Cédula de identidad:")]
         public string cedula { get; set; }
 
-        [DisplayName("Id vivienda:")]
+        [DisplayName("Contraseña:")]
         [PasswordPropertyTextAttribute(true)]
         public string clave { get; set; }
 
         #endregion
-
 
         #region methods
         public bool esValido()
