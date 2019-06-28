@@ -8,6 +8,7 @@
     @Styles.Render("~/Content/css")
     @RenderSection("Styles", false)
     @Scripts.Render("~/bundles/modernizr")
+    @using Obl2_P3.Utilities;
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -17,36 +18,53 @@
                     @Html.ActionLink("Solucion Habitacional", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </a>
             </div>
+
             <ul class="nav navbar-nav">
 
-                <li class = @(ViewBag.ActiveMenuItem == "home" ? "active" : "" )>
-                    @Html.ActionLink("Inicio", "Index", "Home", new { area = "" })
-                </li>
+                @if (Session["userLog"] == null)
+                {
+                    <li class=@(ViewBag.ActiveMenuItem == "home" ? "active" : "" )>
+                        @Html.ActionLink("Login", "Index", "Login")
+                    </li>
 
+                    <li class=@(ViewBag.ActiveMenuItem == "about" ? "active" : "")>
+                        @Html.ActionLink("Crear postulante", "CrearPostulante", "Postulante")
+                    </li>
 
-                <li class="@(ViewBag.ActiveMenuItem == "sorteo" ? "active" : "" )">
-                    @Html.ActionLink("Sorteos", "Index", "Sorteo")
-                </li>
-
-                <li class="@(ViewBag.ActiveMenuItem == "vivienda" ? "active" : "" )">
-                    @Html.ActionLink("Viviendas", "Index", "Vivienda")
-                </li>
-
-                <li class=@(ViewBag.ActiveMenuItem == "barrio" ? "active" : "")>
-                    @Html.ActionLink("Barrios", "Index", "Barrio")
-                </li>
-                
-                <li class=@(ViewBag.ActiveMenuItem == "parametro" ? "active" : "")>
-                    @Html.ActionLink("Parametros", "Index", "Parametro")
-                </li>
-
-                <li class = @(ViewBag.ActiveMenuItem == "about" ? "active" : "")>
+                    <li class=@(ViewBag.ActiveMenuItem == "about" ? "active" : "")>
                         @Html.ActionLink("Acerca de", "About", "Home")
-                </li>
+                    </li>
 
-                <li class=@(ViewBag.ActiveMenuItem == "about" ? "active" : "")>
-                    @Html.ActionLink("Crear postulante", "CrearPostulante", "Postulante")
-                </li>
+                }
+
+                else if (Session["userLog"] != null)
+                {
+                    <li class="@(ViewBag.ActiveMenuItem == "sorteo" ? "active" : "" )">
+                        @Html.ActionLink("Sorteos", "Index", "Sorteo")
+                    </li>
+
+                    <li class="@(ViewBag.ActiveMenuItem == "vivienda" ? "active" : "" )">
+                        @Html.ActionLink("Viviendas", "Index", "Vivienda")
+                    </li>
+
+                    <li class=@(ViewBag.ActiveMenuItem == "barrio" ? "active" : "")>
+                        @Html.ActionLink("Barrios", "Index", "Barrio")
+                    </li>
+
+                    <li class=@(ViewBag.ActiveMenuItem == "parametro" ? "active" : "")>
+                        @Html.ActionLink("Parametros", "Index", "Parametro")
+                    </li>
+
+                    <li class=@(ViewBag.ActiveMenuItem == "about" ? "active" : "")>
+                        @Html.ActionLink("Acerca de", "About", "Home")
+                    </li>
+
+
+                    <li class=@(ViewBag.ActiveMenuItem == "about" ? "active" : "")>
+                        @Html.ActionLink("Log out", "Logout", "Login")
+                    </li>
+
+                }
             </ul>
         </div>
     </nav>

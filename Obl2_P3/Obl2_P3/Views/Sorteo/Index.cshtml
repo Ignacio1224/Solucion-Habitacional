@@ -157,15 +157,6 @@
                         </td>
                         <td>
                             @Html.ActionLink("Detalles", "Details", new { id = item.SorteoId })
-                            @*@Html.ActionLink("Editar", "Edit", new { id=item.SorteoId }) |*@
-                            @*@Html.ActionLink("Eliminar", "Delete", new { id=item.SorteoId }) |*@
-
-                            @if (item.Postulantes.Count() > 0 && item.fecha.ToShortDateString() == DateTime.Now.ToShortDateString())
-                    {
-                                <form action="/Sorteo/Raffle/@item.SorteoId" method="post">
-                                    | <input type="submit" class="btn-link" value="Sortear" name="bttn-raffle" />
-                                </form>
-                            }
                         </td>
                     </tr>
                 }
