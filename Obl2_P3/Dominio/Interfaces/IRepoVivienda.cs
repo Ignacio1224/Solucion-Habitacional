@@ -14,5 +14,16 @@ namespace Dominio.Interfaces
         bool delete(Vivienda v);
         Vivienda findById(int vId);
         IEnumerable<Vivienda> findAll();
+        IEnumerable<int> findAllEnabled();
+        IEnumerable<Vivienda> findByBarrio(int bId);
+        IEnumerable<Vivienda> findByBarrioToRaffle(int bId);
+        bool import();
+        IEnumerable<Vivienda> getByPriceRange(decimal pMin, decimal pMax);
+        IEnumerable<Vivienda> getByBarrio(int idBarrio);
+        IEnumerable<Vivienda> getByState(int state);
+        IEnumerable<Vivienda> getByType(string type);
+
+
+
     }
 }

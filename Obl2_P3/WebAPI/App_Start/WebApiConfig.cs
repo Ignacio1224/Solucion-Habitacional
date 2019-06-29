@@ -73,7 +73,7 @@ namespace WebAPI
             //Configuración ruteo para el controller de postulante
             config.Routes.MapHttpRoute(
              name: "RegisterPostulante",
-             routeTemplate: "api/RegisterPostulante/{p}",
+             routeTemplate: "api/RegisterPostulante",
              defaults: new
              {
                  controller = "Postulante",

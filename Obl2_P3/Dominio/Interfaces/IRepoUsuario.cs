@@ -12,7 +12,7 @@ namespace Dominio.Interfaces
         bool add(Usuario u);
         bool update(Usuario u);
         bool delete(Usuario u);
-        Usuario findByCi(int uCi);
+        Usuario findByCi(string uCi);
         IEnumerable<Usuario> findAll();
 
         bool login(Usuario u);

@@ -70,6 +70,10 @@
     <Compile Include="Migrations\201906241519061_Initial.Designer.cs">
       <DependentUpon>201906241519061_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906291328116_index_on_usuario.cs" />
+    <Compile Include="Migrations\201906291328116_index_on_usuario.Designer.cs">
+      <DependentUpon>201906291328116_index_on_usuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorios\RepoBarrio.cs" />
@@ -87,6 +91,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201906241519061_Initial.resx">
       <DependentUpon>201906241519061_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906291328116_index_on_usuario.resx">
+      <DependentUpon>201906291328116_index_on_usuario.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -16,18 +16,17 @@ namespace WebAPI.Controllers
         RepoPostulante rp = new RepoPostulante();
         RepoUsuario ru = new RepoUsuario();
 
-        //POST: <server>/api/RegisterPostulante/{p}
-        //[Route("")]
+        //POST: <server>/api/RegisterPostulante
         [HttpPost]
         public IHttpActionResult RegisterPostulante([FromBody] VMPostulanteAPI p)
         {
-            if (ModelState.IsValid && p.esValido())
+            if (ModelState.IsValid)
             {
                 Postulante pAux = rp.findByCi(p.cedula);
 
-                if (pAux != null)
+                if (pAux == null)
                 {
-                    if (ru.add(VMPostulanteAPI.ConvertToPostulante(p)))
+                    if (rp.add(VMPostulanteAPI.ConvertToPostulante(p)) && ru.add(new Usuario() {cedula = p.cedula, clave = p.clave}))
                     {
                         return Ok();
                     }

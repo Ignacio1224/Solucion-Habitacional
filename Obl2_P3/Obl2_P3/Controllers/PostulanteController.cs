@@ -11,6 +11,17 @@ namespace Obl2_P3.Controllers
 {
     public class PostulanteController : Controller
     {
+        HttpClient client = new HttpClient();
+        HttpResponseMessage response = new HttpResponseMessage();
+        Uri registerUri = new Uri("http://localhost:50310/api/RegisterPostulante/");
+
+        public PostulanteController()
+        {
+            client.BaseAddress = new Uri("http://localhost:50310");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
 
         #region Logic
 
@@ -19,48 +30,45 @@ namespace Obl2_P3.Controllers
         // GET: Postulante/CrearPostulante
         public ActionResult CrearPostulante()
         {
-            return View();
+            return View(new VMPostulante());
         }
 
 
         #endregion
 
         #region POST
-        //No funciona
-
-        // POST: Postulante/CrearPostulante
+        //404 NOT FOUND
+        // POST: Postulante/RegisterPostulante
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CrearPostulante(VMPostulante postulante)
         {
             if (ModelState.IsValid)
             {
-                HttpClient cliente = new HttpClient();
-                Uri crearPostulante = new Uri("http://localhost:50310/api/RegisterPostulante");
+                //var serializer = new JavaScriptSerializer();
+                //var json = serializer.Serialize(postulante);
+                //var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+                //var doPost = client.PostAsync(registerUri, stringContent);
 
-                cliente.DefaultRequestHeaders.Accept.Clear();
-                cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var doPost = client.PostAsJsonAsync(registerUri, postulante);
 
-                HttpResponseMessage response = new HttpResponseMessage();
-
-
-                var post = cliente.PostAsJsonAsync(crearPostulante, postulante);
-
-                var result = post.Result;
+                var result = doPost.Result;
 
                 if (result.IsSuccessStatusCode)
                 {
-                    TempData["ResultadoOperacion"] = "Postulante ingresado con éxito";
-                    return RedirectToAction("CrearPostulante", new VMPostulante());
+                    TempData["ResultadoOperacion"] = new string[] { "alert-success", "Postulante creado correctamente." };
+                    return RedirectToAction("Index");
                 }
+                TempData["ResultadoOperacion"] = new string[] { "alert-danger", "Algo ha fallado." };
                 return View(postulante);
             }
             else
             {
-                TempData["ResultadoOperacion"] = "Errores de ingreso";
+                TempData["ResultadoOperacion"] = new string[] { "", "" };
 
-                return RedirectToAction("CrearPostulante", new VMPostulante());
+                return RedirectToAction("Index");
             }
+
         }
 
         #endregion

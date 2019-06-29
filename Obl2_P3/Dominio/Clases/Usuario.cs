@@ -15,6 +15,7 @@ namespace Dominio.Clases
         #region Props
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UsuarioId { get; set; }
 
         [Required]

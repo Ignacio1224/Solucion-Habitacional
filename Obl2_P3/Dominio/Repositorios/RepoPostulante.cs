@@ -22,6 +22,16 @@ namespace Dominio.Repositorios
 
             try
             {
+                Usuario userPostulante = new Usuario()
+                {
+                    cedula = p.cedula,
+                    clave = p.clave
+                };
+
+                db.usuarios.Add(userPostulante);
+                var user = (from Usuario u in db.usuarios where u.cedula == p.cedula select u) as Usuario;
+                p.UsuarioId = user.UsuarioId;     
+
                 db.postulantes.Add(p);
                 db.SaveChanges();
                 db.Dispose();

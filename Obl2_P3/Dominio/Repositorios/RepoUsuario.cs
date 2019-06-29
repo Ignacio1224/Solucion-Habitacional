@@ -75,7 +75,7 @@ namespace Dominio.Repositorios
 
         }
 
-        public Usuario findByCi(int uCi)
+        public Usuario findByCi(string uCi)
         {
             Contexto db = new Contexto();
 

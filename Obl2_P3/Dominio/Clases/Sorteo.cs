@@ -51,7 +51,7 @@ namespace Dominio.Clases
         public bool esValido()
         {
             return
-                this.fecha != null && fecha > DateTime.Now &&
+                this.fecha != null && fecha.ToShortDateString() == DateTime.Now.ToShortDateString() &&
                 this.Vivienda != null;
         }
 

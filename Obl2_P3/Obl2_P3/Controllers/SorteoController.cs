@@ -26,11 +26,12 @@ namespace Obl2_P3.Controllers
         // GET: Sorteo
         public ActionResult Index()
         {
-            // if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
+            
             ViewBag.message = new string[] { "d-none", "", "" };
 
-            return View(VMSorteo.ConvertToVMSorteo(rs.findAll()));
+            return View(VMSorteo.ConvertToListVMSorteo(rs.findAll().ToList()));
         }
 
         // GET: Sorteo/Details/{id}
@@ -73,7 +74,7 @@ namespace Obl2_P3.Controllers
         [HttpPost]
         public ActionResult CreatePreSorteo(VMSorteo vms)
         {
-            // if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             if (vms.BarrioId != 0)
             {
@@ -88,7 +89,7 @@ namespace Obl2_P3.Controllers
         [HttpPost]
         public ActionResult CreateSorteo(VMSorteo vms)
         {
-            // if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             string[] message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "El sorteo no posee postulantes" };
 
@@ -109,15 +110,16 @@ namespace Obl2_P3.Controllers
         [HttpPost]
         public ActionResult Raffle(int id)
         {
-            //  if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             VMSorteo vms = VMSorteo.ConvertToVMSorteo(rs.findById(id)); 
 
             if (vms.Postulantes.Count() == 0)
             {
-                string[] message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "El sorteo no puede ser realizado ya que no posee postulantes inscriptos." };
-                ViewBag.message = message;
-                return View("Index", VMSorteo.ConvertToVMSorteo(rs.findAll()));
+                ViewBag.message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "El sorteo no puede ser realizado ya que no posee postulantes inscriptos." };
+
+                // cuando retorna la vista no manda el model con la vm convertida
+                return View("Index", VMSorteo.ConvertToListVMSorteo(rs.findAll().ToList()));
             }
 
             // Sortear

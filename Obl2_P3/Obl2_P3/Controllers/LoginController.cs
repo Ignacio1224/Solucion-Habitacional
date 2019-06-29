@@ -23,7 +23,7 @@ namespace Obl2_P3.Controllers
         //GET: Login/Index
         public ActionResult Index()
         {
-            return View(new VMUsuario());
+            return View();
         }
 
         //GET: Login/Logout
@@ -44,7 +44,7 @@ namespace Obl2_P3.Controllers
         {
             if (ModelState.IsValid && user.validarModel())
             {
-                var uAux = ru.findByCi(Convert.ToInt32(user.cedula));
+                var uAux = ru.findByCi(user.cedula);
                 var pAux = rp.findByCi(user.cedula);
 
               
