@@ -13,6 +13,7 @@ namespace Dominio.Repositorios
     public class RepoPostulante : IRepoPostulante
     {
         Contexto db = new Contexto();
+        RepoUsuario ru = new RepoUsuario();
 
         public bool add(Postulante p)
         {
@@ -22,26 +23,40 @@ namespace Dominio.Repositorios
 
             try
             {
-                Usuario userPostulante = new Usuario()
-                {
-                    cedula = p.cedula,
-                    clave = p.clave
-                };
+                ////int usuarioId = (from Usuario u in db.usuarios select u).Count() + 1;
+                //Usuario userPostulante = new Usuario()
+                //{
+                //    //UsuarioId = usuarioId,
+                //    cedula = p.cedula,
+                //    clave = p.clave
+                //};
 
-                db.usuarios.Add(userPostulante);
-                var user = (from Usuario u in db.usuarios where u.cedula == p.cedula select u) as Usuario;
-                p.UsuarioId = user.UsuarioId;     
+                //if (ru.add(userPostulante))
+                //{
+                //ru = new RepoUsuario();
+                //    p.UsuarioId = ru.findByCi(p.cedula).UsuarioId;
 
-                db.postulantes.Add(p);
-                db.SaveChanges();
-                db.Dispose();
-                return true;
+                    db.usuarios.Add(new Postulante
+                    {
+                        cedula = p.cedula,
+                        clave = p.clave,
+                        email = p.email,
+                        nombre = p.nombre,
+                        apellido = p.apellido,
+                        fecha_nac = p.fecha_nac
+                    });
+
+                    db.SaveChanges();
+                    db.Dispose();
+                    return true;
+                //}
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
-
+            return false;
         }
 
         public bool delete(Postulante p)

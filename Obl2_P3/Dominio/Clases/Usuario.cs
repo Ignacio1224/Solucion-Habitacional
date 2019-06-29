@@ -15,7 +15,7 @@ namespace Dominio.Clases
         #region Props
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int UsuarioId { get; set; }
 
         [Required]
@@ -24,7 +24,7 @@ namespace Dominio.Clases
         public string cedula { get; set; }
 
         [Required]
-        [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6, 255}$")]
+        [RegularExpression(@"(?=^.{6,30}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$")]
         public string clave { get; set; }
 
         #endregion

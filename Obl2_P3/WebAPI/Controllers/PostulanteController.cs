@@ -26,7 +26,7 @@ namespace WebAPI.Controllers
 
                 if (pAux == null)
                 {
-                    if (rp.add(VMPostulanteAPI.ConvertToPostulante(p)) && ru.add(new Usuario() {cedula = p.cedula, clave = p.clave}))
+                    if (rp.add(VMPostulanteAPI.ConvertToPostulante(p)))
                     {
                         return Ok();
                     }

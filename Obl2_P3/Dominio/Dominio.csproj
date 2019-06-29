@@ -66,13 +66,9 @@
     <Compile Include="Interfaces\IRepoSorteo.cs" />
     <Compile Include="Interfaces\IRepoUsuario.cs" />
     <Compile Include="Interfaces\IRepoVivienda.cs" />
-    <Compile Include="Migrations\201906241519061_Initial.cs" />
-    <Compile Include="Migrations\201906241519061_Initial.Designer.cs">
-      <DependentUpon>201906241519061_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906291328116_index_on_usuario.cs" />
-    <Compile Include="Migrations\201906291328116_index_on_usuario.Designer.cs">
-      <DependentUpon>201906291328116_index_on_usuario.cs</DependentUpon>
+    <Compile Include="Migrations\201906292135421_Posta.cs" />
+    <Compile Include="Migrations\201906292135421_Posta.Designer.cs">
+      <DependentUpon>201906292135421_Posta.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,11 +85,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201906241519061_Initial.resx">
-      <DependentUpon>201906241519061_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906291328116_index_on_usuario.resx">
-      <DependentUpon>201906291328116_index_on_usuario.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201906292135421_Posta.resx">
+      <DependentUpon>201906292135421_Posta.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -72,25 +72,6 @@ namespace Dominio.Repositorios
 
         }
 
-        public IEnumerable<int> findAllEnabled()
-        {
-            List<int> vLista = null;
-            try
-            {
-                if (db.viviendas.Count() > 0)
-                {
-                    vLista = db.viviendas.Where(v => v.estado == Vivienda.Estados.Habilitada).Select(v => v.ViviendaId).ToList();
-                    db.Dispose();
-                }
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-
-            return vLista;
-        }
-
         public IEnumerable<Vivienda> findByBarrio(int bId)
         {
             RepoBarrio rb = new RepoBarrio();
