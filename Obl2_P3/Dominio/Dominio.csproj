@@ -66,9 +66,9 @@
     <Compile Include="Interfaces\IRepoSorteo.cs" />
     <Compile Include="Interfaces\IRepoUsuario.cs" />
     <Compile Include="Interfaces\IRepoVivienda.cs" />
-    <Compile Include="Migrations\201906301712307_Ultima.cs" />
-    <Compile Include="Migrations\201906301712307_Ultima.Designer.cs">
-      <DependentUpon>201906301712307_Ultima.cs</DependentUpon>
+    <Compile Include="Migrations\201906301836151_Ultima.cs" />
+    <Compile Include="Migrations\201906301836151_Ultima.Designer.cs">
+      <DependentUpon>201906301836151_Ultima.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,8 +84,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201906301712307_Ultima.resx">
-      <DependentUpon>201906301712307_Ultima.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201906301836151_Ultima.resx">
+      <DependentUpon>201906301836151_Ultima.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

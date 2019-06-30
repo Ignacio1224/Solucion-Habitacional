@@ -91,6 +91,7 @@ namespace Dominio.Migrations
                 c => new
                     {
                         UsuarioId = c.Int(nullable: false),
+                        Sorteo_SorteoId = c.Int(),
                         nombre = c.String(nullable: false, maxLength: 50),
                         apellido = c.String(nullable: false, maxLength: 50),
                         email = c.String(nullable: false, maxLength: 254),
@@ -99,8 +100,9 @@ namespace Dominio.Migrations
                     })
                 .PrimaryKey(t => t.UsuarioId)
                 .ForeignKey("dbo.Usuario", t => t.UsuarioId)
-                .ForeignKey("dbo.Sorteo", t => t.UsuarioId)
+                .ForeignKey("dbo.Sorteo", t => t.Sorteo_SorteoId)
                 .Index(t => t.UsuarioId)
+                .Index(t => t.Sorteo_SorteoId)
                 .Index(t => t.email, unique: true);
             
             CreateTable(
@@ -130,7 +132,7 @@ namespace Dominio.Migrations
         {
             DropForeignKey("dbo.ViviendaUsada", "ViviendaId", "dbo.Vivienda");
             DropForeignKey("dbo.ViviendaNueva", "ViviendaId", "dbo.Vivienda");
-            DropForeignKey("dbo.Postulante", "UsuarioId", "dbo.Sorteo");
+            DropForeignKey("dbo.Postulante", "Sorteo_SorteoId", "dbo.Sorteo");
             DropForeignKey("dbo.Postulante", "UsuarioId", "dbo.Usuario");
             DropForeignKey("dbo.Vivienda", "BarrioId", "dbo.Barrio");
             DropForeignKey("dbo.Sorteo", "SorteoId", "dbo.Vivienda");
@@ -139,6 +141,7 @@ namespace Dominio.Migrations
             DropIndex("dbo.ViviendaUsada", new[] { "ViviendaId" });
             DropIndex("dbo.ViviendaNueva", new[] { "ViviendaId" });
             DropIndex("dbo.Postulante", new[] { "email" });
+            DropIndex("dbo.Postulante", new[] { "Sorteo_SorteoId" });
             DropIndex("dbo.Postulante", new[] { "UsuarioId" });
             DropIndex("dbo.Postulante_Sorteo", new[] { "SorteoId" });
             DropIndex("dbo.Postulante_Sorteo", new[] { "PostulanteId" });

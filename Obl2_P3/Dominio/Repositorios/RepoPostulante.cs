@@ -18,44 +18,37 @@ namespace Dominio.Repositorios
         public bool add(Postulante p)
         {
             Contexto db = new Contexto();
+            bool added = false;
 
-            if (!p.esValido() || p == null) return false;
+            if (!p.esValido() || p == null) return added;
 
             try
             {
-                ////int usuarioId = (from Usuario u in db.usuarios select u).Count() + 1;
-                //Usuario userPostulante = new Usuario()
-                //{
-                //    //UsuarioId = usuarioId,
-                //    cedula = p.cedula,
-                //    clave = p.clave
-                //};
+                Usuario userPostulante = new Usuario()
+                {
+                    cedula = p.cedula,
+                    clave = p.clave
+                };
 
-                //if (ru.add(userPostulante))
-                //{
-                //ru = new RepoUsuario();
-                //    p.UsuarioId = ru.findByCi(p.cedula).UsuarioId;
+                if (ru.add(userPostulante))
+                {
+                    ru = new RepoUsuario();
+                    p.UsuarioId = ru.findByCi(p.cedula).UsuarioId;
 
-                    db.usuarios.Add(new Postulante
-                    {
-                        cedula = p.cedula,
-                        clave = p.clave,
-                        email = p.email,
-                        nombre = p.nombre,
-                        apellido = p.apellido,
-                        fecha_nac = p.fecha_nac
-                    });
+                    db.usuarios.Add(p);
 
                     db.SaveChanges();
                     db.Dispose();
-                    return true;
-                //}
+                    added = true;
+                }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+                
             }
+
+            return added;
         }
 
         public bool delete(Postulante p)

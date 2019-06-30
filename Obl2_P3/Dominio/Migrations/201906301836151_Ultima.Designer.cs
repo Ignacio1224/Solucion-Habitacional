@@ -13,7 +13,7 @@ namespace Dominio.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201906301712307_Ultima"; }
+            get { return "201906301836151_Ultima"; }
         }
         
         string IMigrationMetadata.Source
