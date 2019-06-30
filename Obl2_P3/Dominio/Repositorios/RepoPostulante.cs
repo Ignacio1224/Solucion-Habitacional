@@ -52,11 +52,10 @@ namespace Dominio.Repositorios
                 //}
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
-            return false;
         }
 
         public bool delete(Postulante p)
@@ -105,7 +104,7 @@ namespace Dominio.Repositorios
             return db.postulantes.Where(p => p.cedula == pCi).Include(p => p.Sorteos).Include(p => p.Sorteo).FirstOrDefault();
         }
 
-        public bool login(Postulante p)
+        public bool validarLogin(Postulante p)
         {
             Contexto db = new Contexto();
 

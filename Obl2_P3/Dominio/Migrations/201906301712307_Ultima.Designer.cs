@@ -7,13 +7,13 @@ namespace Dominio.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Posta : IMigrationMetadata
+    public sealed partial class Ultima : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Posta));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Ultima));
         
         string IMigrationMetadata.Id
         {
-            get { return "201906292135421_Posta"; }
+            get { return "201906301712307_Ultima"; }
         }
         
         string IMigrationMetadata.Source

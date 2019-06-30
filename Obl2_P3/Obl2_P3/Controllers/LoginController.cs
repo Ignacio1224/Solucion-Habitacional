@@ -57,6 +57,10 @@ namespace Obl2_P3.Controllers
                 {
                     Session["userLog"] = pAux;
                     Session["userRole"] = pAux.getRole();
+                    if (pAux.adjudicatario)
+                    {
+                        Session["adj"] = "si";
+                    }
 
                     return RedirectToAction("Index", "Home");
 

@@ -50,10 +50,11 @@ C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\bin\Debug\
 C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\bin\Debug\EntityFramework.xml
 C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.csprojResolveAssemblyReference.cache
-C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.Migrations.Initial.resources
 C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.csproj.GenerateResource.Cache
 C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.dll
 C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.pdb
-C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.Migrations.index_on_usuario.resources
-C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.Migrations.Posta.resources
+C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.Migrations.Posta.resources
+C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.Migrations.identityOn.resources
+C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.Migrations.propiedad_Postulante_Adjudicatario.resources
+C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.Migrations.Ultima.resources
 C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.csproj.GenerateResource.Cache

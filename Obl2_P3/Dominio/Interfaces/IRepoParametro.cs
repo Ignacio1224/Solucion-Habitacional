@@ -13,5 +13,6 @@ namespace Dominio.Interfaces
         bool update(Parametro p);
         bool delete(Parametro p);
         Parametro findByName(string pName);
+        IEnumerable<Parametro> findAll();
     }
 }

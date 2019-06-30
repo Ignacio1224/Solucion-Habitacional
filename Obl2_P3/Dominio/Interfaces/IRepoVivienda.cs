@@ -16,7 +16,6 @@ namespace Dominio.Interfaces
         IEnumerable<Vivienda> findAll();
         IEnumerable<Vivienda> findByBarrio(int bId);
         IEnumerable<Vivienda> findByBarrioToRaffle(int bId);
-        bool import();
         IEnumerable<Vivienda> getByPriceRange(decimal pMin, decimal pMax);
         IEnumerable<Vivienda> getByBarrio(int idBarrio);
         IEnumerable<Vivienda> getByState(int state);

@@ -88,9 +88,9 @@ namespace Dominio.Repositorios
                     db.Dispose();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
+                return sLista;
             }
 
             return sLista;
@@ -109,7 +109,7 @@ namespace Dominio.Repositorios
             s.sortear();
             bool addedd = add(s);
             return s;
-            
+
         }
 
         public bool update(Sorteo s)
@@ -144,6 +144,23 @@ namespace Dominio.Repositorios
             {
                 return false;
             }
+        }
+
+        public bool inscribePostulanteAtSorteo(Postulante p, Sorteo s)
+        {
+            if (p == null || s == null) return false;
+            if (!p.esValido() || !s.esValido()) return false;
+
+            Sorteo sAux = db.sorteos.Find(s.SorteoId);
+
+            if(sAux != null)
+            {
+                sAux.Postulantes.Add(p);
+                update(sAux);
+                db.SaveChanges();
+                db.Dispose();
+                return true;
+            }return false;
         }
 
     }

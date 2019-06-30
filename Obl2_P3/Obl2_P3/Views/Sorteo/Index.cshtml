@@ -8,6 +8,15 @@
 
     bool jefeLogged = false;
     if (Session["userRole"].ToString() == "jefe") { jefeLogged = true; }
+    bool postulanteLogged = false;
+    bool adjudicatario = false;
+    if (Session["userRole"].ToString() == "postulante") {
+        postulanteLogged = true;
+        if (Session["adj"].ToString() == "si")
+        {
+            adjudicatario = true;
+        }
+    }
 
     List<Obl2_P3.Models.VMSorteo> sRealizado = new List<Obl2_P3.Models.VMSorteo>();
     List<Obl2_P3.Models.VMSorteo> sNoRealizado = new List<Obl2_P3.Models.VMSorteo>();
@@ -37,6 +46,9 @@
     @ViewBag.message[2]
 </div>
 
+@if( @TempData["msj"] != null){
+<div class="alert-danger"> @TempData["msj"].ToString() </div>
+}
 
 
 @if (jefeLogged)
@@ -86,10 +98,16 @@
                         }
                     </td>
                     <td>
+                        @if (postulanteLogged && !adjudicatario)
+                        { <form action="/Sorteo/InscribePostulanteAtSorteo/@item.SorteoId" method="post" class="d-inline">
+                            <input type="submit" class="btn btn-danger" value="Inscribirse" name="bttn-inscribe" />
+                        </form>
+                        }
+
                         @Html.ActionLink("Detalles", "Details", new { id = item.SorteoId })
                       
                         @if (jefeLogged && item.fecha.ToShortDateString() == DateTime.Now.ToShortDateString())
-                        { <form action="/Sorteo/Raffle/@item.SorteoId" method="post">
+                        { <form action="/Sorteo/Raffle/@item.SorteoId" method="post" class="d-inline">
                                 <input type="submit" class="btn btn-primary" value="Sortear" name="bttn-raffle" />
                             </form>
                         }

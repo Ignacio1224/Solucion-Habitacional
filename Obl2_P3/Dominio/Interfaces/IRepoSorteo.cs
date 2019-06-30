@@ -15,5 +15,6 @@ namespace Dominio.Interfaces
         Sorteo findById(int sId);
         Sorteo raffle(Sorteo s);
         bool update(Sorteo s);
+        bool inscribePostulanteAtSorteo(Postulante p, Sorteo s);
     }
 }

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Dominio.Repositorios;
 using Obl2_P3.Models;
 using Obl2_P3.Utilities;
+using Dominio.Clases;
 
 
 namespace Obl2_P3.Controllers
@@ -28,7 +29,7 @@ namespace Obl2_P3.Controllers
         {
             if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
-            
+
             ViewBag.message = new string[] { "d-none", "", "" };
 
             return View(VMSorteo.ConvertToListVMSorteo(rs.findAll().ToList()));
@@ -84,7 +85,7 @@ namespace Obl2_P3.Controllers
             return View();
         }
 
-      
+
         // POST: Sorteo/CreateSorteo
         [HttpPost]
         public ActionResult CreateSorteo(VMSorteo vms)
@@ -112,7 +113,7 @@ namespace Obl2_P3.Controllers
         {
             if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
-            VMSorteo vms = VMSorteo.ConvertToVMSorteo(rs.findById(id)); 
+            VMSorteo vms = VMSorteo.ConvertToVMSorteo(rs.findById(id));
 
             if (vms.Postulantes.Count() == 0)
             {
@@ -128,6 +129,32 @@ namespace Obl2_P3.Controllers
             return RedirectToAction("Details", "Sorteo", new { id = id });
         }
 
+        // POST: Sorteo/InscribePostulanteAtSorteo
+        [HttpPost]
+        public ActionResult InscribePostulanteAtSorteo(int id)
+        {
+            Postulante p = Session["userLog"] as Postulante;
+            Sorteo s = rs.findById(id);
+
+            try
+            {
+                if (rs.inscribePostulanteAtSorteo(p, s))
+                {
+                    TempData["msj"] = "Te has inscripto con éxito";
+                    return View("Index");
+                };
+
+                TempData["msj"] = "No has podido inscribirte correctamente.";
+                return View("Index");
+
+            }
+            catch (Exception)
+            {
+                TempData["msj"] = "Error inesperado.";
+
+                return View("Index");
+            }
+        }
         #endregion
 
         #endregion

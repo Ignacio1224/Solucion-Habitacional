@@ -26,7 +26,7 @@ namespace Dominio.Repositorios
                 db.Dispose();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -82,7 +82,7 @@ namespace Dominio.Repositorios
             return db.usuarios.Where(u => u.cedula == uCi.ToString()).FirstOrDefault();
         }
 
-        public bool login(Usuario u)
+        public bool validarLogin(Usuario u)
         {
             Contexto db = new Contexto();
 

@@ -35,6 +35,9 @@ namespace Dominio.Clases
         [Required]
         public DateTime fecha_nac { get; set; }
 
+        [Required]
+        public bool adjudicatario { get; set; } = false;
+
         //[ForeignKey("Sorteo")]
         //public int SorteoId { get; set; }
         public virtual Sorteo Sorteo { get; set; } // Sorteo ganado

@@ -3,7 +3,7 @@ namespace Dominio.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Posta : DbMigration
+    public partial class Ultima : DbMigration
     {
         public override void Up()
         {
@@ -56,7 +56,7 @@ namespace Dominio.Migrations
                 "dbo.Usuario",
                 c => new
                     {
-                        UsuarioId = c.Int(nullable: false),
+                        UsuarioId = c.Int(nullable: false, identity: true),
                         cedula = c.String(nullable: false, maxLength: 9),
                         clave = c.String(nullable: false),
                     })
@@ -95,6 +95,7 @@ namespace Dominio.Migrations
                         apellido = c.String(nullable: false, maxLength: 50),
                         email = c.String(nullable: false, maxLength: 254),
                         fecha_nac = c.DateTime(nullable: false),
+                        adjudicatario = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.UsuarioId)
                 .ForeignKey("dbo.Usuario", t => t.UsuarioId)

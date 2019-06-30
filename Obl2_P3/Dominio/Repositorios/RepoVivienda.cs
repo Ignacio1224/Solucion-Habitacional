@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
+using System.Diagnostics;
+using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
 using Dominio.Clases;
 using Dominio.Interfaces;
 using Dominio.Contexto_DB;
-using System.IO;
-using System.Diagnostics;
-using System.Data.Entity;
+
 
 namespace Dominio.Repositorios
 {

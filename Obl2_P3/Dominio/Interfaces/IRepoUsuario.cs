@@ -14,7 +14,6 @@ namespace Dominio.Interfaces
         bool delete(Usuario u);
         Usuario findByCi(string uCi);
         IEnumerable<Usuario> findAll();
-
-        bool login(Usuario u);
+        bool validarLogin(Usuario u);
     }
 }
