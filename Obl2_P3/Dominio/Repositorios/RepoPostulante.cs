@@ -126,8 +126,19 @@ namespace Dominio.Repositorios
                     pBuscado.clave = p.clave;
                     pBuscado.email = p.email;
                     pBuscado.fecha_nac = p.fecha_nac;
+                    pBuscado.adjudicatario = p.adjudicatario;
+                    pBuscado.Sorteo = p.Sorteo;
+                    pBuscado.Sorteos = p.Sorteos;
+                    pBuscado.cedula = p.cedula;
+                    
                     if (pBuscado.esValido())
                     {
+
+                        if (pBuscado.Sorteo != null)
+                        {
+                            db.Entry(pBuscado.Sorteo).State = EntityState.Unchanged;
+                        }
+
                         db.SaveChanges();
                         db.Dispose();
                         return true;
@@ -137,7 +148,7 @@ namespace Dominio.Repositorios
                 return false;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }

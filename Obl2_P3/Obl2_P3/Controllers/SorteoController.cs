@@ -47,6 +47,14 @@ namespace Obl2_P3.Controllers
         public ActionResult CreatePreSorteo()
         {
             //  if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            //List<Barrio> lb = (List<Barrio>)rb.findAll();
+            //if (lb.Count() == 0)
+            //{
+            //    lb.Add(new Barrio {
+            //        nombre_barrio = "No hay barrios disponibles",
+            //        descripcion = "No hay barrios disponibles"
+            //    });
+            //}
 
             ViewBag.barrios = new SelectList(rb.findAll(), "BarrioId", "nombre_barrio");
             return View();
@@ -92,7 +100,7 @@ namespace Obl2_P3.Controllers
         {
             if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
-            string[] message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "El sorteo no posee postulantes" };
+            string[] message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "Ha ocurrido un error, verifique los datos" };
 
             if (rs.add(VMSorteo.ConvertToSorteo(vms)))
             {

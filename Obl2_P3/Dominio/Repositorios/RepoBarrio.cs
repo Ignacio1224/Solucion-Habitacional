@@ -58,7 +58,7 @@ namespace Dominio.Repositorios
         {
             Contexto db = new Contexto();
 
-            List<Barrio> listaBarrios = null;
+            List<Barrio> listaBarrios = new List<Barrio>();
 
             if (db.barrios.Count() > 0)
             {

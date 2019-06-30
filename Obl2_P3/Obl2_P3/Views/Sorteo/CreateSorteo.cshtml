@@ -5,18 +5,19 @@
     ViewBag.ActiveMenuItem = "sorteo";
 }
 
+<br />
+
 <div class="@ViewBag.message[0]" style="@ViewBag.message[1]">
     @ViewBag.message[2]
 </div>
 
-<h2>CreateSorteo</h2>
+<h2>Crear Sorteo</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>VMSorteo</h4>
         <hr />
 
         @Html.Hidden(Model.BarrioId + "")

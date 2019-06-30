@@ -82,8 +82,17 @@ namespace Dominio.Clases
         public bool esValido()
         {
             return
-                this.fecha != null && fecha.ToShortDateString() == DateTime.Now.ToShortDateString() &&
+                this.fecha != null && (fecha.Day >= DateTime.Now.Day && fecha.Year >= DateTime.Now.Year && fecha.Month >= DateTime.Now.Month) &&
                 this.Vivienda != null;
+        }
+
+        public bool esValidoParaSortear()
+        {
+            return
+                this.fecha != null && fecha.ToShortDateString() == DateTime.Now.ToShortDateString() &&
+                this.Vivienda != null &&
+                this.Postulantes.Count > 0 &&
+                this.Ganador == null;
         }
 
         #endregion

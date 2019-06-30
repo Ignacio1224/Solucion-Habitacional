@@ -23,6 +23,8 @@ namespace Obl2_P3.Controllers
         //GET: Login/Index
         public ActionResult Index()
         {
+            string[] message = new string[] { "d-none", "padding: 1em; margin-bottom: 0.6em;", "" };
+            ViewBag.message = message;
             return View();
         }
 
@@ -31,6 +33,8 @@ namespace Obl2_P3.Controllers
         {
             Session.Remove("userLog");
             Session.Remove("userRole");
+            string[] message = new string[] { "d-none", "padding: 1em; margin-bottom: 0.6em;", "" };
+            ViewBag.message = message;
             return RedirectToAction("Index", "Login", new VMUsuario());
         }
 
@@ -42,21 +46,25 @@ namespace Obl2_P3.Controllers
         [HttpPost]
         public ActionResult Index(VMUsuario user)
         {
+            string[] message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "Usuario incorrecto" };
+
+
             if (ModelState.IsValid && user.validarModel())
             {
                 var uAux = ru.findByCi(user.cedula);
                 var pAux = rp.findByCi(user.cedula);
 
-              
+
                 if (pAux != null && uAux != null)
                 {
                     uAux = null;
                 }
 
-                if (uAux == null)
+                if (pAux != null)
                 {
                     Session["userLog"] = pAux;
                     Session["userRole"] = pAux.getRole();
+                    Session["adj"] = "no";
                     if (pAux.adjudicatario)
                     {
                         Session["adj"] = "si";
@@ -64,7 +72,8 @@ namespace Obl2_P3.Controllers
 
                     return RedirectToAction("Index", "Home");
 
-                }else if (pAux == null)
+                }
+                else if (uAux != null)
                 {
                     Session["userLog"] = uAux;
                     Session["userRole"] = uAux.getRole();
@@ -72,9 +81,17 @@ namespace Obl2_P3.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
-                else return View(user);
+                else
+                {
+                    ViewBag.message = message;
+                    return View(user);
+                }
             }
-            else return View(user);
+            else
+            {
+                ViewBag.message = message;
+                return View(user);
+            }
         }
 
         #endregion

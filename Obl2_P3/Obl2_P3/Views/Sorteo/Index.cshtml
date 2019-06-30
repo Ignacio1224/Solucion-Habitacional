@@ -8,9 +8,11 @@
 
     bool jefeLogged = false;
     if (Session["userRole"].ToString() == "jefe") { jefeLogged = true; }
+
     bool postulanteLogged = false;
     bool adjudicatario = false;
-    if (Session["userRole"].ToString() == "postulante") {
+    if (Session["userRole"].ToString() == "postulante")
+    {
         postulanteLogged = true;
         if (Session["adj"].ToString() == "si")
         {
@@ -20,20 +22,22 @@
 
     List<Obl2_P3.Models.VMSorteo> sRealizado = new List<Obl2_P3.Models.VMSorteo>();
     List<Obl2_P3.Models.VMSorteo> sNoRealizado = new List<Obl2_P3.Models.VMSorteo>();
-
-    foreach (Obl2_P3.Models.VMSorteo sorteo in Model)
+    if (Model != null)
     {
-        if (sorteo.realizado)
+        foreach (Obl2_P3.Models.VMSorteo sorteo in Model)
         {
-            sRealizado.Add(sorteo);
+            if (sorteo.realizado)
+            {
+                sRealizado.Add(sorteo);
+            }
+            else
+            {
+                sNoRealizado.Add(sorteo);
+            }
         }
-        else
-        {
-            sNoRealizado.Add(sorteo);
-        }
+        sRealizado = sRealizado.OrderByDescending(s => s.fecha).ToList();
+        sNoRealizado = sNoRealizado.OrderByDescending(s => s.fecha).ToList();
     }
-    sRealizado = sRealizado.OrderByDescending(s => s.fecha).ToList();
-    sNoRealizado = sNoRealizado.OrderByDescending(s => s.fecha).ToList();
 }
 
 
@@ -46,8 +50,9 @@
     @ViewBag.message[2]
 </div>
 
-@if( @TempData["msj"] != null){
-<div class="alert-danger"> @TempData["msj"].ToString() </div>
+@if (@TempData["msj"] != null)
+{
+    <div class="alert-danger"> @TempData["msj"].ToString() </div>
 }
 
 
@@ -89,7 +94,7 @@
                     </td>
                     <td>
                         @if (item.realizado)
-                    {
+                        {
                             <span class="glyphicon glyphicon-ok text-success"></span>
                         }
                         else
@@ -105,11 +110,11 @@
                         }
 
                         @Html.ActionLink("Detalles", "Details", new { id = item.SorteoId })
-                      
+
                         @if (jefeLogged && item.fecha.ToShortDateString() == DateTime.Now.ToShortDateString())
                         { <form action="/Sorteo/Raffle/@item.SorteoId" method="post" class="d-inline">
-                                <input type="submit" class="btn btn-primary" value="Sortear" name="bttn-raffle" />
-                            </form>
+                            <input type="submit" class="btn btn-primary" value="Sortear" name="bttn-raffle" />
+                        </form>
                         }
                     </td>
                 </tr>

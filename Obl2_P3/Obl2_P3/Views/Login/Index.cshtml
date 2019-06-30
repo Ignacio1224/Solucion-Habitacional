@@ -6,6 +6,9 @@
 
 <h2>Log In</h2>
 
+<div class="@ViewBag.message[0]" style="@ViewBag.message[1]">
+    @ViewBag.message[2]
+</div>
 
 @using (Html.BeginForm("Index","Login",FormMethod.Post))
 {

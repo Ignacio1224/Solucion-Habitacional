@@ -116,7 +116,7 @@ namespace Dominio.Repositorios
         {
             Contexto db = new Contexto();
 
-            if (!s.esValido() || s == null) return false;
+            if (!s.esValidoParaSortear() || s == null) return false;
             try
             {
                 Sorteo sBuscado = db.sorteos.Find(s.SorteoId);
@@ -129,7 +129,7 @@ namespace Dominio.Repositorios
                     sBuscado.realizado = s.realizado;
                     sBuscado.Vivienda = s.Vivienda;
 
-                    if (sBuscado.esValido())
+                    if (sBuscado.esValidoParaSortear())
                     {
                         db.SaveChanges();
                         db.Dispose();
@@ -149,13 +149,14 @@ namespace Dominio.Repositorios
         public bool inscribePostulanteAtSorteo(Postulante p, Sorteo s)
         {
             if (p == null || s == null) return false;
-            if (!p.esValido() || !s.esValido()) return false;
+            if (!p.esValido() || !s.esValidoParaSortear()) return false;
 
             Sorteo sAux = db.sorteos.Find(s.SorteoId);
 
             if(sAux != null)
             {
                 sAux.Postulantes.Add(p);
+                db.Entry(sAux.Postulantes).State = EntityState.Unchanged;
                 update(sAux);
                 db.SaveChanges();
                 db.Dispose();
