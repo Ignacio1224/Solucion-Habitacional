@@ -17,7 +17,7 @@ namespace Dominio.Repositorios
         public bool add(Sorteo s)
         {
             bool added = false;
-
+            Contexto db = new Contexto();
             RepoVivienda rv = new RepoVivienda();
 
             if (!s.esValido() || s == null) return added;
@@ -59,6 +59,8 @@ namespace Dominio.Repositorios
 
         public bool delete(Sorteo s)
         {
+            Contexto db = new Contexto();
+
             if (s == null) return false;
 
             try
@@ -80,13 +82,14 @@ namespace Dominio.Repositorios
 
             try
             {
+                db = new Contexto();
                 if (db.viviendas.Count() > 0)
                 {
                     sLista = (from Sorteo s in db.sorteos select s).Include(s => s.Vivienda).Include(s => s.Postulantes).Include(s => s.Ganador).Include(so => so.Vivienda).ToList();
                     db.Dispose();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return sLista;
             }
@@ -94,6 +97,7 @@ namespace Dominio.Repositorios
             return sLista;
 
         }
+
 
         public Sorteo findById(int sId)
         {
@@ -143,53 +147,33 @@ namespace Dominio.Repositorios
             }
         }
 
-        public bool inscribePostulanteAtSorteo(Postulante p, int sId)
+        public bool inscribePostulanteAtSorteo(Postulante p, Sorteo s)
         {
-            try
+            if (p == null || s == null) return false;
+            if (!p.esValido() || !s.esValido()) return false;
+
+            db = new Contexto();
+            Sorteo sAux = db.sorteos.Where(sa => sa.SorteoId == s.SorteoId).Include(sa => sa.Postulantes).FirstOrDefault();
+
+            if (sAux != null)
             {
-                if (!p.esValido()) return false;
-
-                Sorteo sAux = db.sorteos.Where(s => s.SorteoId == sId).Include(s => s.Postulantes).SingleOrDefault();
-
-                if (sAux.esValidoParaSortear())
+                try
                 {
-                    sAux.Postulantes.Add(p);
-                    db.Entry(sAux.Postulantes).State = EntityState.Modified;
+
+                    sAux.Postulantes.Add(db.postulantes.Where(pd => pd.UsuarioId == p.UsuarioId).FirstOrDefault());
+                    foreach (var item in sAux.Postulantes)
+                        db.Entry(item).State = EntityState.Modified;
+                    db.SaveChanges();
+                    db.Dispose();
                     return true;
+                }
+                catch (Exception ex)
+                {
 
                 }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                string msj = ex.Message;
-                return false;
-            }
-        }
 
-        public bool assignGanador(Postulante p, int sId)
-        {
-            try
-            {
-                Contexto db = new Contexto();
-                var sAux = db.sorteos.Where(x => x.SorteoId == sId).FirstOrDefault();
-
-                sAux.realizado = true;
-                update(sAux);
-
-                //asignamos ganador
-                sAux.Ganador = p;
-                //le avisamos a entity q tenga en cuenta q el objeto fue modificado.
-                db.Entry(sAux).State = EntityState.Modified;
-                db.SaveChanges();
-                db.Dispose();
-                return true;
             }
-            catch (Exception ex)
-            {
-                string msj = ex.Message;
-                return false;
-            }
+            return false;
         }
 
     }

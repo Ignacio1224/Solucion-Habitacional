@@ -45,7 +45,7 @@ namespace Dominio.Repositorios
             }
             catch (Exception ex)
             {
-                string msj = ex.Message;
+                
             }
 
             return added;
@@ -94,7 +94,7 @@ namespace Dominio.Repositorios
 
         public Postulante findByCi(string pCi)
         {
-            return db.postulantes.Where(p => p.cedula == pCi).Include(p => p.Sorteos).Include(p => p.SorteoGanado).FirstOrDefault();
+            return db.postulantes.Where(p => p.cedula == pCi).Include(p => p.Sorteos).Include(p => p.Sorteo).FirstOrDefault();
         }
 
         public bool validarLogin(Postulante p)
@@ -127,12 +127,18 @@ namespace Dominio.Repositorios
                     pBuscado.email = p.email;
                     pBuscado.fecha_nac = p.fecha_nac;
                     pBuscado.adjudicatario = p.adjudicatario;
-                    //pBuscado.SorteoGanado = p.SorteoGanado;
-                    //pBuscado.Sorteos = p.Sorteos;
+                    pBuscado.Sorteo = p.Sorteo;
+                    pBuscado.Sorteos = p.Sorteos;
                     pBuscado.cedula = p.cedula;
-
+                    
                     if (pBuscado.esValido())
                     {
+
+                        if (pBuscado.Sorteo != null)
+                        {
+                            db.Entry(pBuscado.Sorteo).State = EntityState.Unchanged;
+                        }
+
                         db.SaveChanges();
                         db.Dispose();
                         return true;
@@ -144,26 +150,8 @@ namespace Dominio.Repositorios
             }
             catch (Exception ex)
             {
-                string msj = ex.Message;
                 return false;
             }
-        }
-
-        public bool winnerAssignSorteo(int pId, Sorteo sorteo)
-        {
-            Postulante pAux = db.postulantes.Where(p => p.UsuarioId == pId).Include(p => p.SorteoGanado).SingleOrDefault();
-
-            //guardamos el nuevo valor de adjudicatario
-            pAux.adjudicatario = true;
-            update(pAux);
-
-            pAux.SorteoGanado = sorteo;
-            //Le avisamos a Entity tenga en cuenta q el objeto ha sido modificado
-            db.Entry(pAux).State = EntityState.Modified;
-
-            db.SaveChanges();
-            db.Dispose();
-            return true;
         }
     }
 }

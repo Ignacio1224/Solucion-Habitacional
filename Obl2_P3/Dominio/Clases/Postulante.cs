@@ -40,7 +40,7 @@ namespace Dominio.Clases
 
         //[ForeignKey("Sorteo")]
         //public int SorteoId { get; set; }
-        public virtual Sorteo SorteoGanado { get; set; } // Sorteo ganado
+        public virtual Sorteo Sorteo { get; set; } // Sorteo ganado
 
         public virtual ICollection<Sorteo> Sorteos { get; set; }
 
@@ -54,22 +54,19 @@ namespace Dominio.Clases
                 base.esValido() &&
                 Utilidades.esCampoValido(this.nombre, 2, 50) &&
                 Utilidades.esCampoValido(this.apellido, 2, 50) &&
-                Utilidades.esEmailValido(this.email) && 
-                esMayorDeEdad();
-        }
-
-        public bool esMayorDeEdad()
-        {
-            int age = DateTime.Now.Year - this.fecha_nac.Year;
-            if (DateTime.Now.Month < this.fecha_nac.Month || 
-                (DateTime.Now.Month == this.fecha_nac.Month && DateTime.Now.Day < this.fecha_nac.Day))
-                age--;
-            return age > 18;
+                Utilidades.esEmailValido(this.email) &&
+                fecha_nac.AddYears(18) <= DateTime.Today;
         }
 
         public override string getRole()
         {
             return "postulante";
+        }
+
+        public override bool Equals(object obj)
+        {
+            Postulante p = obj as Postulante;
+            return p.cedula == this.cedula;
         }
 
         #endregion

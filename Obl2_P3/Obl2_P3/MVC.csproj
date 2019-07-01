@@ -197,7 +197,6 @@
     <Content Include="Views\Sorteo\CreateSorteo.cshtml" />
     <Content Include="Views\Postulante\CrearPostulante.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Vivienda\GetViviendasByFiltros.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -214,6 +213,10 @@
     <ProjectReference Include="..\Dominio\Dominio.csproj">
       <Project>{8eecef18-2136-494c-ad01-67a936859fff}</Project>
       <Name>Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebAPI\WebAPI.csproj">
+      <Project>{3E83C02C-B5B2-4AC7-BDDE-6BB19E30B585}</Project>
+      <Name>WebAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 //
 using Dominio.Clases;
 using Dominio.Repositorios;
+using WebAPI.Models;
 
 namespace Obl2_P3.Models
 {
@@ -60,6 +61,21 @@ namespace Obl2_P3.Models
                 nombre = p.nombre
             };
         }
+
+
+        public static VMPostulanteAPI ConvertToVMPostulanteAPI(VMPostulante p)
+        {
+            return new VMPostulanteAPI
+            {
+                apellido = p.apellido,
+                cedula = p.cedula,
+                clave = p.clave,
+                email = p.email,
+                fecha_nac = p.fecha_nac,
+                nombre = p.nombre
+            };
+        }
+
         #endregion
 
     }

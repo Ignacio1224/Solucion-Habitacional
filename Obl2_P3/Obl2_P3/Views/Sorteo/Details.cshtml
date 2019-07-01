@@ -49,11 +49,21 @@
         <dd>
             @if (Model.Postulantes.Count() > 0)
             {
+                int i = 0;
                 foreach(var item in Model.Postulantes)
                 {
-                    Html.DisplayText(item.cedula);
+                    i++;
+                    if (i == 1)
+                    {
+                        <span>@item.cedula</span>
+                    }
+                    else
+                    {
+                        <span> | @item.cedula</span>
+                    }
                 }
-            } else
+            }
+            else
             {
                 Html.DisplayText("No hay inscriptos");
             }
@@ -66,11 +76,10 @@
         <dd>
             @if (Model.Ganador != null)
             {
-                Html.DisplayFor(model => model.Ganador.cedula);
+                <span>@Model.Ganador.cedula</span>
             } else
             {
-                Model.Ganador = new Dominio.Clases.Postulante { cedula = "No hay gaador" };
-                Html.DisplayFor(model => model.Ganador.cedula);
+                <span>No hay ganador</span>
             }
         </dd>
 

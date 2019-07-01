@@ -11,15 +11,16 @@ namespace Obl2_P3.Controllers
 {
     public class PostulanteController : Controller
     {
-        HttpClient client = new HttpClient();
+        HttpClient cliente = new HttpClient();
         HttpResponseMessage response = new HttpResponseMessage();
-        Uri registerUri = new Uri("http://localhost:50310/api/RegisterPostulante");
+        Uri productoUri = null;
 
         public PostulanteController()
         {
-            client.BaseAddress = new Uri("http://localhost:50310");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            cliente.BaseAddress = new Uri("http://localhost:50265");
+            productoUri = new Uri("http://localhost:50265/api/RegisterPostulante");
+            cliente.DefaultRequestHeaders.Accept.Clear();
+            cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
 
@@ -50,9 +51,9 @@ namespace Obl2_P3.Controllers
                 //var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
                 //var doPost = client.PostAsync(registerUri, stringContent);
 
-                var doPost = client.PostAsJsonAsync(registerUri, postulante);
+                var tareaPost = cliente.PostAsJsonAsync(productoUri, VMPostulante.ConvertToVMPostulanteAPI(postulante));
 
-                var result = doPost.Result;
+                var result = tareaPost.Result;
 
                 if (result.IsSuccessStatusCode)
                 {

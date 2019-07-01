@@ -18,6 +18,7 @@ namespace Obl2_P3.Controllers
         RepoSorteo rs = new RepoSorteo();
         RepoVivienda rv = new RepoVivienda();
         RepoBarrio rb = new RepoBarrio();
+        RepoPostulante rp = new RepoPostulante();
         #endregion
 
         #region Logica
@@ -28,17 +29,17 @@ namespace Obl2_P3.Controllers
         public ActionResult Index()
         {
             if (!Check.UserLog()) return new HttpStatusCodeResult(401);
-
-
+            Postulante p = Session["userLog"] as Postulante;
+            ViewBag.postulante = p;
             ViewBag.message = new string[] { "d-none", "", "" };
 
-            return View(VMSorteo.ConvertToListVMSorteo(rs.findAll().ToList()));
+            return View(VMSorteo.ConvertToVMSorteo(rs.findAll().ToList()));
         }
 
         // GET: Sorteo/Details/{id}
         public ActionResult Details(int id)
         {
-            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            //  if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             return View(VMSorteo.ConvertToVMSorteo(rs.findById(id)));
         }
@@ -46,8 +47,6 @@ namespace Obl2_P3.Controllers
         // GET: Sorteo/Create
         public ActionResult CreatePreSorteo()
         {
-            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
-
             ViewBag.barrios = new SelectList(rb.findAll(), "BarrioId", "nombre_barrio");
             return View();
         }
@@ -55,7 +54,7 @@ namespace Obl2_P3.Controllers
         // GET: Sorteo/CreateSorteo
         public ActionResult CreateSorteo(int id)
         {
-            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            //  if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             ViewBag.viviendas = new SelectList(rv.findByBarrioToRaffle(id), "ViviendaId", "ViviendaId");
             VMSorteo vms = new VMSorteo();
@@ -107,7 +106,6 @@ namespace Obl2_P3.Controllers
             return View(vms);
         }
 
-
         // POST: Sorteo/Raffle
         [HttpPost]
         public ActionResult Raffle(int id)
@@ -121,7 +119,7 @@ namespace Obl2_P3.Controllers
                 ViewBag.message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "El sorteo no puede ser realizado ya que no posee postulantes inscriptos." };
 
                 // cuando retorna la vista no manda el model con la vm convertida
-                return View("Index", VMSorteo.ConvertToListVMSorteo(rs.findAll().ToList()));
+                return View("Index", VMSorteo.ConvertToVMSorteo(rs.findAll().ToList()));
             }
 
             // Sortear
@@ -130,30 +128,32 @@ namespace Obl2_P3.Controllers
             return RedirectToAction("Details", "Sorteo", new { id = id });
         }
 
-
         // POST: Sorteo/InscribePostulanteAtSorteo
         [HttpPost]
         public ActionResult InscribePostulanteAtSorteo(int id)
         {
             Postulante p = Session["userLog"] as Postulante;
-            int sId = rs.findById(id).SorteoId;
+            Sorteo s = rs.findById(id);
+            ViewBag.postulante = p;
+            string[] message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "Ha ocurrido un error" };
 
+            ViewBag.message = message;
             try
             {
-                if (rs.inscribePostulanteAtSorteo(p, sId))
+                if (rs.inscribePostulanteAtSorteo(p, s))
                 {
-                    TempData["msj"] = "Te has inscripto con éxito";
-                    return View("Index",VMSorteo.ConvertToListVMSorteo(rs.findAll().ToList() ) ) ;
+                    message[0] = "alert-success";
+                    message[2] = "Te has inscripto con éxito";
+                    ViewBag.message = message;
+                    return View("Index", VMSorteo.ConvertToVMSorteo(rs.findAll()));
                 };
-
-                TempData["msj"] = "No has podido inscribirte correctamente.";
-                return View("Index", VMSorteo.ConvertToListVMSorteo(rs.findAll().ToList()));
+                ViewBag.message = message;
+                return View("Index", VMSorteo.ConvertToVMSorteo(s));
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                TempData["msj"] = "Error inesperado.";
-
+                ViewBag.message = message;
                 return View("Index");
             }
         }

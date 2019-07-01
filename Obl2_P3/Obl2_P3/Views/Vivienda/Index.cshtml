@@ -3,15 +3,6 @@
 @{
     ViewBag.Title = "Viviendas";
     ViewBag.ActiveMenuItem = "vivienda";
-    bool jefeLogged = false;
-    if (Session["userLog"] != null)
-    {
-        if (Session["userRole"].ToString() == "jefe")
-        {
-            jefeLogged = true;
-        }
-    }
-
 }
 
 @section Styles {
@@ -108,20 +99,11 @@
                         @Html.DisplayFor(modelItem => item.precio_final)
                     </td>
                     <td>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    @Html.ActionLink("Detalles", "Details", new { id = item.ViviendaId })
-                                </div>
-                                <div class="col">
-                                    @if (jefeLogged && item.estado != Obl2_P3.Models.VMVivienda.Estaditos.Sorteada)
-                                    {
-                                        <text> | </text> @Html.ActionLink("Modificar estado", "Edit", new { id = item.ViviendaId })
-                                    }
-                                </div>
-                            </div>
-                        </div>
-
+                        @Html.ActionLink("Detalles", "Details", new { id = item.ViviendaId })
+                        @if (item.estado != Obl2_P3.Models.VMVivienda.Estaditos.Sorteada)
+                        {
+                            <text> | </text> @Html.ActionLink("Modificar estado", "Edit", new { id = item.ViviendaId })
+                        }
                     </td>
                 </tr>
             }
