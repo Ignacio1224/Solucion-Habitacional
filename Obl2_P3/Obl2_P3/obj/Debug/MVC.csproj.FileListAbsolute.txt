@@ -224,11 +224,3 @@ C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Obl2_P3
 C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Obl2_P3\bin\System.Web.Http.WebHost.xml
 C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Obl2_P3\bin\es\System.Web.Http.resources.dll
 C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Obl2_P3\bin\es\System.Web.Http.WebHost.resources.dll
-C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Obl2_P3\bin\WebAPI.dll
-C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Obl2_P3\bin\System.Web.Http.dll
-C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Obl2_P3\bin\System.Web.Http.WebHost.dll
-C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Obl2_P3\bin\WebAPI.pdb
-C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Obl2_P3\bin\System.Web.Http.xml
-C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Obl2_P3\bin\System.Web.Http.WebHost.xml
-C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Obl2_P3\bin\es\System.Web.Http.resources.dll
-C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Obl2_P3\bin\es\System.Web.Http.WebHost.resources.dll

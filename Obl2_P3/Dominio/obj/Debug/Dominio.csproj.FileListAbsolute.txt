@@ -53,6 +53,8 @@ C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\
 C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.csproj.GenerateResource.Cache
 C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.dll
 C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.pdb
+C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.Migrations.Posta.resources
+C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.Migrations.identityOn.resources
+C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.Migrations.propiedad_Postulante_Adjudicatario.resources
 C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.Migrations.Ultima.resources
 C:\Users\Ignacio\Desktop\Obligatorio II P3\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.csproj.GenerateResource.Cache
-C:\Users\Dell\Desktop\Git Repos\Solucion-Habitacional\Obl2_P3\Dominio\obj\Debug\Dominio.Migrations.Ultima.resources

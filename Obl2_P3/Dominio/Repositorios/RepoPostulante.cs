@@ -127,8 +127,11 @@ namespace Dominio.Repositorios
                     pBuscado.email = p.email;
                     pBuscado.fecha_nac = p.fecha_nac;
                     pBuscado.adjudicatario = p.adjudicatario;
-                    pBuscado.Sorteo = p.Sorteo;
-                    pBuscado.Sorteos = p.Sorteos;
+                    pBuscado.Sorteo = (from Sorteo s in db.sorteos select s).Where(s => s.SorteoId == p.Sorteo.SorteoId).FirstOrDefault();
+                    foreach (var s in p.Sorteos)
+                    {
+                        pBuscado.Sorteos.Add((from Sorteo so in db.sorteos select so).Where(so => so.SorteoId == p.Sorteo.SorteoId).FirstOrDefault());
+                    } 
                     pBuscado.cedula = p.cedula;
                     
                     if (pBuscado.esValido())

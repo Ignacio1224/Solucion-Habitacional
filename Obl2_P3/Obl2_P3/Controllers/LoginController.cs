@@ -64,7 +64,6 @@ namespace Obl2_P3.Controllers
                 {
                     Session["userLog"] = pAux;
                     Session["userRole"] = pAux.getRole();
-                    Session["userCi"] = pAux.cedula;
                     Session["adj"] = "no";
                     if (pAux.adjudicatario)
                     {
@@ -78,7 +77,6 @@ namespace Obl2_P3.Controllers
                 {
                     Session["userLog"] = uAux;
                     Session["userRole"] = uAux.getRole();
-                    Session["userCi"] = uAux.cedula;
 
                     return RedirectToAction("Index", "Home");
                 }

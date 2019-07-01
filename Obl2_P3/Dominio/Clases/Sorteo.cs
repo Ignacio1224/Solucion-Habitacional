@@ -45,43 +45,54 @@ namespace Dominio.Clases
             try
             {
                 Random r = new Random();
+                //Lista de postulantes ordenada alfabeticamente
                 List<Postulante> pAux = this.Postulantes.OrderBy(px => px.apellido).ToList();
-                Postulante ganador = new Postulante();
-                
+
+                //Bandera, en true para que entre al loop
                 bool reSortear = true;
+
                 while (reSortear){
+
+                    //en la primer pasada lo desactivamos ya que si el ganador no es adjudicatario el loop se corta
                     reSortear = false;
+                    //Rango del random [ 0 - Count-1] para abarcar todo el indice de la lista.
+                    this.Ganador = pAux[r.Next(Postulantes.Count - 1)];
 
-                    ganador = pAux[r.Next(Postulantes.Count - 1)];
-
-                    if (ganador.adjudicatario)
+                    //si llegase a ser adjudicatario, vuelve a entrar al loop y a reasignar otro ganador random
+                    if (this.Ganador.adjudicatario)
                     {
                         reSortear = true;
                     }
                 }                
 
+                RepoPostulante rp = new RepoPostulante();
                 Contexto db = new Contexto();
-
-                Postulante p = db.postulantes.Where(x => x.UsuarioId == ganador.UsuarioId ).FirstOrDefault();
+                Postulante p = db.postulantes.Where(po => po.cedula == this.Ganador.cedula).Include(po => po.Sorteo).Include(po => po.Sorteos).FirstOrDefault();
+                Sorteo s = db.sorteos.Where(ss => ss.SorteoId == this.SorteoId).Include(ss => ss.Ganador).Include(ss => ss.Postulantes).Include(ss => ss.Vivienda).FirstOrDefault();
 
                 p.adjudicatario = true;
-                p.Sorteo = this;
-                this.realizado = true;
-
+                p.Sorteo = s;
                 db.Entry(p.Sorteo).State = EntityState.Modified;
-                db.Entry(p.Sorteo.Vivienda.Barrio).State = EntityState.Unchanged;
-                db.Entry(p).State = EntityState.Modified;
-                db.Entry(p.email).State = EntityState.Unchanged;
-                db.Entry(this).State = EntityState.Modified;
+                foreach (var item in p.Sorteos)
+                    db.Entry(item).State = EntityState.Unchanged;
+
+                s.Ganador = p;
+                db.Entry(s.Ganador).State = EntityState.Modified;
+
+                foreach (var item in s.Postulantes)
+                    db.Entry(item).State = EntityState.Unchanged;
+                db.Entry(s.Vivienda).State = EntityState.Unchanged;
 
                 db.SaveChanges();
-                db.Dispose();
+                
+                //rp.update(p);
+
+                this.realizado = true;
 
                 return true;
             }
             catch (Exception ex)
             {
-                string msj = ex.Message;
                 return false;
             }
         }

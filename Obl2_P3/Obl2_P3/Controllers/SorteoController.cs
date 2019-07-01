@@ -148,7 +148,7 @@ namespace Obl2_P3.Controllers
                     return View("Index", VMSorteo.ConvertToVMSorteo(rs.findAll()));
                 };
                 ViewBag.message = message;
-                return View("Index", VMSorteo.ConvertToVMSorteo(rs.findAll()));
+                return View("Index", VMSorteo.ConvertToVMSorteo(s));
 
             }
             catch (Exception ex)

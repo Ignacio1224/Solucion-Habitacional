@@ -11,7 +11,6 @@ namespace Obl2_P3.Controllers
 {
     public class PostulanteController : Controller
     {
-        #region Api
         HttpClient cliente = new HttpClient();
         HttpResponseMessage response = new HttpResponseMessage();
         Uri productoUri = null;
@@ -23,7 +22,7 @@ namespace Obl2_P3.Controllers
             cliente.DefaultRequestHeaders.Accept.Clear();
             cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
-        #endregion
+
 
         #region Logic
 
