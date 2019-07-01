@@ -57,6 +57,39 @@ namespace Dominio.Repositorios
             return added;
         }
 
+        public bool update(Sorteo s)
+        {
+
+            if (!s.esValidoParaSortear() || s == null) return false;
+            try
+            {
+                Sorteo sBuscado = db.sorteos.Find(s.SorteoId);
+                if (sBuscado != null)
+                {
+                    sBuscado.fecha = s.fecha;
+                    sBuscado.Ganador = s.Ganador;
+                    sBuscado.SorteoId = s.SorteoId;
+                    sBuscado.Postulantes = s.Postulantes;
+                    sBuscado.realizado = s.realizado;
+                    sBuscado.Vivienda = s.Vivienda;
+
+                    if (sBuscado.esValidoParaSortear())
+                    {
+                        db.SaveChanges();
+                        db.Dispose();
+                        return true;
+                    }
+                    return false;
+                }
+                return false;
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public bool delete(Sorteo s)
         {
             Contexto db = new Contexto();
@@ -91,13 +124,13 @@ namespace Dominio.Repositorios
             }
             catch (Exception ex)
             {
+                string msj = ex.Message;
                 return sLista;
             }
 
             return sLista;
 
         }
-
 
         public Sorteo findById(int sId)
         {
@@ -106,45 +139,63 @@ namespace Dominio.Repositorios
             return s;
         }
 
-        public Sorteo raffle(Sorteo s)
+        public bool raffle(Sorteo s)
         {
-            s.sortear();
-            bool addedd = add(s);
-            return s;
-
-        }
-
-        public bool update(Sorteo s)
-        {
-
-            if (!s.esValidoParaSortear() || s == null) return false;
             try
             {
-                Sorteo sBuscado = db.sorteos.Find(s.SorteoId);
-                if (sBuscado != null)
+
+                Random r = new Random();
+                List<Postulante> pAux = s.Postulantes.OrderBy(px => px.apellido).ToList();
+                bool reSortear = true;
+                Postulante ganador = new Postulante();
+                while (reSortear)
                 {
-                    sBuscado.fecha = s.fecha;
-                    sBuscado.Ganador = s.Ganador;
-                    sBuscado.SorteoId = s.SorteoId;
-                    sBuscado.Postulantes = s.Postulantes;
-                    sBuscado.realizado = s.realizado;
-                    sBuscado.Vivienda = s.Vivienda;
+                    reSortear = false;
 
-                    if (sBuscado.esValidoParaSortear())
+                    ganador = pAux[r.Next(s.Postulantes.Count - 1)];
+
+
+                    if (ganador.adjudicatario)
                     {
-                        db.SaveChanges();
-                        db.Dispose();
-                        return true;
+                        reSortear = true;
                     }
-                    return false;
                 }
-                return false;
 
+                Contexto db = new Contexto();
+                Postulante p = db.postulantes.Where(po => po.cedula == ganador.cedula).Include(po => po.Sorteo).Include(po => po.Sorteos).FirstOrDefault();
+                Sorteo sAux = db.sorteos.Where(ss => ss.SorteoId == s.SorteoId).Include(ss => ss.Ganador).Include(ss => ss.Postulantes).Include(ss => ss.Vivienda).FirstOrDefault();
+
+                p.Sorteo = sAux;
+                db.Entry(p.Sorteo).State = EntityState.Modified;
+
+                p.adjudicatario = true;
+                db.Entry(p).State = EntityState.Modified;
+
+                foreach (var item in p.Sorteos)
+                    db.Entry(item).State = EntityState.Unchanged;
+
+                sAux.Ganador = p;
+                db.Entry(sAux.Ganador).State = EntityState.Modified;
+
+                sAux.realizado = true;
+                sAux.GanadorId = p.UsuarioId;
+                db.Entry(sAux).State = EntityState.Modified;
+
+                foreach (var item in sAux.Postulantes)
+                    db.Entry(item).State = EntityState.Unchanged;
+                db.Entry(sAux.Vivienda).State = EntityState.Unchanged;
+
+                db.SaveChanges();
+                db.Dispose();
+
+                return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                string msj = ex.Message;
                 return false;
             }
+
         }
 
         public bool inscribePostulanteAtSorteo(Postulante p, Sorteo s)
@@ -169,7 +220,8 @@ namespace Dominio.Repositorios
                 }
                 catch (Exception ex)
                 {
-
+                    string msj = ex.Message;
+                    return false;
                 }
 
             }

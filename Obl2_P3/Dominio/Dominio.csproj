@@ -70,6 +70,10 @@
     <Compile Include="Migrations\201906301836151_Ultima.Designer.cs">
       <DependentUpon>201906301836151_Ultima.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907012228022_ultima.cs" />
+    <Compile Include="Migrations\201907012228022_ultima.Designer.cs">
+      <DependentUpon>201907012228022_ultima.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorios\RepoBarrio.cs" />
@@ -86,6 +90,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201906301836151_Ultima.resx">
       <DependentUpon>201906301836151_Ultima.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907012228022_ultima.resx">
+      <DependentUpon>201907012228022_ultima.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

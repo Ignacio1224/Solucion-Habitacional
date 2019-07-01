@@ -29,6 +29,7 @@ namespace Obl2_P3.Controllers
         public ActionResult Index()
         {
             if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+
             Postulante p = Session["userLog"] as Postulante;
             ViewBag.postulante = p;
             ViewBag.message = new string[] { "d-none", "", "" };
@@ -39,7 +40,7 @@ namespace Obl2_P3.Controllers
         // GET: Sorteo/Details/{id}
         public ActionResult Details(int id)
         {
-            //  if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             return View(VMSorteo.ConvertToVMSorteo(rs.findById(id)));
         }
@@ -47,6 +48,8 @@ namespace Obl2_P3.Controllers
         // GET: Sorteo/Create
         public ActionResult CreatePreSorteo()
         {
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+
             ViewBag.barrios = new SelectList(rb.findAll(), "BarrioId", "nombre_barrio");
             return View();
         }
@@ -54,7 +57,7 @@ namespace Obl2_P3.Controllers
         // GET: Sorteo/CreateSorteo
         public ActionResult CreateSorteo(int id)
         {
-            //  if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             ViewBag.viviendas = new SelectList(rv.findByBarrioToRaffle(id), "ViviendaId", "ViviendaId");
             VMSorteo vms = new VMSorteo();
@@ -83,7 +86,6 @@ namespace Obl2_P3.Controllers
 
             return View();
         }
-
 
         // POST: Sorteo/CreateSorteo
         [HttpPost]
@@ -114,24 +116,31 @@ namespace Obl2_P3.Controllers
 
             VMSorteo vms = VMSorteo.ConvertToVMSorteo(rs.findById(id));
 
-            if (vms.Postulantes.Count() == 0)
+            if (rs.raffle(VMSorteo.ConvertToSorteo(vms)))
+            {
+                TempData["message"] = new string[] { "alert-success", "padding: 1em; margin-bottom: 0.6em;", "Sorteo realizado con éxito." };
+                return RedirectToAction("Details", "Sorteo", new { id = id });
+            }
+            else if (vms.Postulantes.Count() == 0)
             {
                 ViewBag.message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "El sorteo no puede ser realizado ya que no posee postulantes inscriptos." };
-
-                // cuando retorna la vista no manda el model con la vm convertida
+                return View("Index", VMSorteo.ConvertToVMSorteo(rs.findAll().ToList()));
+            }
+            else
+            {
+                ViewBag.message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "Error inesperado." };
                 return View("Index", VMSorteo.ConvertToVMSorteo(rs.findAll().ToList()));
             }
 
-            // Sortear
-            vms = VMSorteo.ConvertToVMSorteo(rs.raffle(VMSorteo.ConvertToSorteo(vms)));
 
-            return RedirectToAction("Details", "Sorteo", new { id = id });
         }
 
         // POST: Sorteo/InscribePostulanteAtSorteo
         [HttpPost]
         public ActionResult InscribePostulanteAtSorteo(int id)
         {
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+
             Postulante p = Session["userLog"] as Postulante;
             Sorteo s = rs.findById(id);
             ViewBag.postulante = p;
@@ -153,6 +162,7 @@ namespace Obl2_P3.Controllers
             }
             catch (Exception ex)
             {
+                string msj = ex.Message;
                 ViewBag.message = message;
                 return View("Index");
             }

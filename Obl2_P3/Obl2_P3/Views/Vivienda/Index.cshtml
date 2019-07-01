@@ -3,28 +3,9 @@
 @{
     ViewBag.Title = "Viviendas";
     ViewBag.ActiveMenuItem = "vivienda";
-}
 
-@section Styles {
-    <style>
-        .no-result {
-            display: none;
-        }
-
-        .counter {
-            padding: 8px;
-            color: #ccc;
-        }
-
-        .results tr[visible='false'],
-        .no-result {
-            display: none;
-        }
-
-        .results tr[visible='true'] {
-            display: table-row;
-        }
-    </style>
+    bool jefeLogged = false;
+    if (Session["userRole"].ToString() == "jefe") { jefeLogged = true; }
 }
 
 <h2>Vivienda</h2>
@@ -37,9 +18,12 @@
     @ViewBag.message[2]
 </div>
 
-<form action="/Vivienda/Import" method="post" style="margin-bottom: 2em;">
-    <button type="submit" class="btn btn-primary">Importar</button>
-</form>
+@if (jefeLogged)
+{
+    <form action="/Vivienda/Import" method="post" style="margin-bottom: 2em;">
+        <button type="submit" class="btn btn-primary">Importar</button>
+    </form>
+}
 
 <div class="form-group pull-right">
     <input type="text" class="search form-control" placeholder="Que buscas?">
@@ -100,7 +84,8 @@
                     </td>
                     <td>
                         @Html.ActionLink("Detalles", "Details", new { id = item.ViviendaId })
-                        @if (item.estado != Obl2_P3.Models.VMVivienda.Estaditos.Sorteada)
+
+                        @if (jefeLogged && item.estado != Obl2_P3.Models.VMVivienda.Estaditos.Sorteada)
                         {
                             <text> | </text> @Html.ActionLink("Modificar estado", "Edit", new { id = item.ViviendaId })
                         }
@@ -180,6 +165,28 @@
         });
 
     </script>
+}
+
+@section Styles {
+    <style>
+        .no-result {
+            display: none;
+        }
+
+        .counter {
+            padding: 8px;
+            color: #ccc;
+        }
+
+        .results tr[visible='false'],
+        .no-result {
+            display: none;
+        }
+
+        .results tr[visible='true'] {
+            display: table-row;
+        }
+    </style>
 }
 
 

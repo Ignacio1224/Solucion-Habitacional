@@ -129,10 +129,10 @@
                     @Html.DisplayNameFor(model => model.monto_contribucion)
                 </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.monto_contribucion)
-                        @Html.HiddenFor(model => model.monto_contribucion)
-                    </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.monto_contribucion)
+                    @Html.HiddenFor(model => model.monto_contribucion)
+                </dd>
             }
 
             <dd>
@@ -144,7 +144,7 @@
                 <div class="col-md-10">
                     @Html.DropDownListFor(m => m.estado,
                                           new SelectList(Enum.GetValues(typeof(Obl2_P3.Models.VMVivienda.Estaditos))),
-                                          "Seleccionar", htmlAttributes: new { @class = "form-control"})
+                                          "Seleccionar", htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
                 </div>
             </dd>

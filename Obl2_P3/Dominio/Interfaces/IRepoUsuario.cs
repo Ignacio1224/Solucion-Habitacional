@@ -12,8 +12,8 @@ namespace Dominio.Interfaces
         bool add(Usuario u);
         bool update(Usuario u);
         bool delete(Usuario u);
-        Usuario findByCi(string uCi);
         IEnumerable<Usuario> findAll();
+        Usuario findByCi(string uCi);
         bool validarLogin(Usuario u);
     }
 }

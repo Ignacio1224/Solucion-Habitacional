@@ -12,8 +12,8 @@ namespace Dominio.Interfaces
         bool add(Vivienda v);
         bool update(Vivienda v);
         bool delete(Vivienda v);
-        Vivienda findById(int vId);
         IEnumerable<Vivienda> findAll();
+        Vivienda findById(int vId);
         IEnumerable<Vivienda> findByBarrio(int bId);
         IEnumerable<Vivienda> findByBarrioToRaffle(int bId);
         IEnumerable<Vivienda> getByPriceRange(decimal pMin, decimal pMax);

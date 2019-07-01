@@ -21,7 +21,7 @@ namespace Obl2_P3.Controllers
         // GET: Barrio
         public ActionResult Index()
         {
-            //if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             ViewBag.message = new string[] { "d-none", "", "" };
 
@@ -31,7 +31,7 @@ namespace Obl2_P3.Controllers
         // GET: Barrio/Details/5
         public ActionResult Details(int id)
         {
-            //if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             return View("Details", rb.findById(id));
         }
@@ -44,7 +44,7 @@ namespace Obl2_P3.Controllers
         [HttpPost]
         public ActionResult Import()
         {
-            //if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             bool imported = rb.import();
 

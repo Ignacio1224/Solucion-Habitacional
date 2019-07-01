@@ -15,14 +15,14 @@ namespace Obl2_P3.Controllers
 
         public ActionResult Index()
         {
-          //  if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             return View();
         }
 
         public ActionResult About()
         {
-           // if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             return View();
         }

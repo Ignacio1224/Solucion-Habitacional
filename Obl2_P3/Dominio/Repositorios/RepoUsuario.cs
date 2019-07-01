@@ -11,7 +11,6 @@ namespace Dominio.Repositorios
 {
     public class RepoUsuario : IRepoUsuario
     {
-        
 
         public bool add(Usuario u)
         {
@@ -25,6 +24,37 @@ namespace Dominio.Repositorios
                 db.SaveChanges();
                 db.Dispose();
                 return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
+        public bool update(Usuario u)
+        {
+            Contexto db = new Contexto();
+
+            if (!u.esValido() || u == null) return false;
+
+            try
+            {
+                Usuario uBuscado = db.usuarios.Find(u.cedula);
+                if (uBuscado != null)
+                {
+                    uBuscado.cedula = u.cedula;
+                    uBuscado.clave = u.clave;
+                    if (u.esValido())
+                    {
+                        db.SaveChanges();
+                        db.Dispose();
+                        return true;
+                    }
+                    return false;
+                }
+                return false;
+
             }
             catch (Exception)
             {
@@ -93,36 +123,6 @@ namespace Dominio.Repositorios
             else return false;
         }
 
-        public bool update(Usuario u)
-        {
-            Contexto db = new Contexto();
-
-            if (!u.esValido() || u == null) return false;
-
-            try
-            {
-                Usuario uBuscado = db.usuarios.Find(u.cedula);
-                if (uBuscado != null)
-                {
-                    uBuscado.cedula = u.cedula;
-                    uBuscado.clave = u.clave;
-                    if (u.esValido())
-                    {
-                        db.SaveChanges();
-                        db.Dispose();
-                        return true;
-                    }
-                    return false;
-                }
-                return false;
-
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
-        }
-
+       
     }
 }

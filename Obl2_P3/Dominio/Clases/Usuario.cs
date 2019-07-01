@@ -23,8 +23,11 @@ namespace Dominio.Clases
         [MaxLength(9)]
         public string cedula { get; set; }
 
+        //Expresión regular de contraseña.
+        //La contraseña debe tener al menos 6 caracteres, no más de 15, y debe incluir al menos 
+        //una letra mayúscula, una letra minúscula y un dígito numérico.
         [Required]
-        [RegularExpression(@"(?=^.{6,30}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$")]
+        [RegularExpression(@"^ (? =. * \ d) (? =. * [az]) (? =. * [AZ]). {6,15} $")]
         public string clave { get; set; }
 
         #endregion

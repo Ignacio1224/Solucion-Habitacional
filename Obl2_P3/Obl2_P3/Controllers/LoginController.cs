@@ -33,6 +33,7 @@ namespace Obl2_P3.Controllers
         {
             Session.Remove("userLog");
             Session.Remove("userRole");
+            Session.Remove("userCi");
             string[] message = new string[] { "d-none", "padding: 1em; margin-bottom: 0.6em;", "" };
             ViewBag.message = message;
             return RedirectToAction("Index", "Login", new VMUsuario());
@@ -46,50 +47,53 @@ namespace Obl2_P3.Controllers
         [HttpPost]
         public ActionResult Index(VMUsuario user)
         {
-            string[] message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "Usuario incorrecto" };
-
-
-            if (ModelState.IsValid && user.validarModel())
+            if (ModelState.IsValid)
             {
                 var uAux = ru.findByCi(user.cedula);
                 var pAux = rp.findByCi(user.cedula);
 
-
-                if (pAux != null && uAux != null)
+                if (uAux != null && uAux.clave == user.clave)
                 {
-                    uAux = null;
-                }
 
-                if (pAux != null)
-                {
-                    Session["userLog"] = pAux;
-                    Session["userRole"] = pAux.getRole();
-                    Session["adj"] = "no";
-                    if (pAux.adjudicatario)
+                    if (pAux != null && uAux != null)
                     {
-                        Session["adj"] = "si";
+                        uAux = null;
                     }
 
-                    return RedirectToAction("Index", "Home");
+                    if (pAux != null)
+                    {
+                        Session["userLog"] = pAux;
+                        Session["userRole"] = pAux.getRole();
+                        Session["adj"] = "no";
+                        if (pAux.adjudicatario)
+                        {
+                            Session["adj"] = "si";
+                        }
 
+                        return RedirectToAction("Index", "Home");
+
+                    }
+                    else if (uAux != null)
+                    {
+                        Session["userLog"] = uAux;
+                        Session["userRole"] = uAux.getRole();
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    ViewBag.message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "Información incorrecta." };
+                    return View(user);
                 }
-                else if (uAux != null)
-                {
-                    Session["userLog"] = uAux;
-                    Session["userRole"] = uAux.getRole();
-
-                    return RedirectToAction("Index", "Home");
-                }
-
                 else
                 {
-                    ViewBag.message = message;
+                    ViewBag.message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "Información incorrecta." };
+
                     return View(user);
                 }
             }
             else
             {
-                ViewBag.message = message;
+                ViewBag.message = new string[] { "alert-warning", "padding: 1em; margin-bottom: 0.6em;", "Error inesperada." };
+
                 return View(user);
             }
         }

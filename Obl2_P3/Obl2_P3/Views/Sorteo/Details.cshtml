@@ -4,13 +4,24 @@
     ViewBag.Title = "Detalles Sorteo";
     ViewBag.ActiveMenuItem = "sorteo";
 
+    if (TempData["message"] != null)
+    {
+        ViewBag.message = TempData["message"];
+    }
+
 }
 
-<h2>Details</h2>
-
+<h2>Detalles</h2>
+<h4>Detalles de sorteo</h4>
+<hr />
 <div>
-    <h4>VMSorteo</h4>
-    <hr />
+    @if (ViewBag.message != null)
+    {
+        <div class="@ViewBag.message[0]" style="@ViewBag.message[1]">
+            @ViewBag.message[2]
+        </div>
+    }
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.SorteoId)
@@ -50,7 +61,7 @@
             @if (Model.Postulantes.Count() > 0)
             {
                 int i = 0;
-                foreach(var item in Model.Postulantes)
+                foreach (var item in Model.Postulantes)
                 {
                     i++;
                     if (i == 1)
@@ -72,12 +83,13 @@
         <dt>
             @Html.DisplayNameFor(model => model.Ganador)
         </dt>
-        
+
         <dd>
             @if (Model.Ganador != null)
             {
                 <span>@Model.Ganador.cedula</span>
-            } else
+            }
+            else
             {
                 <span>No hay ganador</span>
             }

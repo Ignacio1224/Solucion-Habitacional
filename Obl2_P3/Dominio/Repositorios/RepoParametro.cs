@@ -54,6 +54,29 @@ namespace Dominio.Repositorios
 
         }
 
+        public bool update(Parametro p)
+        {
+            Contexto db = new Contexto();
+
+            try
+            {
+                Parametro pBuscado = db.parametros.Find(p.nombre_parametro);
+                if (pBuscado != null)
+                {
+                    pBuscado.valor = p.valor;
+                    db.SaveChanges();
+                    db.Dispose();
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public IEnumerable<Parametro> findAll()
         {
             Contexto db = new Contexto();
@@ -152,27 +175,6 @@ namespace Dominio.Repositorios
             return imported;
         }
 
-        public bool update(Parametro p)
-        {
-            Contexto db = new Contexto();
-
-            try
-            {
-                Parametro pBuscado = db.parametros.Find(p.nombre_parametro);
-                if (pBuscado != null)
-                {
-                    pBuscado.valor = p.valor;
-                    db.SaveChanges();
-                    db.Dispose();
-                    return true;
-                }
-
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
+       
     }
 }

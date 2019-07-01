@@ -3,6 +3,9 @@
 @{
     ViewBag.Title = "Barrios";
     ViewBag.ActiveMenuItem = "barrio";
+
+    bool jefeLogged = false;
+    if (Session["userRole"].ToString() == "jefe") { jefeLogged = true; }
 }
 
 <h2>Barrios</h2>
@@ -11,10 +14,12 @@
     @ViewBag.message[2]
 </div>
 
-<form action="/Barrio/Import" method="post" style="margin-bottom: 2em;">
-    <button type="submit" class="btn btn-primary">Importar</button>
-</form>
-
+@if (jefeLogged)
+{
+    <form action="/Barrio/Import" method="post" style="margin-bottom: 2em;">
+        <button type="submit" class="btn btn-primary">Importar</button>
+    </form>
+}
 
 <table class="table">
     <tr>

@@ -13,10 +13,10 @@
 
 <h2>Crear Sorteo</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <hr />
 
@@ -52,5 +52,5 @@
 
 <div>
     @Html.ActionLink("Atras", "CreatePreSorteo") |
-    @Html.ActionLink("Volver al listado", "Index") 
+    @Html.ActionLink("Volver al listado", "Index")
 </div>

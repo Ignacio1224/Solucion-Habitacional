@@ -32,10 +32,8 @@ namespace Dominio.Repositorios
 
                 if (ru.add(userPostulante))
                 {
-                    ru = new RepoUsuario();
                     p.UsuarioId = ru.findByCi(p.cedula).UsuarioId;
-
-                    db.usuarios.Add(p);
+                    db.postulantes.Add(p);
 
                     db.SaveChanges();
                     db.Dispose();
@@ -45,10 +43,59 @@ namespace Dominio.Repositorios
             }
             catch (Exception ex)
             {
-                
+                string msj = ex.Message;
+                return added;
             }
 
             return added;
+        }
+
+        public bool update(Postulante p)
+        {
+            Contexto db = new Contexto();
+
+            if (!p.esValido() || p == null) return false;
+
+            try
+            {
+                Postulante pBuscado = db.postulantes.Find(p.cedula);
+                if (pBuscado != null)
+                {
+                    pBuscado.nombre = p.nombre;
+                    pBuscado.apellido = p.apellido;
+                    pBuscado.clave = p.clave;
+                    pBuscado.email = p.email;
+                    pBuscado.fecha_nac = p.fecha_nac;
+                    pBuscado.adjudicatario = p.adjudicatario;
+                    pBuscado.Sorteo = (from Sorteo s in db.sorteos select s).Where(s => s.SorteoId == p.Sorteo.SorteoId).FirstOrDefault();
+                    foreach (var s in p.Sorteos)
+                    {
+                        pBuscado.Sorteos.Add((from Sorteo so in db.sorteos select so).Where(so => so.SorteoId == p.Sorteo.SorteoId).FirstOrDefault());
+                    }
+                    pBuscado.cedula = p.cedula;
+
+                    if (pBuscado.esValido())
+                    {
+
+                        if (pBuscado.Sorteo != null)
+                        {
+                            db.Entry(pBuscado.Sorteo).State = EntityState.Unchanged;
+                        }
+
+                        db.SaveChanges();
+                        db.Dispose();
+                        return true;
+                    }
+                    return false;
+                }
+                return false;
+
+            }
+            catch (Exception ex)
+            {
+                string msj = ex.Message;
+                return false;
+            }
         }
 
         public bool delete(Postulante p)
@@ -110,51 +157,6 @@ namespace Dominio.Repositorios
             return false;
         }
 
-        public bool update(Postulante p)
-        {
-            Contexto db = new Contexto();
 
-            if (!p.esValido() || p == null) return false;
-
-            try
-            {
-                Postulante pBuscado = db.postulantes.Find(p.cedula);
-                if (pBuscado != null)
-                {
-                    pBuscado.nombre = p.nombre;
-                    pBuscado.apellido = p.apellido;
-                    pBuscado.clave = p.clave;
-                    pBuscado.email = p.email;
-                    pBuscado.fecha_nac = p.fecha_nac;
-                    pBuscado.adjudicatario = p.adjudicatario;
-                    pBuscado.Sorteo = (from Sorteo s in db.sorteos select s).Where(s => s.SorteoId == p.Sorteo.SorteoId).FirstOrDefault();
-                    foreach (var s in p.Sorteos)
-                    {
-                        pBuscado.Sorteos.Add((from Sorteo so in db.sorteos select so).Where(so => so.SorteoId == p.Sorteo.SorteoId).FirstOrDefault());
-                    } 
-                    pBuscado.cedula = p.cedula;
-                    
-                    if (pBuscado.esValido())
-                    {
-
-                        if (pBuscado.Sorteo != null)
-                        {
-                            db.Entry(pBuscado.Sorteo).State = EntityState.Unchanged;
-                        }
-
-                        db.SaveChanges();
-                        db.Dispose();
-                        return true;
-                    }
-                    return false;
-                }
-                return false;
-
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
     }
 }

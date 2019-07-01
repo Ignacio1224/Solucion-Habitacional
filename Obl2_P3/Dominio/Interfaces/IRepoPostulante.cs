@@ -12,10 +12,8 @@ namespace Dominio.Interfaces
         bool add(Postulante p);
         bool update(Postulante p);
         bool delete(Postulante p);
-        Postulante findByCi(string pCi);
         IEnumerable<Postulante> findAll();
+        Postulante findByCi(string pCi);
         bool validarLogin(Postulante p);
-
-
     }
 }

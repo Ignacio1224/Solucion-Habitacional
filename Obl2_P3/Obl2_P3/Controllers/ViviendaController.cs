@@ -44,7 +44,7 @@ namespace Obl2_P3.Controllers
         // GET: Vivienda
         public ActionResult Index()
         {
-           // if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             ViewBag.message = new string[] { "d-none", "", "" };
 
@@ -54,7 +54,7 @@ namespace Obl2_P3.Controllers
         // GET: Vivienda/Details/5
         public ActionResult Details(int id)
         {
-            // if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             return View("Details", VMVivienda.ConvertToVMVivienda(rv.findById(id)));
         }
@@ -62,17 +62,21 @@ namespace Obl2_P3.Controllers
         // GET: Vivienda/Edit/{id}
         public ActionResult Edit(int id)
         {
-            //  if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             string[] message = new string[] { "d-none", "padding: 1em; margin-bottom: 0.6em;", "" };
             ViewBag.message = message;
+
             return View("Edit", VMVivienda.ConvertToVMVivienda(rv.findById(id)));
         }
+
+        #region Get APImethods
 
         // GET: Vivienda/GetByBarrio/{idBarrio} -> api/GetByBarrio/{idBarrio}
         public ActionResult GetByBarrio(int idBarrio)
         {
-            
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+
             response = client.GetAsync(productoUri + "GetByBarrio/" + idBarrio).Result;
             if (response.IsSuccessStatusCode)
             {
@@ -81,7 +85,8 @@ namespace Obl2_P3.Controllers
                 if (listVM.Count > 0)
                 {
                     ViewBag.message = "Success.";
-                }else
+                }
+                else
                 {
                     ViewBag.message = "El barrio indicado no posee viviendas ingresadas.";
                 }
@@ -97,7 +102,9 @@ namespace Obl2_P3.Controllers
         // GET: Vivienda/GetByPriceRange/{pMin}/{pMax} -> api/GetByPriceRange/{pMin}/{pMax}
         public ActionResult GetByPriceRange(decimal pMin, decimal pMax)
         {
-            response = client.GetAsync(productoUri +"GetByPriceRange/" + pMin +"/"+pMax).Result;
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+
+            response = client.GetAsync(productoUri + "GetByPriceRange/" + pMin + "/" + pMax).Result;
             if (response.IsSuccessStatusCode)
             {
                 var list = response.Content.ReadAsAsync<IEnumerable<Vivienda>>().Result;
@@ -122,6 +129,8 @@ namespace Obl2_P3.Controllers
         // GET: Vivienda/GetByManyBedrooms/{cantDorm} -> api/GetByManyBedrooms/{cantDorm}
         public ActionResult GetByManyBedrooms(int cantDorm)
         {
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+
             response = client.GetAsync(productoUri + "GetByManyBedrooms/" + cantDorm).Result;
             if (response.IsSuccessStatusCode)
             {
@@ -149,7 +158,9 @@ namespace Obl2_P3.Controllers
         // GET: Vivienda/GetByState/{state} -> api/GetByState/{state}
         public ActionResult GetByState(int state)
         {
-            response = client.GetAsync(productoUri + "GetByState/" + state ).Result;
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+
+            response = client.GetAsync(productoUri + "GetByState/" + state).Result;
             if (response.IsSuccessStatusCode)
             {
                 var list = response.Content.ReadAsAsync<IEnumerable<Vivienda>>().Result;
@@ -174,6 +185,8 @@ namespace Obl2_P3.Controllers
         // GET: Vivienda/GetByType/{type} -> api/GetByType/{type}
         public ActionResult GetByType(string type)
         {
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+
             response = client.GetAsync(productoUri + "GetByType/" + type).Result;
             if (response.IsSuccessStatusCode)
             {
@@ -195,6 +208,9 @@ namespace Obl2_P3.Controllers
                 return View(new VMVivienda());
             }
         }
+
+        #endregion
+
         #endregion
 
         #region POST
@@ -203,7 +219,7 @@ namespace Obl2_P3.Controllers
         [HttpPost]
         public ActionResult Edit(VMVivienda vmv)
         {
-            // if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             string[] message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "Ha ocurrido un error!" };
 
@@ -221,7 +237,7 @@ namespace Obl2_P3.Controllers
         [HttpPost]
         public ActionResult Import()
         {
-            // if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             string[] message = new string[] { "alert-danger", "padding: 1em; margin-bottom: 0.6em;", "Ha ocurrido un error, verifique el archivo Errores.txt" };
 
@@ -237,7 +253,7 @@ namespace Obl2_P3.Controllers
         }
 
         #endregion
-        
+
         #endregion
     }
 }

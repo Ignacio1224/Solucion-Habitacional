@@ -1,11 +1,13 @@
 ﻿@model IEnumerable<Obl2_P3.Models.VMSorteo>
 @using System.Linq;
 @using Obl2_P3.Models;
+@using Dominio.Clases;
 
 @{
     ViewBag.Title = "Sorteos";
     ViewBag.ActiveMenuItem = "sorteo";
 
+    Postulante pAux = ViewBag.postulante as Postulante;
 
     bool jefeLogged = false;
     if (Session["userRole"].ToString() == "jefe") { jefeLogged = true; }
@@ -50,11 +52,6 @@
     @ViewBag.message[2]
 </div>
 
-@*@if (@TempData["msj"] != null)
-{
-    <div class="alert-danger"> @TempData["msj"].ToString() </div>
-}*@
-
 
 @if (jefeLogged)
 {
@@ -79,7 +76,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.realizado)
             </th>
-            <th>Acciones</th>
+            <th class="text-center">Acciones</th>
         </tr>
         @if (sNoRealizado != null && sNoRealizado.Count() > 0)
         {
@@ -102,24 +99,35 @@
                             <span class="glyphicon glyphicon-remove text-danger"></span>
                         }
                     </td>
-                    <td>
-                        @if (postulanteLogged && !adjudicatario && !item.Postulantes.Contains(ViewBag.postulante))
-                        { <form action="/Sorteo/InscribePostulanteAtSorteo/@item.SorteoId" method="post" class="d-inline">
-                            <input type="submit" class="btn btn-danger" value="Inscribirse" name="bttn-inscribe" />
-                        </form>
-                        } else
-                        {
+
+                    @if (postulanteLogged && !adjudicatario && !item.Postulantes.Contains(pAux))
+                    {
+                        <td class="text-center">
+                            <form action="/Sorteo/InscribePostulanteAtSorteo/@item.SorteoId" method="post" class="d-inline">
+                                <input type="submit" class="btn btn-danger" value="Inscribirse" name="bttn-inscribe" />
+                            </form>
+                        </td>
+                    }
+                    else if (!jefeLogged)
+                    {
+                        <td class="text-center">
                             <span>Ya inscripto.</span>
-                        }
+                        </td>
+                    }
 
+                    <td class="text-center">
                         @Html.ActionLink("Detalles", "Details", new { id = item.SorteoId })
-
-                        @if (jefeLogged && item.fecha.ToShortDateString() == DateTime.Now.ToShortDateString())
-                        { <form action="/Sorteo/Raffle/@item.SorteoId" method="post" class="d-inline">
-                            <input type="submit" class="btn btn-primary" value="Sortear" name="bttn-raffle" />
-                        </form>
-                        }
                     </td>
+
+                    @if (jefeLogged && item.fecha.ToShortDateString() == DateTime.Now.ToShortDateString())
+                    {
+                        <td class="text-center">
+                            <form action="/Sorteo/Raffle/@item.SorteoId" method="post" class="d-inline">
+                                <input type="submit" class="btn btn-primary" value="Sortear" name="bttn-raffle" />
+                            </form>
+                        </td>
+                    }
+
                 </tr>
             }
         }
@@ -151,9 +159,9 @@
             <th>Acciones</th>
         </tr>
         @if (sRealizado != null && sRealizado.Count() > 0)
+        {
+            foreach (var item in sRealizado)
             {
-                foreach (var item in sRealizado)
-                {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.SorteoId)
@@ -163,7 +171,7 @@
                     </td>
                     <td>
                         @if (item.realizado)
-                    {
+                        {
                             <span class="glyphicon glyphicon-ok text-success"></span>
                         }
                         else

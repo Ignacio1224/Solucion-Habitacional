@@ -12,7 +12,8 @@ namespace Dominio.Interfaces
         bool add(Barrio b);
         bool update(Barrio b);
         bool delete(Barrio b);
-        Barrio findByName(string bName);
         IEnumerable<Barrio> findAll();
+        Barrio findByName(string bName);
+        Barrio findById(int id);
     }
 }

@@ -21,7 +21,7 @@ namespace Obl2_P3.Controllers
         // GET: Parametro
         public ActionResult Index()
         {
-            //  if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             ViewBag.message = new string[] { "d-none", "", "" };
 
@@ -31,7 +31,7 @@ namespace Obl2_P3.Controllers
         // GET: Parametro/Details/5
         public ActionResult Details(String id)
         {
-            //  if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             return View("Details", rp.findByName(id));
         }
@@ -44,7 +44,7 @@ namespace Obl2_P3.Controllers
         [HttpPost]
         public ActionResult Import()
         {
-            //  if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             bool imported = rp.import();
 

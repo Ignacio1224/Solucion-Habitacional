@@ -54,6 +54,28 @@ namespace Dominio.Repositorios
             }
         }
 
+        public bool update(Barrio b)
+        {
+            Contexto db = new Contexto();
+
+            try
+            {
+                Barrio barrioBuscado = db.barrios.Find(b.nombre_barrio);
+                if (barrioBuscado != null)
+                {
+                    barrioBuscado.descripcion = b.descripcion;
+                    db.SaveChanges();
+                    db.Dispose();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public IEnumerable<Barrio> findAll()
         {
             Contexto db = new Contexto();
@@ -165,28 +187,7 @@ namespace Dominio.Repositorios
             return imported;
         }
 
-        public bool update(Barrio b)
-        {
-            Contexto db = new Contexto();
-
-            try
-            { 
-                Barrio barrioBuscado = db.barrios.Find(b.nombre_barrio);
-                if (barrioBuscado != null)
-                {
-                    barrioBuscado.descripcion = b.descripcion;
-                    db.SaveChanges();
-                    db.Dispose();
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
+        
     }
 }
 
