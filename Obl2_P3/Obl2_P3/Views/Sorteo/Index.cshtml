@@ -8,7 +8,6 @@
 
     bool jefeLogged = false;
     if (Session["userRole"].ToString() == "jefe") { jefeLogged = true; }
-
     bool postulanteLogged = false;
     bool adjudicatario = false;
     if (Session["userRole"].ToString() == "postulante")
@@ -22,7 +21,8 @@
 
     List<Obl2_P3.Models.VMSorteo> sRealizado = new List<Obl2_P3.Models.VMSorteo>();
     List<Obl2_P3.Models.VMSorteo> sNoRealizado = new List<Obl2_P3.Models.VMSorteo>();
-    if (Model != null)
+
+    if (Model.Count() > 0)
     {
         foreach (Obl2_P3.Models.VMSorteo sorteo in Model)
         {
@@ -35,9 +35,62 @@
                 sNoRealizado.Add(sorteo);
             }
         }
+    }
+
+    if (sRealizado.Count > 0 && sNoRealizado.Count > 0)
+    {
         sRealizado = sRealizado.OrderByDescending(s => s.fecha).ToList();
         sNoRealizado = sNoRealizado.OrderByDescending(s => s.fecha).ToList();
     }
+
+    //ViewBag.Title = "Sorteos";
+    //ViewBag.ActiveMenuItem = "sorteo";
+
+
+    //bool jefeLogged = false;
+    //bool postulanteLogged = false;
+    //bool adjudicatario = false;
+
+
+    //if (Session["userLog"] != null)
+    //{
+    //    if (Session["userRole"].ToString() == "jefe")
+    //    {
+    //        jefeLogged = true;
+    //    }
+    //    else if (Session["userRole"].ToString() == "postulante")
+    //    {
+    //        postulanteLogged = true;
+    //        if (Session["adj"].ToString() == "si")
+    //        {
+    //            adjudicatario = true;
+    //        }
+    //    }
+    //}
+    //else
+    //{
+    //    jefeLogged = false;
+    //    postulanteLogged = false;
+    //    adjudicatario = false;
+    //}
+
+    //List<Obl2_P3.Models.VMSorteo> sRealizado = new List<Obl2_P3.Models.VMSorteo>();
+    //List<Obl2_P3.Models.VMSorteo> sNoRealizado = new List<Obl2_P3.Models.VMSorteo>();
+
+    //foreach (Obl2_P3.Models.VMSorteo sorteo in Model)
+    //{
+    //    if (sorteo.realizado)
+    //    {
+    //        sRealizado.Add(sorteo);
+    //    }
+    //    else
+    //    {
+    //        sNoRealizado.Add(sorteo);
+    //    }
+    //}
+    //sRealizado = sRealizado.OrderByDescending(s => s.fecha).ToList();
+    //sNoRealizado = sNoRealizado.OrderByDescending(s => s.fecha).ToList();
+
 }
 
 
@@ -94,7 +147,7 @@
                     </td>
                     <td>
                         @if (item.realizado)
-                        {
+                    {
                             <span class="glyphicon glyphicon-ok text-success"></span>
                         }
                         else
@@ -182,3 +235,31 @@
         }
     </table>
 </div>
+
+@section Scripts{
+    <script>
+
+        function fn_InscribirSorteo(idSorteo) {
+            $.ajax({
+                url: "Sorteo/InscribePostulanteAtSorteo/" + idSorteo,
+                data: JSON.stringify(idSorteo),
+                type: "POST",
+                success: function (result) {
+
+                }
+            });
+        }
+
+        function fn_Raffle(idSorteo) {
+            $.ajax({
+                url: "Sorteo/Raffle/" + idSorteo,
+                data: JSON.stringify(idSorteo),
+                type: "POST",
+                success: function (result) {
+
+                }
+            });
+        }
+
+    </script>
+}

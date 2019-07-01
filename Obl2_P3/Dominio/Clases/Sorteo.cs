@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Dominio.Repositorios;
+using System.Data.Entity;
+using Dominio.Contexto_DB;
 
 namespace Dominio.Clases
 {
@@ -48,33 +50,42 @@ namespace Dominio.Clases
 
                 //Bandera, en true para que entre al loop
                 bool reSortear = true;
-
-                while (reSortear){
+                Postulante ganador = null;
+                while (reSortear)
+                {
 
                     //en la primer pasada lo desactivamos ya que si el ganador no es adjudicatario el loop se corta
                     reSortear = false;
                     //Rango del random [ 0 - Count-1] para abarcar todo el indice de la lista.
-                    this.Ganador = pAux[r.Next(Postulantes.Count - 1)];
+                    ganador = pAux[r.Next(Postulantes.Count - 1)];
 
                     //si llegase a ser adjudicatario, vuelve a entrar al loop y a reasignar otro ganador random
-                    if (this.Ganador.adjudicatario)
+                    if (ganador.adjudicatario)
                     {
                         reSortear = true;
                     }
-                }                
+                }
 
                 RepoPostulante rp = new RepoPostulante();
-                Postulante p = rp.findByCi(this.Ganador.UsuarioId.ToString());
-                p.adjudicatario = true;
+                Postulante p = rp.findByCi(ganador.UsuarioId.ToString());
+                if (p != null)
+                {
+                    if(rp.winnerAssignSorteo(p.UsuarioId, this))
+                    {
+                        RepoSorteo rs = new RepoSorteo();
 
-                rp.update(p);
+                        if (rs.assignGanador(p, this.SorteoId)) return true;
+                        
+                        else return false;
+                    }
+                    return false;
+                }
+                else return false;
 
-                this.realizado = true;
-
-                return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                string msj = ex.Message;
                 return false;
             }
         }

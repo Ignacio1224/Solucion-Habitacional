@@ -1,0 +1,24 @@
+﻿@model Obl2_P3.Models.VMVivienda
+
+@{
+    ViewBag.Title = "GetViviendasByFiltros";
+}
+
+<h2>Vivienda</h2>
+<h4>Obtener por filtros</h4>
+<hr/>
+
+<label>Selecciona tipo de filtro</label>
+
+@using (Html.BeginForm("GetByBarrio", "Vivienda", FormMethod.Post))
+{
+    <select>
+        @foreach (var @item in @ViewBag.barrios)
+        {
+            <option value="@item.BarrioId">@item.nombre_barrio</option>
+        }
+    </select>
+
+    <input type="submit" value="Enviar" />
+}
+

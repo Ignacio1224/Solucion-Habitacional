@@ -197,6 +197,7 @@
     <Content Include="Views\Sorteo\CreateSorteo.cshtml" />
     <Content Include="Views\Postulante\CrearPostulante.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Vivienda\GetViviendasByFiltros.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

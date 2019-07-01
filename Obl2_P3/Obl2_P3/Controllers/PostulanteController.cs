@@ -13,7 +13,7 @@ namespace Obl2_P3.Controllers
     {
         HttpClient client = new HttpClient();
         HttpResponseMessage response = new HttpResponseMessage();
-        Uri registerUri = new Uri("http://localhost:50310/api/RegisterPostulante/");
+        Uri registerUri = new Uri("http://localhost:50310/api/RegisterPostulante");
 
         public PostulanteController()
         {

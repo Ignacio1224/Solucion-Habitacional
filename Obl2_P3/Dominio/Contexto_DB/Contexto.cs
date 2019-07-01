@@ -44,7 +44,7 @@ namespace Dominio.Contexto_DB
 
             modelBuilder.Entity<Sorteo>()
                 .HasOptional<Postulante>(p => p.Ganador)
-                .WithOptionalPrincipal(s => s.Sorteo);
+                .WithOptionalPrincipal(s => s.SorteoGanado);
 
         }
 

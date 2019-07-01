@@ -38,7 +38,7 @@ namespace Obl2_P3.Controllers
         // GET: Sorteo/Details/{id}
         public ActionResult Details(int id)
         {
-            //  if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             return View(VMSorteo.ConvertToVMSorteo(rs.findById(id)));
         }
@@ -46,15 +46,7 @@ namespace Obl2_P3.Controllers
         // GET: Sorteo/Create
         public ActionResult CreatePreSorteo()
         {
-            //  if (!Check.UserLog()) return new HttpStatusCodeResult(401);
-            //List<Barrio> lb = (List<Barrio>)rb.findAll();
-            //if (lb.Count() == 0)
-            //{
-            //    lb.Add(new Barrio {
-            //        nombre_barrio = "No hay barrios disponibles",
-            //        descripcion = "No hay barrios disponibles"
-            //    });
-            //}
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             ViewBag.barrios = new SelectList(rb.findAll(), "BarrioId", "nombre_barrio");
             return View();
@@ -63,7 +55,7 @@ namespace Obl2_P3.Controllers
         // GET: Sorteo/CreateSorteo
         public ActionResult CreateSorteo(int id)
         {
-            //  if (!Check.UserLog()) return new HttpStatusCodeResult(401);
+            if (!Check.UserLog()) return new HttpStatusCodeResult(401);
 
             ViewBag.viviendas = new SelectList(rv.findByBarrioToRaffle(id), "ViviendaId", "ViviendaId");
             VMSorteo vms = new VMSorteo();
@@ -115,6 +107,7 @@ namespace Obl2_P3.Controllers
             return View(vms);
         }
 
+
         // POST: Sorteo/Raffle
         [HttpPost]
         public ActionResult Raffle(int id)
@@ -137,23 +130,24 @@ namespace Obl2_P3.Controllers
             return RedirectToAction("Details", "Sorteo", new { id = id });
         }
 
+
         // POST: Sorteo/InscribePostulanteAtSorteo
         [HttpPost]
         public ActionResult InscribePostulanteAtSorteo(int id)
         {
             Postulante p = Session["userLog"] as Postulante;
-            Sorteo s = rs.findById(id);
+            int sId = rs.findById(id).SorteoId;
 
             try
             {
-                if (rs.inscribePostulanteAtSorteo(p, s))
+                if (rs.inscribePostulanteAtSorteo(p, sId))
                 {
                     TempData["msj"] = "Te has inscripto con éxito";
-                    return View("Index");
+                    return View("Index",VMSorteo.ConvertToListVMSorteo(rs.findAll().ToList() ) ) ;
                 };
 
                 TempData["msj"] = "No has podido inscribirte correctamente.";
-                return View("Index");
+                return View("Index", VMSorteo.ConvertToListVMSorteo(rs.findAll().ToList()));
 
             }
             catch (Exception)

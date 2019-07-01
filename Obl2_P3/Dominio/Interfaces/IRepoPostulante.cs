@@ -15,6 +15,7 @@ namespace Dominio.Interfaces
         Postulante findByCi(string pCi);
         IEnumerable<Postulante> findAll();
         bool validarLogin(Postulante p);
+        bool winnerAssignSorteo(int pId, Sorteo sorteo);
 
 
     }

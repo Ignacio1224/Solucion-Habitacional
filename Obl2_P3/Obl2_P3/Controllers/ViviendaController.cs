@@ -69,6 +69,14 @@ namespace Obl2_P3.Controllers
             return View("Edit", VMVivienda.ConvertToVMVivienda(rv.findById(id)));
         }
 
+        public ActionResult GetViviendasByFiltros()
+        {
+            RepoBarrio rb = new RepoBarrio();
+            List<Barrio> barrios = rb.findAll().ToList();
+            ViewBag.barrios = barrios;
+            return View();
+        }
+
         // GET: Vivienda/GetByBarrio/{idBarrio} -> api/GetByBarrio/{idBarrio}
         public ActionResult GetByBarrio(int idBarrio)
         {
