@@ -38,6 +38,28 @@ namespace Obl2_P3.Models
         #endregion
 
         #region methods
+
+        public static bool isInscriptedAtSorteo(string postulanteCi, int sorteoId)
+        {
+            bool aux = false;
+            int i = 0;
+            RepoSorteo rs = new RepoSorteo();    
+            Sorteo sAux = rs.findById(sorteoId);
+
+            while(sAux.Postulantes.Count > i && !aux)
+            {
+                if (sAux.Postulantes.ToList()[i].cedula == postulanteCi)
+                {
+                    aux = true;
+                }else
+                {
+                    i++;
+                }
+            }
+
+            return aux;
+        }
+
         public bool esValido()
         {
             return

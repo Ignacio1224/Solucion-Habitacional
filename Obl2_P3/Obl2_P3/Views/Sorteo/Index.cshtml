@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Obl2_P3.Models.VMSorteo>
+﻿@model IEnumerable<VMSorteo>
 @using System.Linq;
 @using Obl2_P3.Models;
 
@@ -6,25 +6,28 @@
     ViewBag.Title = "Sorteos";
     ViewBag.ActiveMenuItem = "sorteo";
 
+    bool postulanteLogged = false;
+    bool adjudicatario = false;
+    string userCi = Session["userCi"].ToString();
 
     bool jefeLogged = false;
     if (Session["userRole"].ToString() == "jefe") { jefeLogged = true; }
 
-    bool postulanteLogged = false;
-    bool adjudicatario = false;
+
     if (Session["userRole"].ToString() == "postulante")
     {
         postulanteLogged = true;
+
         if (Session["adj"].ToString() == "si")
         {
             adjudicatario = true;
         }
     }
 
-    List<Obl2_P3.Models.VMSorteo> sRealizado = new List<Obl2_P3.Models.VMSorteo>();
-    List<Obl2_P3.Models.VMSorteo> sNoRealizado = new List<Obl2_P3.Models.VMSorteo>();
+    List<VMSorteo> sRealizado = new List<VMSorteo>();
+    List<VMSorteo> sNoRealizado = new List<VMSorteo>();
 
-    foreach (Obl2_P3.Models.VMSorteo sorteo in Model)
+    foreach (VMSorteo sorteo in Model)
     {
         if (sorteo.realizado)
         {
@@ -50,11 +53,6 @@
     @ViewBag.message[2]
 </div>
 
-@*@if (@TempData["msj"] != null)
-{
-    <div class="alert-danger"> @TempData["msj"].ToString() </div>
-}*@
-
 
 @if (jefeLogged)
 {
@@ -79,7 +77,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.realizado)
             </th>
-            <th>Acciones</th>
+            <th>
+                <p class="text-center">Acciones</p>
+            </th>
         </tr>
         @if (sNoRealizado != null && sNoRealizado.Count() > 0)
         {
@@ -103,17 +103,20 @@
                         }
                     </td>
                     <td>
-                        @if (postulanteLogged && !adjudicatario && !item.Postulantes.Contains(ViewBag.postulante))
+                        @Html.ActionLink("Detalles", "Details", new { id = item.SorteoId })
+                    </td>
+                    <td>
+                        @if (postulanteLogged && !adjudicatario && !VMPostulante.isInscriptedAtSorteo(userCi, item.SorteoId))
                         { <form action="/Sorteo/InscribePostulanteAtSorteo/@item.SorteoId" method="post" class="d-inline">
                             <input type="submit" class="btn btn-danger" value="Inscribirse" name="bttn-inscribe" />
                         </form>
-                        } else
+                        }
+                        else if(postulanteLogged && !jefeLogged)
                         {
                             <span>Ya inscripto.</span>
                         }
-
-                        @Html.ActionLink("Detalles", "Details", new { id = item.SorteoId })
-
+                    </td>
+                    <td>
                         @if (jefeLogged && item.fecha.ToShortDateString() == DateTime.Now.ToShortDateString())
                         { <form action="/Sorteo/Raffle/@item.SorteoId" method="post" class="d-inline">
                             <input type="submit" class="btn btn-primary" value="Sortear" name="bttn-raffle" />

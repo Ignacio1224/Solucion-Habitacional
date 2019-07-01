@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Dominio.Clases
 {
     [Table("Postulante")]
-    public class Postulante : Usuario
+    public class Postulante : Usuario, IEquatable<Postulante>
     {
         #region Props
 
@@ -55,7 +55,16 @@ namespace Dominio.Clases
                 Utilidades.esCampoValido(this.nombre, 2, 50) &&
                 Utilidades.esCampoValido(this.apellido, 2, 50) &&
                 Utilidades.esEmailValido(this.email) &&
-                fecha_nac.AddYears(18) <= DateTime.Today;
+                esMayorDeEdad();
+        }
+
+        public bool esMayorDeEdad()
+        {
+            int age = DateTime.Now.Year - this.fecha_nac.Year;
+            if (DateTime.Now.Month < this.fecha_nac.Month ||
+                (DateTime.Now.Month == this.fecha_nac.Month && DateTime.Now.Day < this.fecha_nac.Day))
+                age--;
+            return age > 18;
         }
 
         public override string getRole()
@@ -63,10 +72,9 @@ namespace Dominio.Clases
             return "postulante";
         }
 
-        public override bool Equals(object obj)
+        public bool Equals(Postulante other)
         {
-            Postulante p = obj as Postulante;
-            return p.cedula == this.cedula;
+            return this.cedula == other.cedula;
         }
 
         #endregion

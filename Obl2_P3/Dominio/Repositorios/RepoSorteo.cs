@@ -98,7 +98,6 @@ namespace Dominio.Repositorios
 
         }
 
-
         public Sorteo findById(int sId)
         {
             Sorteo s = db.sorteos.Where(so => so.SorteoId == sId).Include(so => so.Postulantes).Include(so => so.Ganador).Include(so => so.Vivienda).FirstOrDefault();
@@ -159,17 +158,19 @@ namespace Dominio.Repositorios
             {
                 try
                 {
-
                     sAux.Postulantes.Add(db.postulantes.Where(pd => pd.UsuarioId == p.UsuarioId).FirstOrDefault());
                     foreach (var item in sAux.Postulantes)
+                    {
                         db.Entry(item).State = EntityState.Modified;
+                    }
                     db.SaveChanges();
                     db.Dispose();
                     return true;
                 }
                 catch (Exception ex)
                 {
-
+                    string msj = ex.Message;
+                    return false;
                 }
 
             }
