@@ -34,7 +34,7 @@ namespace Obl2_P3.Controllers
             ViewBag.postulante = p;
             ViewBag.message = new string[] { "d-none", "", "" };
 
-            return View(VMSorteo.ConvertToVMSorteo(rs.findAll().ToList()));
+            return View(VMSorteo.ConvertToVMSorteo(rs.findAll()));
         }
 
         // GET: Sorteo/Details/{id}
@@ -157,14 +157,14 @@ namespace Obl2_P3.Controllers
                     return View("Index", VMSorteo.ConvertToVMSorteo(rs.findAll()));
                 };
                 ViewBag.message = message;
-                return View("Index", VMSorteo.ConvertToVMSorteo(s));
+                return View("Index", VMSorteo.ConvertToVMSorteo(rs.findAll()));
 
             }
             catch (Exception ex)
             {
                 string msj = ex.Message;
                 ViewBag.message = message;
-                return View("Index");
+                return View("Index", VMSorteo.ConvertToVMSorteo(rs.findAll()));
             }
         }
         #endregion

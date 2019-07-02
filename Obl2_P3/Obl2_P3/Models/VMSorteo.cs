@@ -48,7 +48,7 @@ namespace Obl2_P3.Models
             };
         }
 
-        public static List<VMSorteo> ConvertToVMSorteo(IEnumerable<Sorteo> ss)
+        public static IEnumerable<VMSorteo> ConvertToVMSorteo(IEnumerable<Sorteo> ss)
         {
             List<VMSorteo> lista_sorteos = new List<VMSorteo>();
 

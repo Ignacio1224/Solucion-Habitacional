@@ -214,10 +214,6 @@
       <Project>{8eecef18-2136-494c-ad01-67a936859fff}</Project>
       <Name>Dominio</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebAPI\WebAPI.csproj">
-      <Project>{3E83C02C-B5B2-4AC7-BDDE-6BB19E30B585}</Project>
-      <Name>WebAPI</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
